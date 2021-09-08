@@ -1,0 +1,54 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-amplifyapp-dev-150824-authRole",
+      "UnauthRoleArn": "arn:aws:iam::876658266128:role/amplify-amplifyapp-dev-150824-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::876658266128:role/amplify-amplifyapp-dev-150824-authRole",
+      "Region": "ap-southeast-1",
+      "DeploymentBucketName": "amplify-amplifyapp-dev-150824-deployment",
+      "UnauthRoleName": "amplify-amplifyapp-dev-150824-unauthRole",
+      "StackName": "amplify-amplifyapp-dev-150824",
+      "StackId": "arn:aws:cloudformation:ap-southeast-1:876658266128:stack/amplify-amplifyapp-dev-150824/9169db80-1073-11ec-8fae-0a632af20480",
+      "AmplifyAppId": "d7is9ykt7eyvx"
+    }
+  },
+  "auth": {
+    "amplifyapp20fdc4f4": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "frontendAuthConfig": {
+        "loginMechanisms": [
+          "EMAIL"
+        ],
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ]
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplifyapp-dev-150824-deployment/amplify-cfn-templates/auth/amplifyapp20fdc4f4-cloudformation-template.yml",
+        "logicalId": "authamplifyapp20fdc4f4"
+      },
+      "lastPushTimeStamp": "2021-09-08T07:14:09.050Z",
+      "output": {
+        "UserPoolId": "ap-southeast-1_BiaSNY0a5",
+        "AppClientIDWeb": "6kq96rrp3qgh9lt7g9j4ngl87a",
+        "AppClientID": "2miberi7422m0gkh5lfrrqlf2a",
+        "IdentityPoolId": "ap-southeast-1:33c1be16-49fe-4c24-bff8-9d5dd1fb55d4",
+        "UserPoolArn": "arn:aws:cognito-idp:ap-southeast-1:876658266128:userpool/ap-southeast-1_BiaSNY0a5",
+        "IdentityPoolName": "amplifyapp20fdc4f4_identitypool_20fdc4f4__dev",
+        "UserPoolName": "amplifyapp20fdc4f4_userpool_20fdc4f4"
+      },
+      "lastPushDirHash": "whwx5YMkqXLiLdH8QeRi68QVgzc="
+    }
+  }
+}
