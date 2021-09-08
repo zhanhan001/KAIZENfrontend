@@ -1,0 +1,24 @@
+body {
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.3)), url("../assets/img/login-bg-alt.png");
+    background-size: cover;
+    overflow: hidden;
+}
+
+.hydrated {
+    --width: 10rem;
+}
+
+.section {
+    float: right;
+    margin-right: 5vw;
+}
+
+.top-left-text {
+    padding: 30px;
+    position: absolute;
+    margin: 0 auto;
+    max-width: 100%;
+    display: flex;
+    color: white;
+}
+

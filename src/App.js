@@ -10,7 +10,7 @@ const App = () => (
   <React.Fragment>
     <LoginSection>
       <AmplifyAuthenticator>
-        <AmplifySignIn headerText="Welcome to Kaizen" slot="sign-in" />
+        <AmplifySignIn headerText="KAIZEN" slot="sign-in" />
         <AmplifySignUp headerText="Getting Started" slot="sign-up" />
 
         <div>
