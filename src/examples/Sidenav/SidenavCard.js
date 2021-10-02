@@ -45,23 +45,23 @@ function SidenavCard() {
         </SuiBox>
         <SuiBox>
           <SuiTypography variant="h6" textColor="white">
-            Need help?
+            Need Help?
           </SuiTypography>
           <SuiBox mb={1.5} mt={-1}>
             <SuiTypography variant="caption" textColor="white" fontWeight="medium">
-              Please check our docs
+              Ask Nora @ Kaizen
             </SuiTypography>
           </SuiBox>
           <SuiButton
             component={Link}
-            href="https://www.creative-tim.com/learning-lab/react/quick-start/soft-ui-dashboard"
+            href="#"
             target="_blank"
             rel="noreferrer"
             size="small"
             color="default"
             fullWidth
           >
-            documentation
+            Start Chat
           </SuiButton>
         </SuiBox>
       </CardContent>

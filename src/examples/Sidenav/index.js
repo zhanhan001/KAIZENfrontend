@@ -34,7 +34,6 @@ import Link from "@mui/material/Link";
 // Soft UI Dashboard React components
 import SuiBox from "components/SuiBox";
 import SuiTypography from "components/SuiTypography";
-import SuiButton from "components/SuiButton";
 
 // Soft UI Dashboard React example components
 import SidenavCollapse from "examples/Sidenav/SidenavCollapse";
@@ -167,19 +166,6 @@ function Sidenav({ routes, ...rest }) {
       <List>{renderRoutes}</List>
       <SuiBox customClass={classes.sidenav_footer}>
         <SidenavCard />
-        <SuiBox mt={2}>
-          <SuiButton
-            component="a"
-            href="https://creative-tim.com/product/soft-ui-dashboard-pro-react"
-            target="_blank"
-            rel="noreferrer"
-            variant="gradient"
-            buttonColor="info"
-            fullWidth
-          >
-            upgrade to pro
-          </SuiButton>
-        </SuiBox>
       </SuiBox>
     </Drawer>
   );
