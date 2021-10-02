@@ -73,7 +73,7 @@ function Projects() {
           <SuiBox display="flex" alignItems="center" lineHeight={0}>
             <Icon className="font-bold text-info">done</Icon>
             <SuiTypography variant="button" fontWeight="regular" textColor="text">
-              &nbsp;<strong>30 done</strong> this month
+              &nbsp;<strong>2 done</strong> this year
             </SuiTypography>
           </SuiBox>
         </SuiBox>

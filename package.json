@@ -15,12 +15,12 @@
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^1.2.14",
-    "@fortawesome/fontawesome-svg-core": "^1.2.36",
-    "@fortawesome/free-solid-svg-icons": "^5.15.4",
-    "@fortawesome/react-fontawesome": "^0.1.15",
     "@emotion/cache": "^11.4.0",
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
+    "@fortawesome/fontawesome-svg-core": "^1.2.36",
+    "@fortawesome/free-solid-svg-icons": "^5.15.4",
+    "@fortawesome/react-fontawesome": "^0.1.15",
     "@mui/icons-material": "^5.0.0",
     "@mui/material": "^5.0.0",
     "@mui/styled-engine": "^5.0.0",
@@ -29,12 +29,13 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "aws-amplify": "^4.2.8",
-    "package.json": "^2.0.1",
     "chart.js": "^3.4.1",
     "chroma-js": "^2.1.2",
     "clsx": "^1.1.1",
     "jss": "^10.7.1",
     "jss-rtl": "^0.3.0",
+    "package.json": "^2.0.1",
+    "prettier": "^2.4.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-chartjs-2": "^3.0.4",
@@ -82,7 +83,6 @@
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.24.0",
-    "eslint-plugin-react-hooks": "^4.2.0",
-    "prettier": "^2.3.2"
+    "eslint-plugin-react-hooks": "^4.2.0"
   }
 }

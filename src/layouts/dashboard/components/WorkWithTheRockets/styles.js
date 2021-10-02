@@ -17,7 +17,7 @@ Coded by www.creative-tim.com
 import { makeStyles } from "@mui/styles";
 
 // Images
-import ivancik from "assets/images/ivancik.jpg";
+import bca from "assets/images/bca-advisory.jpg";
 
 export default makeStyles(({ functions, palette, borders }) => {
   const { linearGradient, rgba, pxToRem } = functions;
@@ -29,7 +29,7 @@ export default makeStyles(({ functions, palette, borders }) => {
       backgroundImage: `${linearGradient(
         rgba(gradients.dark.main, 0.8),
         rgba(gradients.dark.state, 0.8)
-      )}, url(${ivancik})`,
+      )}, url(${bca})`,
       backgroundSize: "cover",
       display: "flex",
       flexDirection: "column",

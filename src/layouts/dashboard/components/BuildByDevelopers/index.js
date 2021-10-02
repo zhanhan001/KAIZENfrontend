@@ -26,8 +26,7 @@ import SuiTypography from "components/SuiTypography";
 import styles from "layouts/dashboard/components/BuildByDevelopers/styles";
 
 // Images
-import wavesWhite from "assets/images/shapes/waves-white.svg";
-import rocketWhite from "assets/images/illustrations/rocket-white.png";
+import mock from "assets/images/mock.svg";
 
 function BuildByDevelopers() {
   const classes = styles();
@@ -40,16 +39,17 @@ function BuildByDevelopers() {
             <SuiBox display="flex" flexDirection="column" height="100%">
               <SuiBox pt={1} mb={0.5}>
                 <SuiTypography variant="body2" textColor="text" fontWeight="medium">
-                  Build by developers
+                  General COVID-19 News
                 </SuiTypography>
               </SuiBox>
               <SuiTypography variant="h5" fontWeight="bold" gutterBottom>
-                Soft UI Dashboard
+                2 deaths as Singapore reports 2,478 new COVID-19 cases; large clusters at care home
+                and 6 dormitories
               </SuiTypography>
               <SuiBox mb={6}>
                 <SuiTypography variant="body2" textColor="text">
-                  From colors, cards, typography to complex elements, you will find the full
-                  documentation.
+                  SINGAPORE: Singapore reported 2,478 new COVID-19 cases as of noon on Thursday (Sep
+                  30) and two more deaths due to complications from the virus.
                 </SuiTypography>
               </SuiBox>
               <SuiTypography
@@ -75,17 +75,7 @@ function BuildByDevelopers() {
               borderRadius="lg"
               backgroundGradient
             >
-              <SuiBox
-                component="img"
-                src={wavesWhite}
-                alt="waves"
-                display="block"
-                position="absolute"
-                left={0}
-                width="100%"
-                height="100%"
-              />
-              <SuiBox component="img" src={rocketWhite} alt="rocket" width="100%" pt={3} />
+              <SuiBox component="img" src={mock} alt="news-image" width="100%" p={3} />
             </SuiBox>
           </Grid>
         </Grid>

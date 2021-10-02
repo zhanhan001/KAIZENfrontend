@@ -15,29 +15,29 @@ Coded by www.creative-tim.com
 
 export default {
   chart: {
-    labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-    datasets: { label: "Sales", data: [450, 200, 100, 220, 500, 100, 400, 230, 500] },
+    labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+    datasets: { label: "ART Tests", data: [3, 37, 40, 21, 11, 10, 8] },
   },
   items: [
     {
-      icon: { color: "primary", component: "library_books" },
-      label: "users",
-      progress: { content: "36K", percentage: 60 },
+      icon: { color: "primary", component: "person" },
+      label: "eligible",
+      progress: { content: "110", percentage: 90 },
     },
     {
-      icon: { color: "info", component: "touch_app" },
-      label: "clicks",
-      progress: { content: "2M", percentage: 90 },
+      icon: { color: "info", component: "today" },
+      label: "today",
+      progress: { content: "40", percentage: 30 },
     },
     {
-      icon: { color: "warning", component: "payment" },
-      label: "sales",
-      progress: { content: "$435", percentage: 30 },
+      icon: { color: "warning", component: "next_plan" },
+      label: "tomorrow",
+      progress: { content: "21", percentage: 15 },
     },
     {
-      icon: { color: "error", component: "extension" },
-      label: "items",
-      progress: { content: "43", percentage: 50 },
+      icon: { color: "error", component: "flag" },
+      label: "flagged",
+      progress: { content: "2", percentage: 10 },
     },
   ],
 };

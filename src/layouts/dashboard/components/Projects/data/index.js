@@ -16,7 +16,6 @@ import logoAtlassian from "assets/images/small-logos/logo-atlassian.svg";
 import logoSlack from "assets/images/small-logos/logo-slack.svg";
 import logoSpotify from "assets/images/small-logos/logo-spotify.svg";
 import logoJira from "assets/images/small-logos/logo-jira.svg";
-import logoInvesion from "assets/images/small-logos/logo-invision.svg";
 import team1 from "assets/images/team-1.jpg";
 import team2 from "assets/images/team-2.jpg";
 import team3 from "assets/images/team-3.jpg";
@@ -35,14 +34,14 @@ export default function data() {
   return {
     columns: [
       { name: "companies", align: "left" },
-      { name: "members", align: "left" },
+      { name: "supervisor", align: "left" },
       { name: "budget", align: "center" },
       { name: "completion", align: "center" },
     ],
 
     rows: [
       {
-        companies: [logoXD, "Soft UI XD Version"],
+        companies: [logoXD, "3A Namly Ave"],
         members: (
           <SuiBox display="flex" py={1}>
             {avatars([
@@ -55,7 +54,7 @@ export default function data() {
         ),
         budget: (
           <SuiTypography variant="caption" textColor="text" fontWeight="medium">
-            $14,000
+            $3.8M
           </SuiTypography>
         ),
         completion: (
@@ -65,7 +64,7 @@ export default function data() {
         ),
       },
       {
-        companies: [logoAtlassian, "Add Progress Track"],
+        companies: [logoAtlassian, "24 Sixth Ave"],
         members: (
           <SuiBox display="flex" py={1}>
             {avatars([
@@ -76,7 +75,7 @@ export default function data() {
         ),
         budget: (
           <SuiTypography variant="caption" textColor="text" fontWeight="medium">
-            $3,000
+            $8.1M
           </SuiTypography>
         ),
         completion: (
@@ -86,7 +85,7 @@ export default function data() {
         ),
       },
       {
-        companies: [logoSlack, "Fix Platform Errors"],
+        companies: [logoSlack, "1 Marina Bay Dr"],
         members: (
           <SuiBox display="flex" py={1}>
             {avatars([
@@ -97,7 +96,7 @@ export default function data() {
         ),
         budget: (
           <SuiTypography variant="caption" textColor="text" fontWeight="medium">
-            Not set
+            $10.1M
           </SuiTypography>
         ),
         completion: (
@@ -107,7 +106,7 @@ export default function data() {
         ),
       },
       {
-        companies: [logoSpotify, "Launch our Mobile App"],
+        companies: [logoSpotify, "76 Sembawang Rd"],
         members: (
           <SuiBox display="flex" py={1}>
             {avatars([
@@ -120,7 +119,7 @@ export default function data() {
         ),
         budget: (
           <SuiTypography variant="caption" textColor="text" fontWeight="medium">
-            $20,500
+            $1.8M
           </SuiTypography>
         ),
         completion: (
@@ -130,7 +129,7 @@ export default function data() {
         ),
       },
       {
-        companies: [logoJira, "Add the New Pricing Page"],
+        companies: [logoJira, "53 Jurong West Ave 7"],
         members: (
           <SuiBox display="flex" py={1}>
             {avatars([[team4, "Jessica Doe"]])}
@@ -138,33 +137,12 @@ export default function data() {
         ),
         budget: (
           <SuiTypography variant="caption" textColor="text" fontWeight="medium">
-            $500
+            $720K
           </SuiTypography>
         ),
         completion: (
           <SuiBox width="8rem" textAlign="left">
             <SuiProgress value={25} color="info" gradient />
-          </SuiBox>
-        ),
-      },
-      {
-        companies: [logoInvesion, "Redesign New Online Shop"],
-        members: (
-          <SuiBox display="flex" py={1}>
-            {avatars([
-              [team1, "Ryan Tompson"],
-              [team4, "Jessica Doe"],
-            ])}
-          </SuiBox>
-        ),
-        budget: (
-          <SuiTypography variant="caption" textColor="text" fontWeight="medium">
-            $2,000
-          </SuiTypography>
-        ),
-        completion: (
-          <SuiBox width="8rem" textAlign="left">
-            <SuiProgress value={40} color="info" gradient />
           </SuiBox>
         ),
       },

@@ -33,13 +33,13 @@ function WorkWithTheRockets() {
         <SuiBox customClass={classes.workWithTheRockets_content}>
           <SuiBox mb={3} pt={1}>
             <SuiTypography variant="h5" textColor="white" fontWeight="bold">
-              Work with the rockets
+              Latest BCA Advisory
             </SuiTypography>
           </SuiBox>
           <SuiBox mb={2}>
             <SuiTypography variant="body2" textColor="white">
-              Wealth creation is an evolutionarily recent positive-sum game. It is all about who
-              take the opportunity first.
+              Circular on Revised Approach to Manage Construction Worksites visited by COVID-19
+              Positive Cases
             </SuiTypography>
           </SuiBox>
           <SuiTypography

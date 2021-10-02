@@ -54,36 +54,36 @@ function Dashboard() {
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6} xl={3}>
               <MiniStatisticsCard
-                title={{ text: "today's money" }}
-                count="$53,000"
-                percentage={{ color: "success", text: "+55%" }}
+                title={{ text: "today's manpower" }}
+                count="121"
+                percentage={{ color: "success", text: "+8%" }}
+                icon={{ color: "info", component: "person" }}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} xl={3}>
+              <MiniStatisticsCard
+                title={{ text: "outstanding bill" }}
+                count="$72,030.51"
+                percentage={{ color: "success", text: "+3%" }}
                 icon={{ color: "info", component: "paid" }}
               />
             </Grid>
             <Grid item xs={12} sm={6} xl={3}>
               <MiniStatisticsCard
-                title={{ text: "today's users" }}
-                count="2,300"
-                percentage={{ color: "success", text: "+3%" }}
-                icon={{ color: "info", component: "public" }}
+                title={{ text: "expiring work permits" }}
+                count="3"
+                percentage={{ color: "error", text: "+50%" }}
+                icon={{ color: "info", component: "assignment_ind" }}
               />
             </Grid>
             <Grid item xs={12} sm={6} xl={3}>
               <MiniStatisticsCard
-                title={{ text: "new clients" }}
-                count="+3,462"
-                percentage={{ color: "error", text: "-2%" }}
-                icon={{ color: "info", component: "emoji_events" }}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6} xl={3}>
-              <MiniStatisticsCard
-                title={{ text: "sales" }}
-                count="$103,430"
+                title={{ text: "Current Borrowed Manpower" }}
+                count="17"
                 percentage={{ color: "success", text: "+5%" }}
                 icon={{
                   color: "info",
-                  component: "shopping_cart",
+                  component: "share",
                 }}
               />
             </Grid>
@@ -103,7 +103,7 @@ function Dashboard() {
           <Grid container spacing={3}>
             <Grid item xs={12} lg={5}>
               <ReportsBarChart
-                title="active users"
+                title="ART Schedule"
                 description={
                   <>
                     (<strong>+23%</strong>) than last week
@@ -115,7 +115,7 @@ function Dashboard() {
             </Grid>
             <Grid item xs={12} lg={7}>
               <GradientLineChart
-                title="Sales Overview"
+                title="Cashflow Overview"
                 description={
                   <SuiBox display="flex" alignItems="center">
                     <SuiBox fontSize={size.lg} color="success" mb={0.3} mr={0.5} lineHeight={0}>

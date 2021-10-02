@@ -29,7 +29,7 @@ function OrdersOverview() {
     <Card className="h-100">
       <SuiBox pt={3} px={3}>
         <SuiTypography variant="h6" fontWeight="medium">
-          Orders overview
+          Activities Overview
         </SuiTypography>
         <SuiBox mt={1} mb={2}>
           <SuiTypography variant="button" textColor="text" fontWeight="regular">
@@ -47,35 +47,40 @@ function OrdersOverview() {
       <SuiBox p={2}>
         <TimelineItem
           color="success"
-          icon="notifications"
-          title="$2400, Design changes"
+          icon="share"
+          title="4 Incoming Shared Labour"
           dateTime="22 DEC 7:20 PM"
         />
         <TimelineItem
           color="error"
-          icon="inventory_2"
-          title="New order #1832412"
+          icon="local_hospital"
+          title="2 Suspected Positive ART Results"
           dateTime="21 DEC 11 PM"
         />
         <TimelineItem
-          color="info"
-          icon="shopping_cart"
-          title="Server payments for April"
+          color="error"
+          icon="announcement"
+          title="New BCA Advisory Release"
           dateTime="21 DEC 9:34 PM"
         />
         <TimelineItem
-          color="warning"
-          icon="payment"
-          title="New card added for order #4395133"
+          color="info"
+          icon="article"
+          title="Daily General COVID-19 News"
           dateTime="20 DEC 2:20 AM"
         />
         <TimelineItem
-          color="primary"
-          icon="vpn_key"
-          title="New card added for order #4395133"
+          color="warning"
+          icon="exit_to_app"
+          title="2 Employees Shared & Outgoing"
           dateTime="18 DEC 4:54 AM"
         />
-        <TimelineItem color="dark" icon="paid" title="New order #9583120" dateTime="17 DEC" />
+        <TimelineItem
+          color="success"
+          icon="paid"
+          title="Monthly Financials for Employee Sharing"
+          dateTime="17 DEC"
+        />
       </SuiBox>
     </Card>
   );
