@@ -1,0 +1,19 @@
+:root {
+    --amplify-primary-color: rgb(0, 60, 255);
+    --amplify-primary-tint: rgb(51, 117, 240);
+    --amplify-primary-shade: #0f35b3;
+  }
+
+amplify-authenticator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    --container-height: 50vh;
+    --width: 25rem;
+}
+
+.logo {
+    height: 100px;
+    display: flex;
+}
