@@ -29,9 +29,12 @@ import SuiBox from "components/SuiBox";
 
 // Images
 import curved9 from "assets/images/sign-in.jpg";
-import awsconfig from "./aws-exports";
 
 import "./index.css";
+import { BrowserRouter } from "react-router-dom";
+import { SoftUIControllerProvider } from "context";
+import Dashboard from "layouts/dashboard";
+import awsconfig from "./aws-exports";
 
 Amplify.configure(awsconfig);
 
@@ -50,6 +53,11 @@ function SignIn() {
             <div>
               <AmplifySignOut />
             </div>
+            <BrowserRouter>
+              <SoftUIControllerProvider>
+                <Dashboard />
+              </SoftUIControllerProvider>
+            </BrowserRouter>
           </AmplifyAuthenticator>
         </SuiBox>
       </CoverLayout>
