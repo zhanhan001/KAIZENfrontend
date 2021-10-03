@@ -34,7 +34,9 @@ import { SoftUIControllerProvider } from "context";
 import { BrowserRouter } from "react-router-dom";
 
 import App from "App";
-import "./index.css";
+// import "./index.css";
+import "./App.css";
+import "./login.css";
 import awsconfig from "./aws-exports";
 
 
