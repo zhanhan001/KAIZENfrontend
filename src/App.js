@@ -2,14 +2,10 @@
 =========================================================
 * Soft UI Dashboard React - v2.0.0
 =========================================================
-
 * Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-pro-material-ui
 * Copyright 2021 Creative Tim (https://www.creative-tim.com)
-
 Coded by www.creative-tim.com
-
  =========================================================
-
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
@@ -142,7 +138,7 @@ export default function App() {
           {layout === "vr" && <Configurator />}
           <Switch>
             {getRoutes(routes)}
-            <Redirect from="*" to="/authentication/sign-in" />
+            <Redirect from="*" to="/dashboard" />
           </Switch>
         </ThemeProvider>
       </StylesProvider>
@@ -162,7 +158,7 @@ export default function App() {
         {layout === "vr" && <Configurator />}
         <Switch>
           {getRoutes(routes)}
-          <Redirect from="*" to="/authentication/sign-in" />
+          <Redirect from="*" to="/dashboard" />
         </Switch>
       </ThemeProvider>
     </StyledEngineProvider>
