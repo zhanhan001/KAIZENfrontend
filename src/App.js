@@ -142,7 +142,7 @@ export default function App() {
           {layout === "vr" && <Configurator />}
           <Switch>
             {getRoutes(routes)}
-            <Redirect from="*" to="/authentication/sign-in" />
+            <Redirect from="*" to="/dashboard" />
           </Switch>
         </ThemeProvider>
       </StylesProvider>
@@ -162,7 +162,7 @@ export default function App() {
         {layout === "vr" && <Configurator />}
         <Switch>
           {getRoutes(routes)}
-          <Redirect from="*" to="/authentication/sign-in" />
+          <Redirect from="*" to="/dashboard" />
         </Switch>
       </ThemeProvider>
     </StyledEngineProvider>

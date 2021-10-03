@@ -15,17 +15,12 @@ Coded by www.creative-tim.com
 
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter } from "react-router-dom";
-import App from "App";
 
-// Soft UI Dashboard React Context Provider
-import { SoftUIControllerProvider } from "context";
+import SignIn from "layouts/authentication/sign-in";
 
 ReactDOM.render(
-  <BrowserRouter>
-    <SoftUIControllerProvider>
-      <App />
-    </SoftUIControllerProvider>
-  </BrowserRouter>,
+  <React.StrictMode>
+    <SignIn />
+  </React.StrictMode>,
   document.getElementById("root")
 );
