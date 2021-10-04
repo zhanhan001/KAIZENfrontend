@@ -37,10 +37,8 @@ import { SoftUIControllerProvider } from "context";
 
 ReactDOM.render(
   <>
-  {/* {!ionViewCanEnter && <SignIn />} */}
   <BrowserRouter>
     <SoftUIControllerProvider>
-      {/* {ionViewCanEnter && <App />} */}
       <App />
     </SoftUIControllerProvider>
   </BrowserRouter></>,

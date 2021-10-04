@@ -45,6 +45,7 @@ import routes from "routes";
 // Soft UI Dashboard PRO React contexts
 import { useSoftUIController } from "context";
 
+
 import rtlPlugin from "stylis-plugin-rtl";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
@@ -141,9 +142,9 @@ export default function App() {
 
   return <>
     {authState !== 'signedin' ?
-      <AmplifyAuthenticator>
-        <AmplifySignIn handleAuthStateChange={handleAuthStateChange} slot="sign-in"/>
-      </AmplifyAuthenticator>
+        <AmplifyAuthenticator>
+          <AmplifySignIn handleAuthStateChange={handleAuthStateChange} slot="sign-in"/>
+        </AmplifyAuthenticator>
       :
       <div> {direction === "rtl" ? (
         <CacheProvider value={rtlCache}>
@@ -188,4 +189,45 @@ export default function App() {
         <AmplifySignOut handleAuthStateChange={handleAuthStateChange} slot="sign-out" />
 
       </div> } </>;
+
+  // return direction === "rtl" ? (
+  //   <CacheProvider value={rtlCache}>
+  //     <StylesProvider jss={jss}>
+  //       <ThemeProvider theme={themeRTL}>
+  //         <CssBaseline />
+  //         {layout === "dashboard" && (
+  //           <>
+  //             <Sidenav routes={routes} />
+  //             <Configurator />
+  //             {configsButton}
+  //           </>
+  //         )}
+  //         {layout === "vr" && <Configurator />}
+  //         <Switch>
+  //           {getRoutes(routes)}
+  //           <Redirect from="*" to="/dashboard" />
+  //         </Switch>
+  //       </ThemeProvider>
+  //     </StylesProvider>
+  //   </CacheProvider>
+  // ) : (
+  //   // </CacheProvider>
+  //   <StyledEngineProvider injectFirst>
+  //     <ThemeProvider theme={theme}>
+  //       <CssBaseline />
+  //       {layout === "dashboard" && (
+  //         <>
+  //           <Sidenav routes={routes} />
+  //           <Configurator />
+  //           {configsButton}
+  //         </>
+  //       )}
+  //       {layout === "vr" && <Configurator />}
+  //       <Switch>
+  //         {getRoutes(routes)}
+  //         <Redirect from="*" to="/dashboard" />
+  //       </Switch>
+  //     </ThemeProvider>
+  //   </StyledEngineProvider>
+  // );
 }
