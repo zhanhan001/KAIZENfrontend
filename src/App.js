@@ -17,8 +17,6 @@ import { Route, Switch, Redirect, useLocation } from "react-router-dom";
 // jss components
 import { create } from "jss";
 
-// jss-rtl components
-import rtl from "jss-rtl";
 
 // @mui style components
 import { StylesProvider, jssPreset } from "@mui/styles";
@@ -37,7 +35,6 @@ import Configurator from "examples/Configurator";
 
 // Soft UI Dashboard PRO React themes
 import theme from "assets/theme";
-import themeRTL from "assets/theme/theme-rtl";
 
 // Soft UI Dashboard PRO React routes
 import routes from "routes";
@@ -46,23 +43,27 @@ import routes from "routes";
 import { useSoftUIController } from "context";
 
 
-import rtlPlugin from "stylis-plugin-rtl";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 
+import Amplify from "aws-amplify";
 import {
   AmplifyAuthenticator,
   AmplifySignOut,
   AmplifySignIn,
 } from "@aws-amplify/ui-react";
 
+import awsconfig from "./aws-exports";
 
+import SignInStyles from "./SignIn.css";
+
+
+Amplify.configure(awsconfig);
 
 export default function App() {
 
   const [controller, dispatch] = useSoftUIController();
   const { direction, layout, openConfigurator } = controller;
-  const [rtlCache, setRtlCache] = useState(null);
   const { pathname } = useLocation();
   const [authState, setAuthState] = useState('');
 
@@ -71,22 +72,6 @@ export default function App() {
       setAuthState(state);
     }
   }
-
-  // JSS presets for the rtl
-  const jss = create({
-    plugins: [...jssPreset().plugins, rtl()],
-  });
-
-  // Cache for the rtl
-  useMemo(() => {
-    const cacheRtl = createCache({
-      key: "rtl",
-      prepend: true,
-      stylisPlugins: [rtlPlugin],
-    });
-
-    setRtlCache(cacheRtl);
-  }, []);
 
   // Change the openConfigurator state
   const handleConfiguratorOpen = () => {
@@ -142,14 +127,15 @@ export default function App() {
 
   return <>
     {authState !== 'signedin' ?
-        <AmplifyAuthenticator>
+    <div className = "bg">
+        <AmplifyAuthenticator styles = {{SignInStyles}}>
           <AmplifySignIn handleAuthStateChange={handleAuthStateChange} slot="sign-in"/>
         </AmplifyAuthenticator>
+    </div>
       :
-      <div> {direction === "rtl" ? (
-        <CacheProvider value={rtlCache}>
-          <StylesProvider jss={jss}>
-            <ThemeProvider theme={themeRTL}>
+      <div>
+          <StyledEngineProvider injectFirst>
+            <ThemeProvider theme={theme}>
               <CssBaseline />
               {layout === "dashboard" && (
                 <>
@@ -158,37 +144,20 @@ export default function App() {
                   {configsButton}
                 </>
               )}
-              {layout === "vr" && <Configurator />}
+              {/* {layout === "vr" && <Configurator />} */}
               <Switch>
                 {getRoutes(routes)}
                 <Redirect from="*" to="/dashboard" />
               </Switch>
             </ThemeProvider>
-          </StylesProvider>
-        </CacheProvider>
-      ) : (
-        // </CacheProvider>
-        <StyledEngineProvider injectFirst>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            {layout === "dashboard" && (
-              <>
-                <Sidenav routes={routes} />
-                <Configurator />
-                {configsButton}
-              </>
-            )}
-            {layout === "vr" && <Configurator />}
-            <Switch>
-              {getRoutes(routes)}
-              <Redirect from="*" to="/dashboard" />
-            </Switch>
-          </ThemeProvider>
-        </StyledEngineProvider>)
-      }
-        <AmplifySignOut handleAuthStateChange={handleAuthStateChange} slot="sign-out" />
+          </StyledEngineProvider>
+        <AmplifySignOut handleAuthStateChange={handleAuthStateChange} slot="sign-out" /> 
+        </div> }  </>;
 
-      </div> } </>;
+}
+
+
+
 
   // return direction === "rtl" ? (
   //   <CacheProvider value={rtlCache}>
@@ -230,4 +199,3 @@ export default function App() {
   //     </ThemeProvider>
   //   </StyledEngineProvider>
   // );
-}
