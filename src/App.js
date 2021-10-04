@@ -127,32 +127,31 @@ export default function App() {
 
   return <>
     {authState !== 'signedin' ?
-    <div className = "bg">
-        <AmplifyAuthenticator styles = {{SignInStyles}}>
-          <AmplifySignIn handleAuthStateChange={handleAuthStateChange} slot="sign-in"/>
+      <div className="bg">
+        <AmplifyAuthenticator styles={{ SignInStyles }}>
+          <AmplifySignIn handleAuthStateChange={handleAuthStateChange} slot="sign-in" />
         </AmplifyAuthenticator>
-    </div>
+      </div>
       :
       <div>
-          <StyledEngineProvider injectFirst>
-            <ThemeProvider theme={theme}>
-              <CssBaseline />
-              {layout === "dashboard" && (
-                <>
-                  <Sidenav routes={routes} />
-                  <Configurator />
-                  {configsButton}
-                </>
-              )}
-              {/* {layout === "vr" && <Configurator />} */}
-              <Switch>
-                {getRoutes(routes)}
-                <Redirect from="*" to="/dashboard" />
-              </Switch>
-            </ThemeProvider>
-          </StyledEngineProvider>
-        <AmplifySignOut handleAuthStateChange={handleAuthStateChange} slot="sign-out" /> 
-        </div> }  </>;
+        <StyledEngineProvider injectFirst>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            {layout === "dashboard" && (
+              <>
+                <Sidenav routes={routes} />
+                <Configurator />
+                {configsButton}
+              </>
+            )}
+            {/* {layout === "vr" && <Configurator />} */}
+            <Switch>
+              {getRoutes(routes)}
+              <Redirect from="*" to="/dashboard" />
+            </Switch>
+          </ThemeProvider>
+        </StyledEngineProvider>
+      </div>}  </>;
 
 }
 

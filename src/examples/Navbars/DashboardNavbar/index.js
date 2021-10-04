@@ -46,6 +46,10 @@ import { useSoftUIController } from "context";
 // Images
 import team2 from "assets/images/team-2.jpg";
 import logoSpotify from "assets/images/small-logos/logo-spotify.svg";
+import { Auth } from "aws-amplify";
+import { Button } from "reactstrap";
+import { AmplifySignOut } from "@aws-amplify/ui-react";
+import App from "App";
 
 function DashboardNavbar({ absolute, light, isMini }) {
   const [navbarType, setNavbarType] = useState();
@@ -54,6 +58,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
   const [openMenu, setOpenMenu] = useState(false);
   const classes = styles({ transparentNavbar, absolute, light, isMini });
   const route = useLocation().pathname.split("/").slice(1);
+
 
   useEffect(() => {
     // Setting the navbar type
@@ -129,6 +134,19 @@ function DashboardNavbar({ absolute, light, isMini }) {
     </Menu>
   );
 
+  const [authState, setAuthState] = useState('');
+
+  function handleAuthStateChange(state) {
+    if (state === 'signedin' || state === 'signedout') {
+      setAuthState(state);
+      console.log(authState);
+      if (state === 'signedout') {
+        console.log('trying');
+        App.authState = state;
+      }
+    }
+  }
+
   return (
     <AppBar
       position={absolute ? "absolute" : navbarType}
@@ -152,18 +170,6 @@ function DashboardNavbar({ absolute, light, isMini }) {
               color={light ? "white" : "inherit"}
               customClass={classes.navbar_section_desktop}
             >
-              <Link to="/authentication/sign-in/basic">
-                <IconButton className={classes.navbar_icon_button}>
-                  <Icon className={light ? "text-white" : "text-dark"}>account_circle</Icon>
-                  <SuiTypography
-                    variant="button"
-                    fontWeight="medium"
-                    textColor={light ? "white" : "dark"}
-                  >
-                    Sign in
-                  </SuiTypography>
-                </IconButton>
-              </Link>
               <IconButton
                 size="small"
                 color="inherit"
@@ -171,13 +177,6 @@ function DashboardNavbar({ absolute, light, isMini }) {
                 onClick={handleMiniSidenav}
               >
                 <Icon>{miniSidenav ? "menu_open" : "menu"}</Icon>
-              </IconButton>
-              <IconButton
-                color="inherit"
-                className={classes.navbar_icon_button}
-                onClick={handleConfiguratorOpen}
-              >
-                <Icon>settings</Icon>
               </IconButton>
               <IconButton
                 color="inherit"
@@ -190,11 +189,23 @@ function DashboardNavbar({ absolute, light, isMini }) {
                 <Icon>notifications</Icon>
               </IconButton>
               {renderMenu()}
-            </SuiBox>
+              <IconButton className={classes.navbar_icon_button}>
+                <Link to="/authentication/sign-in/">
+                  <Icon className={light?"text-white": "text-dark"}>exit_to_app</Icon>
+                  <SuiTypography
+                  variant="button"
+                  fontWeight="medium"
+                  textColor={light?"white": "dark"}
+                  >
+                  Sign Out
+                  </SuiTypography>
+                </Link>
+              </IconButton>
+          </SuiBox>
           </SuiBox>
         )}
-      </Toolbar>
-    </AppBar>
+    </Toolbar>
+    </AppBar >
   );
 }
 
