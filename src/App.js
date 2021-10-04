@@ -151,6 +151,7 @@ export default function App() {
             </Switch>
           </ThemeProvider>
         </StyledEngineProvider>
+        <AmplifySignOut handleAuthStateChange={handleAuthStateChange} slot="sign-out" />
       </div>}  </>;
 
 }
