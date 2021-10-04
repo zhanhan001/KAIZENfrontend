@@ -15,12 +15,35 @@ Coded by www.creative-tim.com
 
 import React from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
 
-import SignIn from "layouts/authentication/sign-in";
+import App from "App";
+
+// Soft UI Dashboard React Context Provider
+import { SoftUIControllerProvider } from "context";
+// import SignIn from "layouts/authentication/sign-in";
+// import {Auth} from "aws-amplify";
+
+// const [isAuth, setAuth] = useState(false);
+
+// async function ionViewCanEnter() {
+//   try {
+//       await Auth.currentAuthenticatedUser();
+//       return true;
+//   } catch {
+//       return false;
+//   }
+// }
 
 ReactDOM.render(
-  <React.StrictMode>
-    <SignIn />
-  </React.StrictMode>,
+  <>
+  {/* {!ionViewCanEnter && <SignIn />} */}
+  <BrowserRouter>
+    <SoftUIControllerProvider>
+      {/* {ionViewCanEnter && <App />} */}
+      <App />
+    </SoftUIControllerProvider>
+  </BrowserRouter></>,
   document.getElementById("root")
 );
+

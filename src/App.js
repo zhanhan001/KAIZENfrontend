@@ -2,14 +2,10 @@
 =========================================================
 * Soft UI Dashboard React - v2.0.0
 =========================================================
-
 * Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-pro-material-ui
 * Copyright 2021 Creative Tim (https://www.creative-tim.com)
-
 Coded by www.creative-tim.com
-
  =========================================================
-
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
@@ -53,11 +49,27 @@ import rtlPlugin from "stylis-plugin-rtl";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 
+import {
+  AmplifyAuthenticator,
+  AmplifySignOut,
+  AmplifySignIn,
+} from "@aws-amplify/ui-react";
+
+
+
 export default function App() {
+
   const [controller, dispatch] = useSoftUIController();
   const { direction, layout, openConfigurator } = controller;
   const [rtlCache, setRtlCache] = useState(null);
   const { pathname } = useLocation();
+  const [authState, setAuthState] = useState('');
+
+  function handleAuthStateChange(state) {
+    if (state === 'signedin' || state === 'signedout') {
+      setAuthState(state);
+    }
+  }
 
   // JSS presets for the rtl
   const jss = create({
@@ -127,44 +139,53 @@ export default function App() {
     </SuiBox>
   );
 
-  return direction === "rtl" ? (
-    <CacheProvider value={rtlCache}>
-      <StylesProvider jss={jss}>
-        <ThemeProvider theme={themeRTL}>
-          <CssBaseline />
-          {layout === "dashboard" && (
-            <>
-              <Sidenav routes={routes} />
-              <Configurator />
-              {configsButton}
-            </>
-          )}
-          {layout === "vr" && <Configurator />}
-          <Switch>
-            {getRoutes(routes)}
-            <Redirect from="*" to="/dashboard" />
-          </Switch>
-        </ThemeProvider>
-      </StylesProvider>
-    </CacheProvider>
-  ) : (
-    // </CacheProvider>
-    <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        {layout === "dashboard" && (
-          <>
-            <Sidenav routes={routes} />
-            <Configurator />
-            {configsButton}
-          </>
-        )}
-        {layout === "vr" && <Configurator />}
-        <Switch>
-          {getRoutes(routes)}
-          <Redirect from="*" to="/dashboard" />
-        </Switch>
-      </ThemeProvider>
-    </StyledEngineProvider>
-  );
+  return <>
+    {authState !== 'signedin' ?
+      <AmplifyAuthenticator>
+        <AmplifySignIn handleAuthStateChange={handleAuthStateChange} slot="sign-in"/>
+      </AmplifyAuthenticator>
+      :
+      <div> {direction === "rtl" ? (
+        <CacheProvider value={rtlCache}>
+          <StylesProvider jss={jss}>
+            <ThemeProvider theme={themeRTL}>
+              <CssBaseline />
+              {layout === "dashboard" && (
+                <>
+                  <Sidenav routes={routes} />
+                  <Configurator />
+                  {configsButton}
+                </>
+              )}
+              {layout === "vr" && <Configurator />}
+              <Switch>
+                {getRoutes(routes)}
+                <Redirect from="*" to="/dashboard" />
+              </Switch>
+            </ThemeProvider>
+          </StylesProvider>
+        </CacheProvider>
+      ) : (
+        // </CacheProvider>
+        <StyledEngineProvider injectFirst>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            {layout === "dashboard" && (
+              <>
+                <Sidenav routes={routes} />
+                <Configurator />
+                {configsButton}
+              </>
+            )}
+            {layout === "vr" && <Configurator />}
+            <Switch>
+              {getRoutes(routes)}
+              <Redirect from="*" to="/dashboard" />
+            </Switch>
+          </ThemeProvider>
+        </StyledEngineProvider>)
+      }
+        <AmplifySignOut handleAuthStateChange={handleAuthStateChange} slot="sign-out" />
+
+      </div> } </>;
 }
