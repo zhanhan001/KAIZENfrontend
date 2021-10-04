@@ -9,17 +9,16 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { useState, useEffect, useMemo } from "react";
+//import awsconfig from "./aws-exports";
+
+// Amplify.configure(awsconfig);
+
+import React from "react";
+
+import { useState, useEffect} from "react";
 
 // react-router components
 import { Route, Switch, Redirect, useLocation } from "react-router-dom";
-
-// jss components
-import { create } from "jss";
-
-
-// @mui style components
-import { StylesProvider, jssPreset } from "@mui/styles";
 
 // @mui material components
 import { ThemeProvider, StyledEngineProvider } from "@mui/material/styles";
@@ -43,35 +42,32 @@ import routes from "routes";
 import { useSoftUIController } from "context";
 
 
-import { CacheProvider } from "@emotion/react";
-import createCache from "@emotion/cache";
 
-import Amplify from "aws-amplify";
-import {
-  AmplifyAuthenticator,
-  AmplifySignOut,
-  AmplifySignIn,
-} from "@aws-amplify/ui-react";
-
+import Amplify from 'aws-amplify';
+import { AmplifyAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
+import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
 import awsconfig from "./aws-exports";
+
 
 import SignInStyles from "./SignIn.css";
 
 
 Amplify.configure(awsconfig);
 
-export default function App() {
+const App = () => {
 
   const [controller, dispatch] = useSoftUIController();
   const { direction, layout, openConfigurator } = controller;
   const { pathname } = useLocation();
-  const [authState, setAuthState] = useState('');
+  const [authState, setAuthState] = useState();
+  const [user, setUser] = useState();
 
-  function handleAuthStateChange(state) {
-    if (state === 'signedin' || state === 'signedout') {
-      setAuthState(state);
-    }
-  }
+    useEffect(() => {
+      return onAuthUIStateChange((nextAuthState, authData) => {
+          setAuthState(nextAuthState);
+          setUser(authData)
+      });
+  }, []);
 
   // Change the openConfigurator state
   const handleConfiguratorOpen = () => {
@@ -125,16 +121,9 @@ export default function App() {
     </SuiBox>
   );
 
-  return <>
-    {authState !== 'signedin' ?
-    <div className = "bg">
-        <AmplifyAuthenticator styles = {{SignInStyles}}>
-          <AmplifySignIn handleAuthStateChange={handleAuthStateChange} slot="sign-in"/>
-        </AmplifyAuthenticator>
-    </div>
-      :
-      <div>
-          <StyledEngineProvider injectFirst>
+  return authState === AuthState.SignedIn && user ? (
+    <div className="App">
+        <StyledEngineProvider injectFirst>
             <ThemeProvider theme={theme}>
               <CssBaseline />
               {layout === "dashboard" && (
@@ -144,17 +133,23 @@ export default function App() {
                   {configsButton}
                 </>
               )}
-              {/* {layout === "vr" && <Configurator />} */}
               <Switch>
                 {getRoutes(routes)}
                 <Redirect from="*" to="/dashboard" />
               </Switch>
             </ThemeProvider>
           </StyledEngineProvider>
-        <AmplifySignOut handleAuthStateChange={handleAuthStateChange} slot="sign-out" /> 
-        </div> }  </>;
+        <AmplifySignOut />
+    </div>
+  ) : (<div className = "bg">
+    <AmplifyAuthenticator styles={{ SignInStyles }}/>
+    </div>
+);
 
 }
+
+export default App;
+
 
 
 
