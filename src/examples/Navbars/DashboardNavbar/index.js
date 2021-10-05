@@ -2,14 +2,10 @@
 =========================================================
 * Soft UI Dashboard React - v2.0.0
 =========================================================
-
 * Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-material-ui
 * Copyright 2021 Creative Tim (https://www.creative-tim.com)
-
 Coded by www.creative-tim.com
-
  =========================================================
-
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
@@ -46,10 +42,10 @@ import { useSoftUIController } from "context";
 // Images
 import team2 from "assets/images/team-2.jpg";
 import logoSpotify from "assets/images/small-logos/logo-spotify.svg";
-import { Auth } from "aws-amplify";
 import { Button } from "reactstrap";
-import { AmplifySignOut } from "@aws-amplify/ui-react";
-import App from "App";
+
+
+import { Auth, Hub } from 'aws-amplify';
 
 function DashboardNavbar({ absolute, light, isMini }) {
   const [navbarType, setNavbarType] = useState();
@@ -59,6 +55,17 @@ function DashboardNavbar({ absolute, light, isMini }) {
   const classes = styles({ transparentNavbar, absolute, light, isMini });
   const route = useLocation().pathname.split("/").slice(1);
 
+  const handleSignOutButtonClick = async () => {
+    try {
+        await Auth.signOut();
+        Hub.dispatch('UI Auth', {   // channel must be 'UI Auth'
+            event: 'AuthStateChange',    // event must be 'AuthStateChange'
+            message: 'signedout'    // message must be 'signedout'
+        });
+    } catch (error) {
+        console.log('error signing out: ', error);
+    }
+};  
 
   useEffect(() => {
     // Setting the navbar type
@@ -134,18 +141,6 @@ function DashboardNavbar({ absolute, light, isMini }) {
     </Menu>
   );
 
-  const [authState, setAuthState] = useState('');
-
-  function handleAuthStateChange(state) {
-    if (state === 'signedin' || state === 'signedout') {
-      setAuthState(state);
-      console.log(authState);
-      if (state === 'signedout') {
-        console.log('trying');
-        App.authState = state;
-      }
-    }
-  }
 
   return (
     <AppBar
@@ -189,7 +184,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
                 <Icon>notifications</Icon>
               </IconButton>
               {renderMenu()}
-              <IconButton className={classes.navbar_icon_button}>
+              <IconButton className={classes.navbar_icon_button} onClick = {handleSignOutButtonClick}>
                 <Link to="/authentication/sign-in/">
                   <Icon className={light?"text-white": "text-dark"}>exit_to_app</Icon>
                   <SuiTypography
