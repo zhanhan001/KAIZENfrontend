@@ -42,7 +42,6 @@ import routes from "routes";
 import { useSoftUIController } from "context";
 
 
-
 import Amplify from 'aws-amplify';
 import { AmplifyAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
@@ -50,6 +49,7 @@ import awsconfig from "./aws-exports";
 
 
 import SignInStyles from "./SignIn.css";
+import EmployeePage from "layouts/tables/data/EmployeeListing";
 
 
 Amplify.configure(awsconfig);
@@ -130,12 +130,13 @@ const App = () => {
                 <>
                   <Sidenav routes={routes} />
                   <Configurator />
+                  <EmployeePage />
                   {configsButton}
                 </>
               )}
               <Switch>
                 {getRoutes(routes)}
-                <Redirect from="*" to="/dashboard" />
+              <Redirect from="*" to="/dashboard" />
               </Switch>
             </ThemeProvider>
           </StyledEngineProvider>
