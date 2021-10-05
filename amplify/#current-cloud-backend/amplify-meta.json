@@ -1,0 +1,54 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-kaizenfrontend-dev-223501-authRole",
+      "UnauthRoleArn": "arn:aws:iam::876658266128:role/amplify-kaizenfrontend-dev-223501-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::876658266128:role/amplify-kaizenfrontend-dev-223501-authRole",
+      "Region": "ap-southeast-1",
+      "DeploymentBucketName": "amplify-kaizenfrontend-dev-223501-deployment",
+      "UnauthRoleName": "amplify-kaizenfrontend-dev-223501-unauthRole",
+      "StackName": "amplify-kaizenfrontend-dev-223501",
+      "StackId": "arn:aws:cloudformation:ap-southeast-1:876658266128:stack/amplify-kaizenfrontend-dev-223501/46356b90-2520-11ec-938f-02c5c17a074c",
+      "AmplifyAppId": "d3sdez0nxm1qd7"
+    }
+  },
+  "auth": {
+    "kaizenfrontendd3677e81": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "frontendAuthConfig": {
+        "loginMechanisms": [
+          "EMAIL"
+        ],
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ]
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-kaizenfrontend-dev-223501-deployment/amplify-cfn-templates/auth/kaizenfrontendd3677e81-cloudformation-template.yml",
+        "logicalId": "authkaizenfrontendd3677e81"
+      },
+      "lastPushTimeStamp": "2021-10-04T14:44:50.580Z",
+      "output": {
+        "UserPoolId": "ap-southeast-1_3b7jmH7cr",
+        "AppClientIDWeb": "6s8reia54o8nio0oc0mia6e8uo",
+        "AppClientID": "5l31h8rduu0p7h6pviuh9lbbl4",
+        "IdentityPoolId": "ap-southeast-1:85887ecf-55ad-42a6-ab3c-8f7c3fe8ec9a",
+        "UserPoolArn": "arn:aws:cognito-idp:ap-southeast-1:876658266128:userpool/ap-southeast-1_3b7jmH7cr",
+        "IdentityPoolName": "kaizenfrontendd3677e81_identitypool_d3677e81__dev",
+        "UserPoolName": "kaizenfrontendd3677e81_userpool_d3677e81"
+      },
+      "lastPushDirHash": "1hFjYIJDZkLr5HTJi2ALHU34vZA="
+    }
+  }
+}

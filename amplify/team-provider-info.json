@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-kaizenfrontend-dev-223501-authRole",
+      "UnauthRoleArn": "arn:aws:iam::876658266128:role/amplify-kaizenfrontend-dev-223501-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::876658266128:role/amplify-kaizenfrontend-dev-223501-authRole",
+      "Region": "ap-southeast-1",
+      "DeploymentBucketName": "amplify-kaizenfrontend-dev-223501-deployment",
+      "UnauthRoleName": "amplify-kaizenfrontend-dev-223501-unauthRole",
+      "StackName": "amplify-kaizenfrontend-dev-223501",
+      "StackId": "arn:aws:cloudformation:ap-southeast-1:876658266128:stack/amplify-kaizenfrontend-dev-223501/46356b90-2520-11ec-938f-02c5c17a074c",
+      "AmplifyAppId": "d3sdez0nxm1qd7"
+    },
+    "categories": {
+      "auth": {
+        "kaizenfrontendd3677e81": {}
+      }
+    }
+  }
+}

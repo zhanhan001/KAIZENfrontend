@@ -29,6 +29,11 @@ import Table from "examples/Table";
 // Custom styles for the Tables
 import styles from "layouts/tables/styles";
 
+// import EmployeePage from "layouts/tables/data/EmployeeListing";
+import { useSelector } from "react-redux";
+
+
+
 // Data
 import authorsTableData from "layouts/tables/data/authorsTableData";
 import projectsTableData from "layouts/tables/data/projectsTableData";
@@ -37,6 +42,10 @@ function Tables() {
   const classes = styles();
   const { columns, rows } = authorsTableData;
   const { columns: prCols, rows: prRows } = projectsTableData;
+  const employees = useSelector((state) => state.allEmployees.employees);
+  
+  
+  console.log("Employees :", employees);
 
   return (
     <DashboardLayout>
