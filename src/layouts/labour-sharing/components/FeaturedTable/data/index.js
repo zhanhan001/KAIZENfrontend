@@ -1,15 +1,11 @@
-// @mui material components
-import Tooltip from "@mui/material/Tooltip";
 
 // Soft UI Dashboard React components
 import SuiBox from "components/SuiBox";
 import SuiTypography from "components/SuiTypography";
-import SuiAvatar from "components/SuiAvatar";
 
 // Custom styles for the Projects
 import styles from "layouts/labour-sharing/components/CategoryTable/styles";
 
-import logoGeneric from "assets/images/small-logos/logo-category.svg"
 import avatar1 from "assets/images/team-2.jpg"
 import Button from "@mui/material/Button";
 import { Rating } from "@mui/material";
@@ -21,8 +17,8 @@ export default function data() {
   return {
     columns: [
       { name: "name", align: "left" },
-      { name: "rating", align: "left" },
       { name: "category", align: "center" },
+      { name: "rating", align: "left" },
       { name: "action", align: "center" },
     ],    
 
@@ -82,7 +78,7 @@ export default function data() {
         ),
         category: (
           <SuiTypography variant="caption" textColor="text" fontWeight="medium">
-            From $800/Week
+            Welding
           </SuiTypography>
         ),
         action: (

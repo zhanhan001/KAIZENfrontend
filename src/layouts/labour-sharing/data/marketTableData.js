@@ -4,13 +4,16 @@ import SuiBox from "components/SuiBox";
 import SuiTypography from "components/SuiTypography";
 import SuiAvatar from "components/SuiAvatar";
 import SuiBadge from "components/SuiBadge";
+import Button from "@mui/material/Button";
+
 
 // Images
 import team2 from "assets/images/team-2.jpg";
 import team3 from "assets/images/team-3.jpg";
 import team4 from "assets/images/team-4.jpg";
+import { Rating } from "@mui/material";
 
-function Author({ image, name, email }) {
+function Labour({ image, name, company }) {
   return (
     <SuiBox display="flex" alignItems="center" px={1} py={0.5}>
       <SuiBox mr={2}>
@@ -21,21 +24,21 @@ function Author({ image, name, email }) {
           {name}
         </SuiTypography>
         <SuiTypography variant="caption" textColor="secondary">
-          {email}
+          {company}
         </SuiTypography>
       </SuiBox>
     </SuiBox>
   );
 }
 
-function Function({ job, org }) {
+function Function({ category, experience }) {
   return (
     <SuiBox display="flex" flexDirection="column">
       <SuiTypography variant="caption" fontWeight="medium" textColor="text">
-        {job}
+        {category}
       </SuiTypography>
       <SuiTypography variant="caption" textColor="secondary">
-        {org}
+        {experience}
       </SuiTypography>
     </SuiBox>
   );
@@ -43,150 +46,90 @@ function Function({ job, org }) {
 
 export default {
   columns: [
-    { name: "author", align: "left" },
-    { name: "function", align: "left" },
+    { name: "professional", align: "left" },
+    { name: "skill", align: "left" },
+    { name: "rating", align: "center" },
     { name: "status", align: "center" },
-    { name: "employed", align: "center" },
     { name: "action", align: "center" },
   ],
 
   rows: [
     {
-      author: <Author image={team2} name="John Michael" email="john@creative-tim.com" />,
-      function: <Function job="Manager" org="Organization" />,
+      professional: <Labour image={team2} name="John Michael" company="Merdeka Sdn Bhd" />,
+      skill: <Function category="Welding" experience="10 Years" />,
       status: (
-        <SuiBadge variant="gradient" badgeContent="online" color="success" size="extra-small" />
+        <SuiBadge variant="gradient" badgeContent="for hire" color="success" size="extra-small" />
       ),
-      employed: (
-        <SuiTypography variant="caption" textColor="secondary" fontWeight="medium">
-          23/04/18
-        </SuiTypography>
+      rating: (
+        <Rating name="readOnly" value={3.7} precision={0.1} readOnly />
       ),
       action: (
-        <SuiTypography
-          component="a"
-          href="#"
-          variant="caption"
-          textColor="secondary"
-          fontWeight="medium"
-        >
-          Edit
-        </SuiTypography>
+        <Button href="#text-buttons">View</Button>
       ),
     },
     {
-      author: <Author image={team3} name="Alexa Liras" email="alexa@creative-tim.com" />,
-      function: <Function job="Programator" org="Developer" />,
+      professional: <Labour image={team3} name="Alexa Liras" company="Deckard Construction Pte Ltd" />,
+      skill: <Function category="Tower Crane Operation" experience="2 Years" />,
       status: (
-        <SuiBadge variant="gradient" badgeContent="offline" color="secondary" size="extra-small" />
+        <SuiBadge variant="gradient" badgeContent="hired" color="secondary" size="extra-small" />
       ),
-      employed: (
-        <SuiTypography variant="caption" textColor="secondary" fontWeight="medium">
-          11/01/19
-        </SuiTypography>
+      rating: (
+        <Rating name="readOnly" value={4.0} precision={0.1} readOnly />
       ),
       action: (
-        <SuiTypography
-          component="a"
-          href="#"
-          variant="caption"
-          textColor="secondary"
-          fontWeight="medium"
-        >
-          Edit
-        </SuiTypography>
+        <Button href="#text-buttons">View</Button>
       ),
     },
     {
-      author: <Author image={team4} name="Laurent Perrier" email="laurent@creative-tim.com" />,
-      function: <Function job="Executive" org="Projects" />,
+      professional: <Labour image={team4} name="Laurent Perrier" company="Blackrock Heavy Industries Pte Ltd" />,
+      skill: <Function category="Gas Pipefitting" experience="3 Years" />,
       status: (
-        <SuiBadge variant="gradient" badgeContent="online" color="success" size="extra-small" />
+        <SuiBadge variant="gradient" badgeContent="for hire" color="success" size="extra-small" />
       ),
-      employed: (
-        <SuiTypography variant="caption" textColor="secondary" fontWeight="medium">
-          19/09/17
-        </SuiTypography>
+      rating: (
+        <Rating name="readOnly" value={4.1} precision={0.1} readOnly />
       ),
       action: (
-        <SuiTypography
-          component="a"
-          href="#"
-          variant="caption"
-          textColor="secondary"
-          fontWeight="medium"
-        >
-          Edit
-        </SuiTypography>
+        <Button href="#text-buttons">View</Button>
       ),
     },
     {
-      author: <Author image={team3} name="Michael Levi" email="michael@creative-tim.com" />,
-      function: <Function job="Programator" org="Developer" />,
+      professional: <Labour image={team3} name="Michael Levi" company="Singapore Construction Pte Ltd" />,
+      skill: <Function category="Welding" experience="1 Year" />,
       status: (
-        <SuiBadge variant="gradient" badgeContent="online" color="success" size="extra-small" />
+        <SuiBadge variant="gradient" badgeContent="for hire" color="success" size="extra-small" />
       ),
-      employed: (
-        <SuiTypography variant="caption" textColor="secondary" fontWeight="medium">
-          24/12/08
-        </SuiTypography>
+      rating: (
+        <Rating name="readOnly" value={4.1} precision={0.1} readOnly />
       ),
       action: (
-        <SuiTypography
-          component="a"
-          href="#"
-          variant="caption"
-          textColor="secondary"
-          fontWeight="medium"
-        >
-          Edit
-        </SuiTypography>
+        <Button href="#text-buttons">View</Button>
       ),
     },
     {
-      author: <Author image={team2} name="Richard Gran" email="richard@creative-tim.com" />,
-      function: <Function job="Manager" org="Executive" />,
+      professional: <Labour image={team2} name="Richard Gran" company="Terraformers Pte Ltd" />,
+      skill: <Function category="Lift Installation" experience="6 Years" />,
       status: (
-        <SuiBadge variant="gradient" badgeContent="offline" color="secondary" size="extra-small" />
+        <SuiBadge variant="gradient" badgeContent="hired" color="secondary" size="extra-small" />
       ),
-      employed: (
-        <SuiTypography variant="caption" textColor="secondary" fontWeight="medium">
-          04/10/21
-        </SuiTypography>
+      rating: (
+        <Rating name="readOnly" value={3.5} precision={0.1} readOnly />
       ),
       action: (
-        <SuiTypography
-          component="a"
-          href="#"
-          variant="caption"
-          textColor="secondary"
-          fontWeight="medium"
-        >
-          Edit
-        </SuiTypography>
+        <Button href="#text-buttons">View</Button>
       ),
     },
     {
-      author: <Author image={team4} name="Miriam Eric" email="miriam@creative-tim.com" />,
-      function: <Function job="Programtor" org="Developer" />,
+      professional: <Labour image={team4} name="Miriam Eric" company="Penta Ocean Construction Pte Ltd" />,
+      skill: <Function category="Electrical Wiring Installation" experience="2 Years" />,
       status: (
-        <SuiBadge variant="gradient" badgeContent="offline" color="secondary" size="extra-small" />
+        <SuiBadge variant="gradient" badgeContent="hired" color="secondary" size="extra-small" />
       ),
-      employed: (
-        <SuiTypography variant="caption" textColor="secondary" fontWeight="medium">
-          14/09/20
-        </SuiTypography>
+      rating: (
+        <Rating name="readOnly" value={4.3} precision={0.1} readOnly />
       ),
       action: (
-        <SuiTypography
-          component="a"
-          href="#"
-          variant="caption"
-          textColor="secondary"
-          fontWeight="medium"
-        >
-          Edit
-        </SuiTypography>
+        <Button href="#text-buttons">View</Button>
       ),
     },
   ],

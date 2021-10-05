@@ -23,10 +23,10 @@ function LabourSharing() {
       <MarketplaceBanner />
       <SuiBox py={3}>
         <Grid container spacing={3}>
-          <Grid item xs={12} lg={6}>
+          <Grid item xs={12} sm={12} md={12} lg={12} xl={12} xxl={6}>
             <CategoryTable />
           </Grid>
-          <Grid item xs={12} lg={6}>
+          <Grid item xs={12} sm={12} md={12} lg={12} xl={12} xxl={6}>
             <FeaturedTable />
           </Grid>
         </Grid>
@@ -35,7 +35,7 @@ function LabourSharing() {
         <SuiBox mb={3}>
           <Card>
             <SuiBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
-              <SuiTypography variant="h6">Skill Market</SuiTypography>
+              <SuiTypography variant="h2">Skill Market</SuiTypography>
             </SuiBox>
             <SuiBox customClass={classes.tables_table}>
               <Table columns={columns} rows={rows} />
