@@ -22,15 +22,15 @@ import SuiBox from "components/SuiBox";
 import SuiTypography from "components/SuiTypography";
 
 // Custom styles for the WorkWithTheRockets
-import styles from "layouts/dashboard/components/WorkWithTheRockets/styles";
+import styles from "layouts/dashboard/components/AdvisoryCard/styles";
 
-function WorkWithTheRockets() {
+function AdvisoryCard() {
   const classes = styles();
 
   return (
     <Card className="h-100">
-      <SuiBox position="relative" height="100%" p={2}>
-        <SuiBox customClass={classes.workWithTheRockets_content}>
+      <SuiBox position="relative" height="100%">
+        <SuiBox customClass={classes.advisoryCard_content}>
           <SuiBox mb={3} pt={1}>
             <SuiTypography variant="h5" textColor="white" fontWeight="bold">
               Latest BCA Advisory
@@ -48,7 +48,7 @@ function WorkWithTheRockets() {
             variant="button"
             textColor="white"
             fontWeight="medium"
-            customClass={classes.workWithTheRockets_button}
+            customClass={classes.advisoryCard_button}
           >
             Read More
             <Icon className="font-bold">arrow_forward</Icon>
@@ -59,4 +59,4 @@ function WorkWithTheRockets() {
   );
 }
 
-export default WorkWithTheRockets;
+export default AdvisoryCard;

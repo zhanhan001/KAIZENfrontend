@@ -11,11 +11,7 @@ import SuiProgress from "components/SuiProgress";
 import styles from "layouts/dashboard/components/Projects/styles";
 
 // Images
-import logoXD from "assets/images/small-logos/logo-xd.svg";
-import logoAtlassian from "assets/images/small-logos/logo-atlassian.svg";
-import logoSlack from "assets/images/small-logos/logo-slack.svg";
-import logoSpotify from "assets/images/small-logos/logo-spotify.svg";
-import logoJira from "assets/images/small-logos/logo-jira.svg";
+import logoGeneric from "assets/images/small-logos/logo-building.svg"
 import team1 from "assets/images/team-1.jpg";
 import team2 from "assets/images/team-2.jpg";
 import team3 from "assets/images/team-3.jpg";
@@ -24,8 +20,8 @@ import team4 from "assets/images/team-4.jpg";
 export default function data() {
   const classes = styles();
 
-  const avatars = (members) =>
-    members.map(([image, name]) => (
+  const avatars = (supervisors) =>
+    supervisors.map(([image, name]) => (
       <Tooltip key={name} title={name} placeholder="bottom">
         <SuiAvatar src={image} alt="name" size="xs" customClass={classes.projects_tableAvatar} />
       </Tooltip>
@@ -34,15 +30,15 @@ export default function data() {
   return {
     columns: [
       { name: "companies", align: "left" },
-      { name: "supervisor", align: "left" },
+      { name: "supervisors", align: "left" },
       { name: "budget", align: "center" },
       { name: "completion", align: "center" },
     ],
 
     rows: [
       {
-        companies: [logoXD, "3A Namly Ave"],
-        members: (
+        companies: [logoGeneric, "3A Namly Ave"],
+        supervisors: (
           <SuiBox display="flex" py={1}>
             {avatars([
               [team1, "Ryan Tompson"],
@@ -64,8 +60,8 @@ export default function data() {
         ),
       },
       {
-        companies: [logoAtlassian, "24 Sixth Ave"],
-        members: (
+        companies: [logoGeneric, "24 Sixth Ave"],
+        supervisors: (
           <SuiBox display="flex" py={1}>
             {avatars([
               [team2, "Romina Hadid"],
@@ -85,8 +81,8 @@ export default function data() {
         ),
       },
       {
-        companies: [logoSlack, "1 Marina Bay Dr"],
-        members: (
+        companies: [logoGeneric, "1 Marina Bay Dr"],
+        supervisors: (
           <SuiBox display="flex" py={1}>
             {avatars([
               [team1, "Ryan Tompson"],
@@ -106,8 +102,8 @@ export default function data() {
         ),
       },
       {
-        companies: [logoSpotify, "76 Sembawang Rd"],
-        members: (
+        companies: [logoGeneric, "76 Sembawang Rd"],
+        supervisors: (
           <SuiBox display="flex" py={1}>
             {avatars([
               [team4, "Jessica Doe"],
@@ -124,13 +120,13 @@ export default function data() {
         ),
         completion: (
           <SuiBox width="8rem" textAlign="left">
-            <SuiProgress value={100} color="success" gradient />
+            <SuiProgress value={90} color="info" gradient />
           </SuiBox>
         ),
       },
       {
-        companies: [logoJira, "53 Jurong West Ave 7"],
-        members: (
+        companies: [logoGeneric, "53 Jurong West Ave 7"],
+        supervisors: (
           <SuiBox display="flex" py={1}>
             {avatars([[team4, "Jessica Doe"]])}
           </SuiBox>

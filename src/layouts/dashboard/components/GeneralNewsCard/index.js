@@ -23,12 +23,12 @@ import SuiBox from "components/SuiBox";
 import SuiTypography from "components/SuiTypography";
 
 // Custom styles for the BuildByDevelopers
-import styles from "layouts/dashboard/components/BuildByDevelopers/styles";
+import styles from "layouts/dashboard/components/GeneralNewsCard/styles";
 
 // Images
 import mock from "assets/images/mock.svg";
 
-function BuildByDevelopers() {
+function GeneralNewsCard() {
   const classes = styles();
 
   return (
@@ -58,7 +58,7 @@ function BuildByDevelopers() {
                 variant="button"
                 textColor="text"
                 fontWeight="medium"
-                customClass={classes.buildByDevelopers_button}
+                customClass={classes.generalNewsCard_button}
               >
                 Read More
                 <Icon className="font-bold">arrow_forward</Icon>
@@ -84,4 +84,4 @@ function BuildByDevelopers() {
   );
 }
 
-export default BuildByDevelopers;
+export default GeneralNewsCard;

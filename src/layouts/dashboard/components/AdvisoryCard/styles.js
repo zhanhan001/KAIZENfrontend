@@ -25,7 +25,7 @@ export default makeStyles(({ functions, palette, borders }) => {
   const { borderRadius } = borders;
 
   return {
-    workWithTheRockets_content: {
+    advisoryCard_content: {
       backgroundImage: `${linearGradient(
         rgba(gradients.dark.main, 0.8),
         rgba(gradients.dark.state, 0.8)
@@ -38,7 +38,7 @@ export default makeStyles(({ functions, palette, borders }) => {
       borderRadius: borderRadius.lg,
     },
 
-    workWithTheRockets_button: {
+    advisoryCard_button: {
       marginTop: "auto",
       marginRight: "auto",
       display: "inline-flex",

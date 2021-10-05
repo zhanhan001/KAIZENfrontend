@@ -20,7 +20,7 @@ export default makeStyles(({ functions }) => {
   const { pxToRem } = functions;
 
   return {
-    buildByDevelopers_button: {
+    generalNewsCard_button: {
       marginTop: "auto",
       marginRight: "auto",
       display: "inline-flex",

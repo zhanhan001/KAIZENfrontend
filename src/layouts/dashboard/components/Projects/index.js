@@ -36,32 +36,7 @@ import data from "layouts/dashboard/components/Projects/data";
 
 function Projects() {
   const { columns, rows } = data();
-  const [menu, setMenu] = useState(null);
   const classes = styles();
-
-  const openMenu = ({ currentTarget }) => setMenu(currentTarget);
-  const closeMenu = () => setMenu(null);
-
-  const renderMenu = (
-    <Menu
-      id="simple-menu"
-      anchorEl={menu}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "left",
-      }}
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      open={Boolean(menu)}
-      onClose={closeMenu}
-    >
-      <MenuItem onClick={closeMenu}>Action</MenuItem>
-      <MenuItem onClick={closeMenu}>Another action</MenuItem>
-      <MenuItem onClick={closeMenu}>Something else</MenuItem>
-    </Menu>
-  );
 
   return (
     <Card>
@@ -77,12 +52,6 @@ function Projects() {
             </SuiTypography>
           </SuiBox>
         </SuiBox>
-        <SuiBox color="text" px={2}>
-          <Icon className="cursor-pointer font-bold" fontSize="small" onClick={openMenu}>
-            more_vert
-          </Icon>
-        </SuiBox>
-        {renderMenu}
       </SuiBox>
       <SuiBox customClass={classes.projects_table}>
         <Table columns={columns} rows={rows} />

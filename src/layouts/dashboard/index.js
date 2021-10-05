@@ -33,14 +33,14 @@ import GradientLineChart from "examples/Charts/LineCharts/GradientLineChart";
 import typography from "assets/theme/base/typography";
 
 // Dashboard layout components
-import BuildByDevelopers from "layouts/dashboard/components/BuildByDevelopers";
-import WorkWithTheRockets from "layouts/dashboard/components/WorkWithTheRockets";
 import Projects from "layouts/dashboard/components/Projects";
 import OrderOverview from "layouts/dashboard/components/OrderOverview";
 
 // Data
 import reportsBarChartData from "layouts/dashboard/data/reportsBarChartData";
 import gradientLineChartData from "layouts/dashboard/data/gradientLineChartData";
+import GeneralNewsCard from "./components/GeneralNewsCard";
+import AdvisoryCard from "./components/AdvisoryCard";
 
 function Dashboard() {
   const { size } = typography;
@@ -92,10 +92,10 @@ function Dashboard() {
         <SuiBox mb={3}>
           <Grid container spacing={3}>
             <Grid item xs={12} lg={7}>
-              <BuildByDevelopers />
+              <GeneralNewsCard />
             </Grid>
             <Grid item xs={12} lg={5}>
-              <WorkWithTheRockets />
+              <AdvisoryCard />
             </Grid>
           </Grid>
         </SuiBox>
