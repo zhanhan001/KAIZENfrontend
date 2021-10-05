@@ -37,10 +37,12 @@ import { useSelector } from "react-redux";
 // Data
 import authorsTableData from "layouts/tables/data/authorsTableData";
 import projectsTableData from "layouts/tables/data/projectsTableData";
+import {authorsTableDataRow} from "layouts/tables/data/authorsTableData";
 
 function Tables() {
   const classes = styles();
-  const { columns, rows } = authorsTableData;
+  const {columns} = authorsTableData;
+  const rows = authorsTableDataRow();
   const { columns: prCols, rows: prRows } = projectsTableData;
   const employees = useSelector((state) => state.allEmployees.employees);
   
@@ -54,7 +56,7 @@ function Tables() {
         <SuiBox mb={3}>
           <Card>
             <SuiBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
-              <SuiTypography variant="h6">Authors table</SuiTypography>
+              <SuiTypography variant="h6">Employees table</SuiTypography>
             </SuiBox>
             <SuiBox customClass={classes.tables_table}>
               <Table columns={columns} rows={rows} />
