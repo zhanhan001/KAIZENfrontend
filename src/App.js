@@ -140,7 +140,6 @@ const App = () => {
               </Switch>
             </ThemeProvider>
           </StyledEngineProvider>
-        <AmplifySignOut />
     </div>
   ) : (<div className = "bg">
     <AmplifyAuthenticator styles={{ SignInStyles }}/>

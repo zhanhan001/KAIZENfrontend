@@ -2,14 +2,10 @@
 =========================================================
 * Soft UI Dashboard React - v2.0.0
 =========================================================
-
 * Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-material-ui
 * Copyright 2021 Creative Tim (https://www.creative-tim.com)
-
 Coded by www.creative-tim.com
-
  =========================================================
-
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
@@ -46,6 +42,10 @@ import { useSoftUIController } from "context";
 // Images
 import team2 from "assets/images/team-2.jpg";
 import logoSpotify from "assets/images/small-logos/logo-spotify.svg";
+import { Button } from "reactstrap";
+
+
+import { Auth, Hub } from 'aws-amplify';
 
 function DashboardNavbar({ absolute, light, isMini }) {
   const [navbarType, setNavbarType] = useState();
@@ -54,6 +54,18 @@ function DashboardNavbar({ absolute, light, isMini }) {
   const [openMenu, setOpenMenu] = useState(false);
   const classes = styles({ transparentNavbar, absolute, light, isMini });
   const route = useLocation().pathname.split("/").slice(1);
+
+  const handleSignOutButtonClick = async () => {
+    try {
+        await Auth.signOut();
+        Hub.dispatch('UI Auth', {   // channel must be 'UI Auth'
+            event: 'AuthStateChange',    // event must be 'AuthStateChange'
+            message: 'signedout'    // message must be 'signedout'
+        });
+    } catch (error) {
+        console.log('error signing out: ', error);
+    }
+};  
 
   useEffect(() => {
     // Setting the navbar type
@@ -129,6 +141,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
     </Menu>
   );
 
+
   return (
     <AppBar
       position={absolute ? "absolute" : navbarType}
@@ -152,18 +165,6 @@ function DashboardNavbar({ absolute, light, isMini }) {
               color={light ? "white" : "inherit"}
               customClass={classes.navbar_section_desktop}
             >
-              <Link to="/authentication/sign-in/basic">
-                <IconButton className={classes.navbar_icon_button}>
-                  <Icon className={light ? "text-white" : "text-dark"}>account_circle</Icon>
-                  <SuiTypography
-                    variant="button"
-                    fontWeight="medium"
-                    textColor={light ? "white" : "dark"}
-                  >
-                    Sign in
-                  </SuiTypography>
-                </IconButton>
-              </Link>
               <IconButton
                 size="small"
                 color="inherit"
@@ -171,13 +172,6 @@ function DashboardNavbar({ absolute, light, isMini }) {
                 onClick={handleMiniSidenav}
               >
                 <Icon>{miniSidenav ? "menu_open" : "menu"}</Icon>
-              </IconButton>
-              <IconButton
-                color="inherit"
-                className={classes.navbar_icon_button}
-                onClick={handleConfiguratorOpen}
-              >
-                <Icon>settings</Icon>
               </IconButton>
               <IconButton
                 color="inherit"
@@ -190,11 +184,23 @@ function DashboardNavbar({ absolute, light, isMini }) {
                 <Icon>notifications</Icon>
               </IconButton>
               {renderMenu()}
-            </SuiBox>
+              <IconButton className={classes.navbar_icon_button} onClick = {handleSignOutButtonClick}>
+                <Link to="/authentication/sign-in/">
+                  <Icon className={light?"text-white": "text-dark"}>exit_to_app</Icon>
+                  <SuiTypography
+                  variant="button"
+                  fontWeight="medium"
+                  textColor={light?"white": "dark"}
+                  >
+                  Sign Out
+                  </SuiTypography>
+                </Link>
+              </IconButton>
+          </SuiBox>
           </SuiBox>
         )}
-      </Toolbar>
-    </AppBar>
+    </Toolbar>
+    </AppBar >
   );
 }
 
