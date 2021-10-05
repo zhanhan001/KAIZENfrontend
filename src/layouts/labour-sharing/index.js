@@ -3,11 +3,15 @@ import SuiTypography from "components/SuiTypography";
 import Footer from "examples/Footer";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
+import MarketplaceBanner from "layouts/labour-sharing/components/MarketplaceBanner"
 import Table from "examples/Table";
 import { Card } from "reactstrap";
 import styles from "layouts/labour-sharing/styles";
 
 import marketTableData from "./data/marketTableData";
+import CategoryTable from "./components/CategoryTable";
+import { Grid } from "@mui/material";
+import FeaturedTable from "./components/FeaturedTable";
 
 function LabourSharing() {
   const classes = styles();
@@ -16,7 +20,18 @@ function LabourSharing() {
   return (
     <DashboardLayout>
       <DashboardNavbar />
+      <MarketplaceBanner />
       <SuiBox py={3}>
+        <Grid container spacing={3}>
+          <Grid item xs={12} lg={6}>
+            <CategoryTable />
+          </Grid>
+          <Grid item xs={12} lg={6}>
+            <FeaturedTable />
+          </Grid>
+        </Grid>
+      </SuiBox>
+      <SuiBox pb={3}>
         <SuiBox mb={3}>
           <Card>
             <SuiBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
