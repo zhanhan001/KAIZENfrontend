@@ -9,6 +9,8 @@ import styles from "layouts/labour-sharing/styles";
 import CategoryTable from "./components/CategoryTable";
 import { Grid } from "@mui/material";
 import FeaturedTable from "./components/FeaturedTable";
+import MUIDataTable from "mui-datatables";
+import SkillMarketTable from "layouts/labour-sharing/components/SkillMarketTable";
 
 function LabourSharing() {
   const classes = styles();
@@ -16,18 +18,8 @@ function LabourSharing() {
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <SuiBox pt={3}>
-        <MarketplaceBanner/>
-      </SuiBox>
       <SuiBox py={3}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={12} md={12} lg={12} xl={12} xxl={6}>
-            <CategoryTable />
-          </Grid>
-          <Grid item xs={12} sm={12} md={12} lg={12} xl={12} xxl={6}>
-            <FeaturedTable />
-          </Grid>
-        </Grid>
+        <SkillMarketTable />
       </SuiBox>
       <Footer />
     </DashboardLayout>

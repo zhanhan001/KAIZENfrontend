@@ -33,7 +33,6 @@ import Carousel from 'react-material-ui-carousel';
 // Images
 import mock from "assets/images/mock.svg";
 
-
 function GeneralNewsCard() {
   // const classes = styles();
   const[boxes, setboxes] = useState([]);
