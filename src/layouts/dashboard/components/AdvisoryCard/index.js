@@ -31,9 +31,9 @@ function AdvisoryCard() {
   let headers = boxes.map(box =>
     <SuiTypography variant="body2" textColor="white">
       <SuiTypography key={box.id} textColor="white" variant="body2" fontWeight="bold">
-        {box.date} 
+        {box.date}
       </SuiTypography>
-      <SuiTypography style={{height:250}} key={box.id} textColor="white" variant="body2">
+      <SuiTypography style={{height:190}} key={box.id} textColor="white" variant="body2">
         {box.header} 
       </SuiTypography>
       <SuiTypography key = {box.id}
@@ -57,12 +57,12 @@ function AdvisoryCard() {
         <SuiBox customClass={classes.advisoryCard_content}>
           <SuiBox mb={3} pt={1}>
             <SuiTypography variant="h5" textColor="white" fontWeight="bold">
-              Latest BCA Advisory
+              Latest Updates from BCA
             </SuiTypography>
           </SuiBox>
           <SuiBox mb={2}>
             <SuiTypography variant="body2" textColor="white">
-            <Carousel interval = "5000">
+            <Carousel interval="5000">
                 {headers}
             </Carousel>
             </SuiTypography>

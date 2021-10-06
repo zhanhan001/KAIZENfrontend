@@ -21,64 +21,85 @@ import Icon from "@mui/material/Icon";
 // Soft UI Dashboard React components
 import SuiBox from "components/SuiBox";
 import SuiTypography from "components/SuiTypography";
+import SuiAvatar from "components/SuiAvatar";
+
 
 // Custom styles for the BuildByDevelopers
 import styles from "layouts/dashboard/components/GeneralNewsCard/styles";
+import { Auth } from 'aws-amplify';
+import { useState, useEffect } from "react";
+import Carousel from 'react-material-ui-carousel';
 
 // Images
 import mock from "assets/images/mock.svg";
 
-import Carousel from 'react-material-ui-carousel';
-
 function GeneralNewsCard() {
+  // const classes = styles();
+  const[boxes, setboxes] = useState([]);
 
+  useEffect(() => {
+    Auth.currentSession().then(res => {
+      fetch('/dashboard/news', {
+          headers: {
+          }})
+          .then(response => response.json())
+          .then(data => setboxes(data))
+    })
+  }, []);
+  
   const classes = styles();
-
-  return (
-    <Card>
-      <SuiBox p={2}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} lg={6}>
-            <SuiBox display="flex" flexDirection="column" height="100%">
-              <SuiBox pt={1} mb={0.5}>
-                <SuiTypography variant="body2" textColor="text" fontWeight="medium">
-                  General COVID-19 News
-                </SuiTypography>
-              </SuiBox>
-              <SuiTypography variant="h5" fontWeight="bold" gutterBottom>
-                2 deaths as Singapore reports 2,478 new COVID-19 cases; large clusters at care home
-                and 6 dormitories
-              </SuiTypography>
-              <SuiBox mb={6}>
-                <SuiTypography variant="body2" textColor="text">
-                  SINGAPORE: Singapore reported 2,478 new COVID-19 cases as of noon on Thursday (Sep
-                  30) and two more deaths due to complications from the virus.
-                </SuiTypography>
-              </SuiBox>
-              <SuiTypography
-                component="a"
-                href="#"
-                variant="button"
-                textColor="text"
-                fontWeight="medium"
-                customClass={classes.generalNewsCard_button}
-              >
-                Read More
-                <Icon className="font-bold">arrow_forward</Icon>
-              </SuiTypography>
-            </SuiBox>
-          </Grid>
-          <Grid item xs={12} lg={5} className="ml-auto relative">
-            <SuiBox
+  let headers = boxes.map(box =>
+    <SuiTypography   textColor="white">
+      <SuiTypography key={box.id} style= {{height:70}} variant="h5" fontWeight="bold" gutterBottom>
+        {box.header}
+      </SuiTypography>
+      <SuiBox
               height="100%"
               display="grid"
               justifyContent="center"
               alignItems="center"
-              backgroundColor="info"
-              borderRadius="lg"
+              // backgroundColor="info"
+              borderRadius="50"
               backgroundGradient
+              component="img" src={box.imageUrl} alt="news-image" width="100%" p={3}
+              inputProps={{style:{padding:0}}}
             >
-              <SuiBox component="img" src={mock} alt="news-image" width="100%" p={3} />
+              {/* <SuiBox component="img" src={box.imageUrl} alt="news-image" width="150%" p={3} /> */}
+            </SuiBox>
+      {/* <SuiBox key={box.id} component="img" src={box.imageUrl} alt="news-image" width="100%" margin="auto" borderRadius="lg" p={2} /> */}
+      <SuiTypography key={box.id} style={{height:95}}  variant="body2" textColor="text">
+        {box.excerpt}
+        {/* {box.imageUrl} */}
+      </SuiTypography>
+      <SuiTypography key = {box.id}
+        component="a"
+        href={box.url}
+        variant="button"
+        textColor="text"
+        fontWeight="medium"
+        customClass={classes.generalNewsCard_button}
+      > Read More
+      <Icon className="font-bold">arrow_forward</Icon>
+    </SuiTypography>
+    {/* <SuiBox key={box.id} component="img" src={box.imageUrl} alt="news-image" width="100%" p={3} /> */}
+    </SuiTypography>
+    );
+    
+
+  return (
+    <Card>
+      <SuiBox p={2}>
+        <SuiBox pt={1} mb={0.5}>
+          <SuiTypography variant="body2" textColor="text" fontWeight="medium">
+                  General COVID-19 News
+          </SuiTypography>
+        </SuiBox>
+        <Grid container spacing={3}>
+          <Grid item xs={20} lg={40}>
+            <SuiBox display="flex" flexDirection="column" height="100%">
+              <Carousel>
+                {headers}
+              </Carousel>
             </SuiBox>
           </Grid>
         </Grid>
