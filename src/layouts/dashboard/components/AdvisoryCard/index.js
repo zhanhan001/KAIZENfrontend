@@ -1,17 +1,3 @@
-/**
-=========================================================
-* Soft UI Dashboard React - v2.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-material-ui
-* Copyright 2021 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -23,9 +9,47 @@ import SuiTypography from "components/SuiTypography";
 
 // Custom styles for the WorkWithTheRockets
 import styles from "layouts/dashboard/components/AdvisoryCard/styles";
+import { Auth } from 'aws-amplify';
+import { useState, useEffect } from "react";
 
-function AdvisoryCard() {
+import Carousel from 'react-material-ui-carousel';
+
+function AdvisoryCard() { 
+  const[boxes, setboxes] = useState([]);
+
+  useEffect(() => {
+    Auth.currentSession().then(res => {
+      fetch('/dashboard', {
+          headers: {
+          }})
+          .then(response => response.json())
+          .then(data => setboxes(data))
+    })
+  }, []);
+  
   const classes = styles();
+  let headers = boxes.map(box =>
+    <SuiTypography variant="body2" textColor="white">
+      <SuiTypography key={box.id} textColor="white" variant="body2" fontWeight="bold">
+        {box.date} 
+      </SuiTypography>
+      <SuiTypography style={{height:250}} key={box.id} textColor="white" variant="body2">
+        {box.header} 
+      </SuiTypography>
+      <SuiTypography key = {box.id}
+      component="a"
+      href={box.url}
+      variant="button"
+      textColor="white"
+      fontWeight="medium"
+      customClass={classes.advisoryCard_button}
+    > Read More
+      <Icon className="font-bold">arrow_forward</Icon>
+    </SuiTypography>
+    </SuiTypography>
+    
+    );
+    
 
   return (
     <Card className="h-100">
@@ -38,25 +62,15 @@ function AdvisoryCard() {
           </SuiBox>
           <SuiBox mb={2}>
             <SuiTypography variant="body2" textColor="white">
-              Circular on Revised Approach to Manage Construction Worksites visited by COVID-19
-              Positive Cases
+            <Carousel interval = "5000">
+                {headers}
+            </Carousel>
             </SuiTypography>
           </SuiBox>
-          <SuiTypography
-            component="a"
-            href="#"
-            variant="button"
-            textColor="white"
-            fontWeight="medium"
-            customClass={classes.advisoryCard_button}
-          >
-            Read More
-            <Icon className="font-bold">arrow_forward</Icon>
-          </SuiTypography>
         </SuiBox>
       </SuiBox>
     </Card>
   );
 }
 
-export default AdvisoryCard;
+export default AdvisoryCard;    
