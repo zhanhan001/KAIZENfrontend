@@ -28,7 +28,10 @@ import styles from "layouts/dashboard/components/GeneralNewsCard/styles";
 // Images
 import mock from "assets/images/mock.svg";
 
+import Carousel from 'react-material-ui-carousel';
+
 function GeneralNewsCard() {
+
   const classes = styles();
 
   return (
