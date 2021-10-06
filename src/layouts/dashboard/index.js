@@ -40,9 +40,10 @@ import OrderOverview from "layouts/dashboard/components/OrderOverview";
 import reportsBarChartData from "layouts/dashboard/data/reportsBarChartData";
 import gradientLineChartData from "layouts/dashboard/data/gradientLineChartData";
 import GeneralNewsCard from "./components/GeneralNewsCard";
-import AdvisoryCard from "./components/AdvisoryCard";
+import AdvisoryCard from "./components/AdvisoryCard/index";
 
 function Dashboard() {
+
   const { size } = typography;
   const { chart, items } = reportsBarChartData;
 
