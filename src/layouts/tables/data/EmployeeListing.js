@@ -27,6 +27,9 @@ const EmployeePage = () => {
   }, []);
 
   console.log("Employees :", employees);
+
+  Auth.currentSession().then(res =>{console.log(res.getIdToken()); } );
+  
   return(
     <></>
   )
