@@ -94,21 +94,13 @@ class EmployeeEdit extends Component {
                         <Input type="text" name="employeeRole" id="employeeRole" value={item.employeeRole || ''}
                             onChange={this.handleChange} autoComplete="employeeRole" />
                     </FormGroup>
-                    {/* <FormGroup>
-                        <Label for="birthDate">birthDate</Label>
-                        <Input type="date" name="birthDate" id="birthDate" value={item.birthDate || ''}
-                                onChange={this.handleChange} autoComplete="birthDate" />
-                    </FormGroup> */}
+                    
                     <FormGroup>
                         <Label for="passportNumber">PassportNumber</Label>
                         <Input type="text" name="passportNumber" id="passportNumber" value={item.passportNumber|| ''}
                             onChange={this.handleChange} autoComplete="passportNumber" />
                     </FormGroup>
-                    {/* <FormGroup>
-                        <Label for="passportExpiry">PassportExpiry</Label>
-                        <Input type="date" name="passportExpiry" id="passportExpiry" value={item.passportExpiry || ''}
-                                onChange={this.handleChange} autoComplete="passportExpiry" />
-                    </FormGroup> */}
+                   
                     <FormGroup>
                         <Label for="workPermitNumber">workPermitNumber</Label>
                         <Input type="text" name="workPermitNumber" id="workPermitNumber" value={item.workPermitNumber|| ''}
@@ -144,11 +136,7 @@ class EmployeeEdit extends Component {
                         <Input type="text" name="singaporeAddress" id="singaporeAddress" value={item.singaporeAddress|| ''}
                             onChange={this.handleChange} autoComplete="singaporeAddress" />
                     </FormGroup>
-                    {/* <FormGroup>
-                        <Label for="foreignContactNumber">foreignContactNumber</Label>
-                        <Input type="text" name="foreignContactNumber" id="foreignContactNumber" value={item.foreignContactNumber|| ''}
-                            onChange={this.handleChange} autoComplete="foreignContactNumber" />
-                    </FormGroup> */}
+                    
                     <FormGroup>
                         <Label for="vaccStatus">vaccStatus</Label>
                         <Input type="text" name="vaccStatus" id="vaccStatus" value={item.vaccStatus|| ''}
@@ -159,18 +147,9 @@ class EmployeeEdit extends Component {
                         <Input type="text" name="covidResult" id="covidResult" value={item.covidResult|| ''}
                             onChange={this.handleChange} autoComplete="covidResult" />
                     </FormGroup>
-                    {/* <FormGroup>
-                        <Label for="safetyCourseOneExpiryOne">safetyCourseOneExpiry</Label>
-                        <Input type="date" name="safetyCourseOneExpiryOne" id="safetyCourseOneExpiryOne" value={item.safetyCourseOneExpiryOne || ''}
-                                onChange={this.handleChange} autoComplete="safetyCourseOneExpiryOne" />
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="safetyCourseOneExpiryTwo">workPermitExpiryDate</Label>
-                        <Input type="date" name="safetyCourseOneExpiryTwo" id="safetyCourseOneExpiryTwo" value={item.safetyCourseOneExpiryTwo || ''}
-                                onChange={this.handleChange} autoComplete="safetyCourseOneExpiryTwo" />
-                    </FormGroup> */}
+                    
                     <Button color="primary" type="submit">Save</Button>{' '}
-                    <Button color="secondary" tag={Link} to="/employees">Cancel</Button>
+                    <Button color="secondary" tag={Link} to="/tables">Cancel</Button>
                 </Form>
             </Container>
         </div>

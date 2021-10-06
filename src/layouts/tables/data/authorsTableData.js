@@ -10,7 +10,11 @@ import team2 from "assets/images/team-2.jpg";
 import team3 from "assets/images/team-3.jpg";
 import team4 from "assets/images/team-4.jpg";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setEmployees } from "redux/actions/employeesActions";
+import SuiButton from "components/SuiButton";
+import { Auth } from 'aws-amplify';
+
 
 function Author({ image, name, email }) {
   return (
@@ -47,8 +51,26 @@ function Function({ job, org }) {
 
 
 export function authorsTableDataRow(){
-  
+  const dispatch = useDispatch();
   const employees = useSelector((state) => state.allEmployees.employees);
+  
+  const remove = (workId) => {
+    Auth.currentSession().then(res => {
+        fetch(`/api/employees/${workId}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': 'Bearer ' + res.getIdToken().getJwtToken(),
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then(() => {
+            let updatedEmployees = employees.filter(i => i.workId !== workId);
+            dispatch(setEmployees(updatedEmployees));
+            window.location.reload();
+        });
+    })
+  }
+  
 
   const renderList = employees.map((employee) => {
     return (
@@ -72,7 +94,11 @@ export function authorsTableDataRow(){
             fontWeight="medium"
           >
             Edit
+          <SuiButton onClick={() => remove(employee.workId)}>
+            Delete
+          </SuiButton>
           </SuiTypography>
+          
         ),
       }
     );
@@ -98,6 +124,9 @@ export function authorsTableDataRow(){
         fontWeight="medium"
       >
         Edit
+        <SuiButton onClick={() => remove(employee.workId)}>
+            Delete
+        </SuiButton>
       </SuiTypography>
     ),
   });
