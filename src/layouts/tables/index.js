@@ -47,12 +47,14 @@ import { useSelector } from "react-redux";
 import authorsTableData from "layouts/tables/data/authorsTableData";
 import projectsTableData from "layouts/tables/data/projectsTableData";
 import { authorsTableDataRow } from "layouts/tables/data/authorsTableData";
+import EmployeeForm from "./data/EmployeeForm";
 
 import { FormProvider, useForm } from "react-hook-form";
-import { FormInputText } from "layouts/tables/input/FormInputText";
-import { FormInputDate } from "layouts/tables/input/FormInputDate";
+
+import MUIDataTable from "mui-datatables";
 
 import { Auth } from "aws-amplify";
+import EmployeeList from "./data/EmployeeList";
 
 function Tables() {
   const classes = styles();
@@ -60,51 +62,53 @@ function Tables() {
   const rows = authorsTableDataRow();
   const { columns: prCols, rows: prRows } = projectsTableData;
   const employees = useSelector((state) => state.allEmployees.employees);
+  const empty = {};
 
-  const defaultValues = {
-    workId: "",
-    name: "",
-    email: "",
-    employeeRole: "",
-    passportNumber: "",
-    workPermitNumber: "",
-    levy: "",
-    workContactNumber: "",
-    workSiteLocation: "",
-    singaporeAddress: "",
-    vaccStatus: "",
-    covidResult: "",
-    workPermitDateOfIssue: new Date(),
-    workPermitExpiryDate: new Date(),
+  const options = {
+    filterType: "checkbox",
+    rowsPerPage: [3],
+    rowsPerPageOptions: [1, 3, 5, 6],
+    jumpToPage: true,
+    textLabels: {
+      pagination: {
+        next: "Next >",
+        previous: "< Previous",
+        rowsPerPage: "Total items Per Page",
+        displayRows: "OF",
+      },
+    },
+    onChangePage(currentPage) {
+      console.log({ currentPage });
+    },
+    onChangeRowsPerPage(numberOfRows) {
+      console.log({ numberOfRows });
+    },
   };
 
   const [open, setOpen] = React.useState(false);
+  const [scroll, setScroll] = React.useState("paper");
 
-  const handleClickOpen = () => {
+  const handleClickOpen = (scrollType) => () => {
     setOpen(true);
+    setScroll(scrollType);
   };
 
   const handleClose = () => {
     setOpen(false);
   };
 
-  const methods = useForm({ defaultValues: defaultValues });
-  const { handleSubmit, control, reset } = methods;
-  const onSubmit = (data) => {
-    const response = Auth.currentSession().then((res) => {
-      fetch("/api/employees", {
-        method: "POST",
-        headers: {
-          Authorization: "Bearer " + res.getIdToken().getJwtToken(),
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      console.log(JSON.stringify(data));
-    });
-    window.location.reload();
-  };
+  const descriptionElementRef = React.useRef(null);
+  React.useEffect(() => {
+    if (open) {
+      const { current: descriptionElement } = descriptionElementRef;
+      if (descriptionElement !== null) {
+        descriptionElement.focus();
+      }
+    }
+  }, [open]);
+
+  // const methods = useForm({ defaultValues: defaultValues });
+  // const { handleSubmit, control, reset } = methods;
 
   // const handleSubmit = (event) => {
   //   event.preventDefault();
@@ -144,92 +148,50 @@ function Tables() {
               p={3}
             >
               <SuiTypography variant="h6">Employees table</SuiTypography>
-              <SuiButton onClick={handleClickOpen}> Add Employee </SuiButton>
-              <Dialog open={open} onClose={handleClose}>
+              {/* <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Subscribe</DialogTitle>
-                <DialogContent>
-                  <FormInputText
-                    name="workId"
-                    control={control}
-                    label="Work ID"
-                  />
-                  <FormInputText
-                    name="name"
-                    control={control}
-                    label="Employee Name"
-                  />
-                  <FormInputText name="email" control={control} label="Email" />
-                  <FormInputText
-                    name="employeeRole"
-                    control={control}
-                    label="Employee Role"
-                  />
-                  <FormInputText
-                    name="passportNumber"
-                    control={control}
-                    label="Passport Number"
-                  />
-
-                  <FormInputText
-                    name="workPermitNumber"
-                    control={control}
-                    label="Work Permit Number"
-                  />
-                  <FormInputText name="levy" control={control} label="Levy" />
-                  <FormInputText
-                    name="workContactNumber"
-                    control={control}
-                    label="Contact Number"
-                  />
-                  <FormInputText
-                    name="workSiteLocation"
-                    control={control}
-                    label="WorkSite Location"
-                  />
-                  <FormInputText
-                    name="singaporeAddress"
-                    control={control}
-                    label="Singapore Address"
-                  />
-
-                  <FormInputText
-                    name="vaccStatus"
-                    control={control}
-                    label="Vaccination Status"
-                  />
-                  <FormInputText
-                    name="covidResult"
-                    control={control}
-                    label="Covid Test Result"
-                  />
-
-                  <FormInputDate
-                    name="workPermitDateOfIssue"
-                    control={control}
-                    label="Work Permit Date of Issue"
-                  />
-                  <FormInputDate
-                    name="workPermitExpiryDate"
-                    control={control}
-                    label="Work Permit Expiry"
-                  />
+                <EmployeeForm attr ={empty}/>
+                <DialogActions>
+                  <SuiButton onClick={handleClose}>Cancel</SuiButton>
+                </DialogActions>
+              </Dialog> */}
+            </SuiBox>
+            <SuiBox customClass={classes.tables_table}>
+              
+              <MUIDataTable
+                title={<div><SuiButton onClick={handleClickOpen("paper")}>
+                {" "}
+                Add Employee{" "}
+              </SuiButton>
+              <Dialog
+                open={open}
+                onClose={handleClose}
+                scroll={scroll}
+                aria-labelledby="scroll-dialog-title"
+                aria-describedby="scroll-dialog-description"
+              >
+                <DialogTitle id="scroll-dialog-title">Subscribe</DialogTitle>
+                <DialogContent dividers={scroll === "paper"}>
+                  <DialogContentText
+                    id="scroll-dialog-description"
+                    ref={descriptionElementRef}
+                    tabIndex={-1}
+                  >
+                    {<EmployeeForm attr ={empty}/>}
+                  </DialogContentText>
                 </DialogContent>
                 <DialogActions>
                   <SuiButton onClick={handleClose}>Cancel</SuiButton>
-                  <SuiButton
-                    onClick={handleSubmit(onSubmit)}
-                    variant={"contained"}
-                  >
-                    Submit
-                  </SuiButton>
-                  <SuiButton onClick={() => reset()} variant={"outlined"}>
-                    Reset
-                  </SuiButton>
+                  <SuiButton onClick={handleClose}>Subscribe</SuiButton>
                 </DialogActions>
-              </Dialog>
-            </SuiBox>
-            <SuiBox customClass={classes.tables_table}>
-              <Table columns={columns} rows={rows} />
+              </Dialog></div>}
+                data={rows}
+                columns={columns}
+                options={options}
+              ></MUIDataTable>
+            
+            
+
             </SuiBox>
           </Card>
         </SuiBox>
