@@ -41,6 +41,9 @@ import Tables from "layouts/tables";
 import Billing from "layouts/billing";
 import Profile from "layouts/profile";
 import LabourSharing from "layouts/labour-sharing";
+import LabourDetails from "layouts/labour-details";
+import Discovery from "layouts/discover";
+
 
 // Soft UI Dashboard React icons
 import Shop from "examples/Icons/Shop";
@@ -48,6 +51,7 @@ import Office from "examples/Icons/Office";
 import Settings from "examples/Icons/Settings";
 import CustomerSupport from "examples/Icons/CustomerSupport";
 import CreditCard from "examples/Icons/CreditCard";
+import Basket from "examples/Icons/Basket";
 
 const routes = [
   {
@@ -83,8 +87,26 @@ const routes = [
     name: "Labour Sharing",
     key: "labour-sharing",
     route: "/labour-sharing",
-    icon: <Settings size="12px" />,
+    icon: <Basket size="12px" />,
     component: LabourSharing,
+    noCollapse: false,
+  },
+  {
+    type: "collapse",
+    name: "Labour Details",
+    key: "labour-details",
+    route: "/labour-details",
+    icon: <Settings size="12px" />,
+    component: LabourDetails,
+    noCollapse: true,
+  },
+  {
+    type: "collapse",
+    name: "Labour Discovery",
+    key: "labour-discover",
+    route: "/labour-sharing/discover",
+    icon: <Settings size="12px" />,
+    component: Discovery,
     noCollapse: true,
   },
   { type: "title", title: "Account Pages", key: "account-pages" },

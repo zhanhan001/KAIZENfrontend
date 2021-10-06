@@ -64,12 +64,12 @@ function Tables() {
           </Card>
         </SuiBox>
         <Card>
-          <SuiBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
+          {/* <SuiBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
             <SuiTypography variant="h6">Projects table</SuiTypography>
           </SuiBox>
           <SuiBox customClass={classes.tables_table}>
             <Table columns={prCols} rows={prRows} />
-          </SuiBox>
+          </SuiBox> */}
         </Card>
       </SuiBox>
       <Footer />
