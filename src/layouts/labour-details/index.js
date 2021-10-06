@@ -20,11 +20,11 @@ function LabourDetails() {
     return (
         <DashboardLayout>
             <DashboardNavbar />
-            <Card>
-                <SuiBox p={2}>
+            <SuiBox pt={3}>
+                <Card>
                     <SuiBox display="flex" flexDirection="column" height="100%">
                         <SuiBox p={2} mb={0.5}>
-                            <SuiTypography variant="h4" textColor="dark" fontWeight="medium">
+                            <SuiTypography variant="h4" textColor="dark" fontWeight="medium" pl={3}>
                                 Labour Profile
                             </SuiTypography>
                             <Grid container spacing={3} p={3}>
@@ -101,8 +101,8 @@ function LabourDetails() {
                             <Table columns={columns} rows={rows} />
                         </SuiBox>
                     </SuiBox>
-                </SuiBox>
-            </Card>
+                </Card>
+            </SuiBox>
         </DashboardLayout>
     );
 }
