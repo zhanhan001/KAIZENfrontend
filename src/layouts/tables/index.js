@@ -40,8 +40,10 @@ import Table from "examples/Table";
 import styles from "layouts/tables/styles";
 
 // import EmployeePage from "layouts/tables/data/EmployeeListing";
-import { useSelector } from "react-redux";
 // import Popup from "layouts/tables/popup";
+
+import { useDispatch, useSelector } from "react-redux";
+import { setEmployees } from "redux/actions/employeesActions";
 
 // Data
 import authorsTableData from "layouts/tables/data/authorsTableData";
@@ -64,6 +66,8 @@ function Tables() {
   const { columns: prCols, rows: prRows } = projectsTableData;
   const employees = useSelector((state) => state.allEmployees.employees);
   const empty = {};
+  const dispatch = useDispatch();
+
 
   const options = {
     filterType: "checkbox",
@@ -148,27 +152,21 @@ function Tables() {
         customBodyRender: (value, tableMeta, updatedValue) => {
           return (
             <div>
-          {/* <SuiButton
-            component="a"
-            variant="caption"
-            textColor="secondary"
-            fontWeight="medium"
-            onClick={handleClickOpen("paper")}
-            // key = {tableMeta.rowIndex} 
-          >
-            Edit
-          </SuiButton> */}
           <Modal>
           <EmployeeForm attr={tableMeta.rowData}/>
-            </Modal>
-          {/* <Dialog open={open} onClose={handleClose}>
-            <DialogTitle >Edit Employee</DialogTitle>
-            
-            <DialogActions>
-              <SuiButton onClick={handleClose}>Cancel</SuiButton>
-            </DialogActions>
-          </Dialog> */}
+          </Modal>
         </div>
+          );
+        }
+      }
+    },
+    {
+      name: "Delete",
+      options: {
+        filter: true,
+        customBodyRender: (value, tableMeta, updatedValue) => {
+          return (
+            <SuiButton onClick={() => remove(tableMeta.rowData[5])}>Delete</SuiButton>
           );
         }
       }
