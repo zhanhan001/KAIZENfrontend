@@ -14,23 +14,26 @@ import { Auth } from "aws-amplify";
 
 
 export default function EmployeeForm(props) {
+
   const employee = props.attr;
+  
+  console.log("testing" + employee);
 
   const defaultValues = {
-    workId: employee.workId || "",
-    name: employee.name || "",
-    email: employee.email || "",
-    employeeRole: employee.employeeRole || "",
-    passportNumber: employee.passportNumber || "",
-    workPermitNumber: employee.workPermitNumber || "",
-    levy: employee.levy || "",
-    workContactNumber: employee.workContactNumber || "",
-    workSiteLocation: employee.workSiteLocation || "",
-    singaporeAddress: employee.singaporeAddress || "",
-    vaccStatus: employee.vaccStatus || "",
-    covidResult: employee.covidResult || "",
-    workPermitDateOfIssue: employee.workPermitDateOfIssue || new Date(),
-    workPermitExpiryDate: employee.workPermitExpiryDate || new Date(),
+    workId: employee[1] || "",
+    name: employee[0] || "",
+    email: employee[2] || "",
+    employeeRole: employee[3] || "",
+    passportNumber: employee[4] || "",
+    workPermitNumber: employee[5] || "",
+    levy: employee[6] || "",
+    workContactNumber: employee[7] || "",
+    workSiteLocation: employee[8] || "",
+    singaporeAddress: employee[9] || "",
+    vaccStatus: employee[10] || "",
+    covidResult: employee[11] || "",
+    workPermitDateOfIssue: employee[12] || new Date(),
+    workPermitExpiryDate: employee[13] || new Date(),
   };
 
   const methods = useForm({ defaultValues: defaultValues });
@@ -38,8 +41,8 @@ export default function EmployeeForm(props) {
 
   const onSubmit = (data) => {
     const response = Auth.currentSession().then((res) => {
-        fetch('/api/employees' + (employee.id ? '/' + employee.id : ''), {
-            method: (employee.id) ? 'PUT' : 'POST',
+        fetch('/api/employees' + (employee[5] ? '/' + employee[5] : ''), {
+            method: (employee[5]) ? 'PUT' : 'POST',
             headers: {
                 'Authorization': 'Bearer ' + res.getIdToken().getJwtToken(),
                 'Accept': 'application/json',

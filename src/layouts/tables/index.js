@@ -54,12 +54,11 @@ import { FormProvider, useForm } from "react-hook-form";
 import MUIDataTable from "mui-datatables";
 
 import { Auth } from "aws-amplify";
-import EmployeeList from "./data/EmployeeList";
 
 function Tables() {
   const classes = styles();
-  const { columns } = authorsTableData;
-  const rows = authorsTableDataRow();
+  // const { columns } = authorsTableData;
+  //  const rows = authorsTableDataRow();
   const { columns: prCols, rows: prRows } = projectsTableData;
   const employees = useSelector((state) => state.allEmployees.employees);
   const empty = {};
@@ -107,33 +106,71 @@ function Tables() {
     }
   }, [open]);
 
-  // const methods = useForm({ defaultValues: defaultValues });
-  // const { handleSubmit, control, reset } = methods;
+  const remove = (workId) => {
+    Auth.currentSession().then((res) => {
+      fetch(`/api/employees/${workId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: "Bearer " + res.getIdToken().getJwtToken(),
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }).then(() => {
+        let updatedEmployees = employees.filter((i) => i.workId !== workId);
+        dispatch(setEmployees(updatedEmployees));
+        window.location.reload();
+      });
+    });
+  };
 
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   const { item } = this.state;
+  
+  const columns = [
+    { name: "name", label: "Employee Name" },
+    { name: "workPermitNumber", label: "Work Permit Number" },
+    { name: "workId", label: " Work ID" },
+    { name: "email", align: "center" },
+    { name: "employeeRole", label: "Employee Role" },
+    { name: "passportNumber", label: "PassportNumber" },
+    { name: "levy", label: "Levy" },
+    { name: "workContactNumber", label: "Work Contact Number" },
+    { name: "workSiteLocation", label: "Work Site Location" },
+    { name: "singaporeAddress", label: "Singapore Address" },
+    { name: "vaccStatus", label: "Vaccination Status" },
+    { name: "covidResult", label: "Covid Test Result" },
+    { name: "workPermitDateOfIssue", label: "Work Permit Date Of Issue" },
+    { name: "workPermitExpiryDate", label: "Work Permit Date Of Expiry" },
+    {
+      name: "Edit",
+      options: {
+        filter: true,
+        customBodyRender: (value, tableMeta, updatedValue) => {
+          return (
+            <div>
+          <SuiButton
+            component="a"
+            variant="caption"
+            textColor="secondary"
+            fontWeight="medium"
+            onClick={handleClickOpen("paper")}
+            //id = {tableMeta.rowIndex} 
+          >
+            Edit
+          </SuiButton>
+          <Dialog open={open} onClose={handleClose}>
+            <DialogTitle >Edit Employee</DialogTitle>
+            <EmployeeForm attr={tableMeta.rowData}/>
+            <DialogActions>
+              <SuiButton onClick={handleClose}>Cancel</SuiButton>
+            </DialogActions>
+          </Dialog>
+        </div>
+          );
+        }
+      }
+    }
+  ]
 
-  //   const response =  Auth.currentSession().then(res => {
-  //       fetch('/api/employees' + (item.id ? '/' + item.id : ''), {
-  //           method: (item.id) ? 'PUT' : 'POST',
-  //           headers: {
-  //               'Authorization': 'Bearer ' + res.getIdToken().getJwtToken(),
-  //               'Accept': 'application/json',
-  //               'Content-Type': 'application/json'
-  //           },
-  //           body: JSON.stringify(item),
-  //       });
-  //       console.log(JSON.stringify(item));
-  //   });
-
-  //   this.props.history.push('/employees');
-  //   //window.location.reload();
-
-  //   console.log(formValues);
-  // };
-
-  console.log("Employees :", employees);
+ 
 
   return (
     <DashboardLayout>
@@ -185,7 +222,7 @@ function Tables() {
                   <SuiButton onClick={handleClose}>Subscribe</SuiButton>
                 </DialogActions>
               </Dialog></div>}
-                data={rows}
+                data={employees}
                 columns={columns}
                 options={options}
               ></MUIDataTable>

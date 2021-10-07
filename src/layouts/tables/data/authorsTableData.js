@@ -103,29 +103,7 @@ export function authorsTableDataRow() {
       covidResult: employee.covidResult,
       workPermitDateOfIssue: employee.workPermitDateOfIssue,
       workPermitExpiryDate: employee.workPermitExpiryDate,
-
-      // author: (
-      //   <Author image={team2} name={employee.name} email={employee.email} />
-      // ),
-      // function: <Function job={employee.employeeRole} org="Organization" />,
-      // status: (
-      //   <SuiBadge
-      //     variant="gradient"
-      //     badgeContent="online"
-      //     color="success"
-      //     size="extra-small"
-      //   />
-      // ),
-      // employed: (
-      //   <SuiTypography
-      //     variant="caption"
-      //     textColor="secondary"
-      //     fontWeight="medium"
-      //   >
-      //     01/01/21
-      //   </SuiTypography>
-      // ),
-      action: (
+      edit: (
         <div>
           <SuiButton
             component="a"
@@ -143,9 +121,9 @@ export function authorsTableDataRow() {
               <SuiButton onClick={handleClose}>Cancel</SuiButton>
             </DialogActions>
           </Dialog>
-          <SuiButton onClick={() => remove(employee.workId)}>Delete</SuiButton>
         </div>
       ),
+      delete : <SuiButton onClick={() => remove(employee.workPermitNumber)}>Delete</SuiButton>
     };
   });
 
@@ -168,6 +146,7 @@ export default {
     { name: "covidResult", label: "Covid Test Result" },
     { name: "workPermitDateOfIssue", label: "Work Permit Date Of Issue" },
     { name: "workPermitExpiryDate", label: "Work Permit Date Of Expiry" },
-    { name: "action", label: "Action" },
+    { name: "edit", label: "Edit Employee" },
+    { name: "delete", label: "Delete Employee"},
   ],
 };
