@@ -26,9 +26,9 @@ const EmployeePage = () => {
     fetchEmployees();
   }, []);
 
-  console.log("Employees :", employees);
+  //onsole.log("Employees :", employees);
 
-  Auth.currentSession().then(res =>{console.log(res.getIdToken()); } );
+  //Auth.currentSession().then(res =>{console.log(res.getIdToken()); } );
   
   return(
     <></>
