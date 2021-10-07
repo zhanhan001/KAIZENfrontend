@@ -55,6 +55,8 @@ import MUIDataTable from "mui-datatables";
 
 import { Auth } from "aws-amplify";
 
+import Modal from "components/Custom/Modal"
+
 function Tables() {
   const classes = styles();
   // const { columns } = authorsTableData;
@@ -146,23 +148,26 @@ function Tables() {
         customBodyRender: (value, tableMeta, updatedValue) => {
           return (
             <div>
-          <SuiButton
+          {/* <SuiButton
             component="a"
             variant="caption"
             textColor="secondary"
             fontWeight="medium"
             onClick={handleClickOpen("paper")}
-            //id = {tableMeta.rowIndex} 
+            // key = {tableMeta.rowIndex} 
           >
             Edit
-          </SuiButton>
-          <Dialog open={open} onClose={handleClose}>
+          </SuiButton> */}
+          <Modal>
+          <EmployeeForm attr={tableMeta.rowData}/>
+            </Modal>
+          {/* <Dialog open={open} onClose={handleClose}>
             <DialogTitle >Edit Employee</DialogTitle>
-            <EmployeeForm attr={tableMeta.rowData}/>
+            
             <DialogActions>
               <SuiButton onClick={handleClose}>Cancel</SuiButton>
             </DialogActions>
-          </Dialog>
+          </Dialog> */}
         </div>
           );
         }
@@ -217,10 +222,10 @@ function Tables() {
                     {<EmployeeForm attr ={empty}/>}
                   </DialogContentText>
                 </DialogContent>
-                <DialogActions>
+                {/* <DialogActions>
                   <SuiButton onClick={handleClose}>Cancel</SuiButton>
                   <SuiButton onClick={handleClose}>Subscribe</SuiButton>
-                </DialogActions>
+                </DialogActions> */}
               </Dialog></div>}
                 data={employees}
                 columns={columns}
