@@ -44,7 +44,7 @@ function SimpleDialog(props) {
                     <Grid container alignItems="center" justifyContent="center">
                         <Grid item p={3}>
                             <SuiButton size="large" variant="gradient" buttonColor="success" onClick={null}>
-                                Check Availability
+                                Confirm Selection
                             </SuiButton>
                         </Grid>
                     </Grid>
