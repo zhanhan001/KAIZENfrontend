@@ -53,24 +53,23 @@ function GeneralNewsCard() {
       <SuiTypography key={box.id} style= {{height:70}} variant="h5" fontWeight="bold" gutterBottom>
         {box.header}
       </SuiTypography>
-      <SuiBox
-              height="100%"
-              display="grid"
+
+      {/* <SuiBox
+              // display="grid"
               justifyContent="center"
               alignItems="center"
-              // backgroundColor="info"
               borderRadius="50"
               backgroundGradient
-              component="img" src={box.imageUrl} alt="news-image" width="100%" p={3}
+              component="img" src={box.imageUrl} alt="news-image" width="100%" height="100%" p={3}
               inputProps={{style:{padding:0}}}
-            >
-              {/* <SuiBox component="img" src={box.imageUrl} alt="news-image" width="150%" p={3} /> */}
-            </SuiBox>
-      {/* <SuiBox key={box.id} component="img" src={box.imageUrl} alt="news-image" width="100%" margin="auto" borderRadius="lg" p={2} /> */}
+            /> */}
       <SuiTypography key={box.id} style={{height:95}}  variant="body2" textColor="text">
-        {box.excerpt}
-        {/* {box.imageUrl} */}
+        {box.excerpt} 
       </SuiTypography>
+      {/* <SuiTypography key={box.id} style= {{height:70}} variant="h5" fontWeight="bold" gutterBottom>
+        {box}
+      </SuiTypography> */}
+
       <SuiTypography key = {box.id}
         component="a"
         href={box.url}
@@ -81,7 +80,7 @@ function GeneralNewsCard() {
       > Read More
       <Icon className="font-bold">arrow_forward</Icon>
     </SuiTypography>
-    {/* <SuiBox key={box.id} component="img" src={box.imageUrl} alt="news-image" width="100%" p={3} /> */}
+
     </SuiTypography>
     );
     
