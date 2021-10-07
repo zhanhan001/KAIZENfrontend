@@ -1,9 +1,10 @@
-import { Card } from "@material-ui/core";
+import Card from "@mui/material/Card";
 import { Grid, Icon, Rating } from "@mui/material";
 import SuiBox from "components/SuiBox";
 import SuiTypography from "components/SuiTypography";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
+import Footer from "examples/Footer";
 
 import profileImage from "assets/images/team-1.jpg"
 
@@ -12,6 +13,9 @@ import SuiBadge from "components/SuiBadge";
 import SuiButton from "components/SuiButton";
 import data from "layouts/labour-details/data";
 import Table from "examples/Table";
+import HireShare from "./components/HireShare";
+import BasicDateRangePicker from "./components/Availability";
+import HireDialog from "./components/HireDialog";
 
 function LabourDetails() {
     const { columns, rows } = data();
@@ -20,7 +24,7 @@ function LabourDetails() {
     return (
         <DashboardLayout>
             <DashboardNavbar />
-            <SuiBox pt={3}>
+            <SuiBox py={3}>
                 <Card>
                     <SuiBox display="flex" flexDirection="column" height="100%">
                         <SuiBox p={2} mb={0.5}>
@@ -75,10 +79,8 @@ function LabourDetails() {
                                                 Interested in Sharing James?
                                             </SuiTypography>
                                         </SuiBox>
-                                        <SuiBox py={3}>
-                                            <SuiButton size="large" variant="gradient" buttonColor="success">
-                                                Hire-Share Now
-                                            </SuiButton>
+                                        <SuiBox p={3}>
+                                            <HireDialog />
                                         </SuiBox>
                                     </SuiBox>
                                 </Grid>
@@ -103,6 +105,7 @@ function LabourDetails() {
                     </SuiBox>
                 </Card>
             </SuiBox>
+            <Footer />
         </DashboardLayout>
     );
 }

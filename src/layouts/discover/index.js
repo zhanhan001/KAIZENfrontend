@@ -3,14 +3,10 @@ import SuiTypography from "components/SuiTypography";
 import Footer from "examples/Footer";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import MarketplaceBanner from "layouts/labour-sharing/components/MarketplaceBanner"
 import styles from "layouts/labour-sharing/styles";
 
-import CategoryTable from "./components/CategoryTable";
-import { Grid } from "@mui/material";
-import FeaturedTable from "./components/FeaturedTable";
-import MUIDataTable from "mui-datatables";
 import SkillMarketTable from "layouts/labour-sharing/components/SkillMarketTable";
+import Card from "@mui/material/Card";
 
 function LabourSharing() {
   const classes = styles();
@@ -19,7 +15,9 @@ function LabourSharing() {
     <DashboardLayout>
       <DashboardNavbar />
       <SuiBox py={3}>
-        <SkillMarketTable />
+        <Card>
+          <SkillMarketTable />
+        </Card>
       </SuiBox>
       <Footer />
     </DashboardLayout>

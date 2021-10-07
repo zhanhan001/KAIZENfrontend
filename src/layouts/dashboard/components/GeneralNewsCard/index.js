@@ -33,7 +33,6 @@ import Carousel from 'react-material-ui-carousel';
 // Images
 import mock from "assets/images/mock.svg";
 
-
 function GeneralNewsCard() {
   // const classes = styles();
   const[boxes, setboxes] = useState([]);
@@ -54,6 +53,7 @@ function GeneralNewsCard() {
       <SuiTypography key={box.id} style= {{height:70}} variant="h5" fontWeight="bold" gutterBottom>
         {box.header}
       </SuiTypography>
+
       {/* <SuiBox
               // display="grid"
               justifyContent="center"
@@ -69,6 +69,7 @@ function GeneralNewsCard() {
       {/* <SuiTypography key={box.id} style= {{height:70}} variant="h5" fontWeight="bold" gutterBottom>
         {box}
       </SuiTypography> */}
+
       <SuiTypography key = {box.id}
         component="a"
         href={box.url}
@@ -79,6 +80,7 @@ function GeneralNewsCard() {
       > Read More
       <Icon className="font-bold">arrow_forward</Icon>
     </SuiTypography>
+
     </SuiTypography>
     );
     
