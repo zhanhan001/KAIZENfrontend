@@ -1,22 +1,15 @@
 /* eslint-disable react/prop-types */
 // Soft UI Dashboard React components
 
-import React, { useState } from "react";
+import React from "react";
 
 import SuiBox from "components/SuiBox";
 import SuiTypography from "components/SuiTypography";
 import SuiAvatar from "components/SuiAvatar";
-import SuiBadge from "components/SuiBadge";
-import { Link, withRouter } from "react-router-dom";
 
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogTitle from "@mui/material/DialogTitle";
-
-// Images
-import team2 from "assets/images/team-2.jpg";
-import team3 from "assets/images/team-3.jpg";
-import team4 from "assets/images/team-4.jpg";
 
 import EmployeeForm from "./EmployeeForm";
 
@@ -115,7 +108,9 @@ export function authorsTableDataRow() {
             Edit
           </SuiButton>
           <Dialog open={open} onClose={handleClose}>
-            <DialogTitle>Edit Employee</DialogTitle>
+            <DialogTitle>
+              <SuiTypography variant="h5" textColor="info" fontWeight="bold" textGradient>Edit Employee</SuiTypography>
+            </DialogTitle>
             <EmployeeForm attr={employee} />
             <DialogActions>
               <SuiButton onClick={handleClose}>Cancel</SuiButton>
@@ -123,7 +118,7 @@ export function authorsTableDataRow() {
           </Dialog>
         </div>
       ),
-      delete : <SuiButton onClick={() => remove(employee.workPermitNumber)}>Delete</SuiButton>
+      delete: <SuiButton buttonColor="error" onClick={() => remove(employee.workPermitNumber)}>Delete</SuiButton>
     };
   });
 
@@ -134,19 +129,19 @@ export default {
   columns: [
     { name: "name", label: "Employee Name" },
     { name: "workPermitNumber", label: "Work Permit Number" },
-    { name: "workId", label: " Work ID" },
-    { name: "email", align: "center" },
+    { name: "workId", label: "Work ID" },
+    { name: "email", align: "center", label: "Email"},
     { name: "employeeRole", label: "Employee Role" },
     { name: "passportNumber", label: "PassportNumber" },
     { name: "levy", label: "Levy" },
-    { name: "workContactNumber", label: "Work Contact Number" },
-    { name: "workSiteLocation", label: "Work Site Location" },
-    { name: "singaporeAddress", label: "Singapore Address" },
+    { name: "workContactNumber", label: "Contact Number" },
+    { name: "workSiteLocation", label: "Work Location" },
+    { name: "singaporeAddress", label: "Residence Address" },
     { name: "vaccStatus", label: "Vaccination Status" },
-    { name: "covidResult", label: "Covid Test Result" },
-    { name: "workPermitDateOfIssue", label: "Work Permit Date Of Issue" },
-    { name: "workPermitExpiryDate", label: "Work Permit Date Of Expiry" },
+    { name: "covidResult", label: "ART Result" },
+    { name: "workPermitDateOfIssue", label: "Work Permit Issue Date" },
+    { name: "workPermitExpiryDate", label: "Work Permit Expiry Date" },
     { name: "edit", label: "Edit Employee" },
-    { name: "delete", label: "Delete Employee"},
+    { name: "delete", label: "Delete Employee" },
   ],
 };

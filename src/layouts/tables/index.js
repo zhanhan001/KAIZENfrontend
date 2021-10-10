@@ -18,9 +18,7 @@ import React, { useState } from "react";
 
 import Card from "@mui/material/Card";
 
-import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
@@ -46,12 +44,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { setEmployees } from "redux/actions/employeesActions";
 
 // Data
-import authorsTableData from "layouts/tables/data/authorsTableData";
 import projectsTableData from "layouts/tables/data/projectsTableData";
-import { authorsTableDataRow } from "layouts/tables/data/authorsTableData";
 import EmployeeForm from "./data/EmployeeForm";
-
-import { FormProvider, useForm } from "react-hook-form";
 
 import MUIDataTable from "mui-datatables";
 
@@ -129,7 +123,7 @@ function Tables() {
     });
   };
 
-  
+
   const columns = [
     { name: "name", label: "Employee Name" },
     { name: "workPermitNumber", label: "Work Permit Number" },
@@ -152,10 +146,10 @@ function Tables() {
         customBodyRender: (value, tableMeta, updatedValue) => {
           return (
             <div>
-          <Modal>
-          <EmployeeForm attr={tableMeta.rowData}/>
-          </Modal>
-        </div>
+              <Modal>
+                <EmployeeForm attr={tableMeta.rowData} />
+              </Modal>
+            </div>
           );
         }
       }
@@ -173,81 +167,55 @@ function Tables() {
     }
   ]
 
- 
+
 
   return (
     <DashboardLayout>
       <DashboardNavbar />
       <SuiBox py={3}>
         <SuiBox mb={3}>
-          <Card>
-            <SuiBox
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-              p={3}
-            >
-              <SuiTypography variant="h6">Employees table</SuiTypography>
-              {/* <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Subscribe</DialogTitle>
-                <EmployeeForm attr ={empty}/>
-                <DialogActions>
-                  <SuiButton onClick={handleClose}>Cancel</SuiButton>
-                </DialogActions>
-              </Dialog> */}
-            </SuiBox>
-            <SuiBox customClass={classes.tables_table}>
-              
-              <MUIDataTable
-                title={<div><SuiButton onClick={handleClickOpen("paper")}>
-                {" "}
-                Add Employee{" "}
-              </SuiButton>
-              <Dialog
-                open={open}
-                onClose={handleClose}
-                scroll={scroll}
-                aria-labelledby="scroll-dialog-title"
-                aria-describedby="scroll-dialog-description"
-              >
-                <DialogTitle id="scroll-dialog-title">Subscribe</DialogTitle>
-                <DialogContent dividers={scroll === "paper"}>
-                  <DialogContentText
-                    id="scroll-dialog-description"
-                    ref={descriptionElementRef}
-                    tabIndex={-1}
-                  >
-                    {<EmployeeForm attr ={empty}/>}
-                  </DialogContentText>
-                </DialogContent>
-                {/* <DialogActions>
+          <MUIDataTable
+            title={
+              <div>
+                <SuiBox py={3}>
+                  <SuiTypography variant="h4" textColor="info" fontWeight="bold" textGradient>
+                    Employees Table
+                  </SuiTypography>
+                </SuiBox>
+                <SuiBox pt={1}>
+                  <SuiButton size="large" variant="text" buttonColor="success" onClick={handleClickOpen("paper")}>
+                    Add Employee
+                  </SuiButton>
+                </SuiBox>
+                <Dialog
+                  open={open}
+                  onClose={handleClose}
+                  scroll={scroll}
+                  aria-labelledby="scroll-dialog-title"
+                  aria-describedby="scroll-dialog-description"
+                >
+                  <DialogTitle id="scroll-dialog-title">
+                    <SuiTypography variant="h5" textColor="info" fontWeight="bold" textGradient>Add Employee</SuiTypography>
+                  </DialogTitle>
+                  <DialogContent dividers={scroll === "paper"}>
+                    <DialogContentText
+                      id="scroll-dialog-description"
+                      ref={descriptionElementRef}
+                      tabIndex={-1}
+                    >
+                      {<EmployeeForm attr={empty} />}
+                    </DialogContentText>
+                  </DialogContent>
+                  {/* <DialogActions>
                   <SuiButton onClick={handleClose}>Cancel</SuiButton>
                   <SuiButton onClick={handleClose}>Subscribe</SuiButton>
                 </DialogActions> */}
-              </Dialog></div>}
-                data={employees}
-                columns={columns}
-                options={options}
-              ></MUIDataTable>
-            
-            
-
-            </SuiBox>
-          </Card>
+                </Dialog></div>}
+            data={employees}
+            columns={columns}
+            options={options}
+          ></MUIDataTable>
         </SuiBox>
-        <Card>
-          <SuiBox
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            p={3}
-          >
-            <SuiTypography variant="h6">Projects table</SuiTypography>
-          </SuiBox>
-          <SuiBox customClass={classes.tables_table}>
-            <Table columns={prCols} rows={prRows} />
-          </SuiBox>
-        </Card>
       </SuiBox>
       <Footer />
     </DashboardLayout>
