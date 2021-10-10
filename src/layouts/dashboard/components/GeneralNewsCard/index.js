@@ -39,7 +39,7 @@ function GeneralNewsCard() {
 
   useEffect(() => {
     Auth.currentSession().then(res => {
-      fetch('/dashboard/news', {
+      fetch('/api/dashboard/news', {
           headers: {
           }})
           .then(response => response.json())

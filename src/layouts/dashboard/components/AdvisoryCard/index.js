@@ -19,7 +19,7 @@ function AdvisoryCard() {
 
   useEffect(() => {
     Auth.currentSession().then(res => {
-      fetch('/dashboard', {
+      fetch('/api/dashboard', {
           headers: {
           }})
           .then(response => response.json())
