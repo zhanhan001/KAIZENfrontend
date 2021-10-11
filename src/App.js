@@ -49,7 +49,7 @@ import awsconfig from "./aws-exports";
 
 
 import SignInStyles from "./SignIn.css";
-import EmployeePage from "layouts/tables/data/EmployeeListing";
+import EmployeePage from "layouts/organisation/data/EmployeeListing";
 
 
 Amplify.configure(awsconfig);

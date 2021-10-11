@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import SuiButton from "components/SuiButton";
+import SuiBox from "components/SuiBox";
 
 const ProductDisplay = () => (
     <section>
         <form action="/create-checkout-session" method="POST">
-            <SuiButton size="large" variant="gradient" buttonColor="success" type="submit">
-                Checkout
+            <SuiButton size="large" variant="gradient" buttonColor="success" type="submit" circular>
+                <SuiBox px={3} color="white">
+                    Checkout
+                </SuiBox>
             </SuiButton>
         </form>
     </section>

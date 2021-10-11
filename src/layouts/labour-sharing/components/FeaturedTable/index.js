@@ -21,6 +21,7 @@ import Icon from "@mui/material/Icon";
 // Soft UI Dashboard React components
 import SuiBox from "components/SuiBox";
 import SuiTypography from "components/SuiTypography";
+import Carousel from "react-material-ui-carousel";
 
 // Soft UI Dashboard Materail-UI example components
 import Table from "examples/Table";
@@ -30,13 +31,17 @@ import styles from "layouts/labour-sharing/components/FeaturedTable/styles";
 
 // Data
 import data from "layouts/labour-sharing/components/FeaturedTable/data";
+import profileImage1 from "assets/images/team-1.jpg"
+import profileImage2 from "assets/images/team-2.jpg"
+
+import { Grid, Rating } from "@mui/material";
 
 function FeaturedTable() {
   const { columns, rows } = data();
   const classes = styles();
 
   return (
-    <Card>
+    <Card className="h-100">
       <SuiBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
         <SuiBox>
           <SuiTypography variant="h3" gutterBottom>
@@ -49,6 +54,66 @@ function FeaturedTable() {
             </SuiTypography>
           </SuiBox>
         </SuiBox>
+      </SuiBox>
+      <SuiBox position="relative" height="100%">
+        <Carousel interval="5000" indicators={false} animation="slide">
+            <Grid container spacing={3} p={3}>
+              <Grid item xs={12} lg={4}>
+                <SuiBox component="img" src={profileImage1} alt="profile-image" width="100%" borderRadius="10%" />
+              </Grid>
+              <Grid item xs={12} lg={8}>
+                <SuiBox px={3}>
+                  <SuiTypography variant="button" textColor="text" fontWeight="medium">
+                    Welding
+                  </SuiTypography>
+                  <SuiTypography variant="h5" textColor="dark" fontWeight="medium">
+                    James Smith
+                  </SuiTypography>
+                </SuiBox>
+                <SuiBox p={3}>
+                  <SuiTypography variant="h6" textColor="dark" fontWeight="regular">
+                    "Seriously talented in welding and an overall wonderful employee to have around!"
+                  </SuiTypography>
+                  <SuiBox pt={1}>
+                    <Rating name="readOnly" value={4.9} precision={0.1} readOnly />
+                  </SuiBox>
+                  <SuiBox pl={15}>
+                    <SuiTypography variant="button" textColor="dark" fontWeight="regular">
+                      – Penta Ocean Construction Pte Ltd
+                    </SuiTypography>
+                  </SuiBox>
+                </SuiBox>
+              </Grid>
+            </Grid>
+            <Grid container spacing={3} p={3}>
+              <Grid item xs={12} lg={4}>
+                <SuiBox component="img" src={profileImage2} alt="profile-image" width="100%" borderRadius="10%" />
+              </Grid>
+              <Grid item xs={12} lg={8}>
+                <SuiBox px={3}>
+                  <SuiTypography variant="button" textColor="text" fontWeight="medium">
+                    Tower Crane Operation
+                  </SuiTypography>
+                  <SuiTypography variant="h5" textColor="dark" fontWeight="medium">
+                    Michael Myers
+                  </SuiTypography>
+                </SuiBox>
+                <SuiBox p={3}>
+                  <SuiTypography variant="h6" textColor="dark" fontWeight="regular">
+                    "Myers is an absolute joy in the workplace, and has been a role model for many around him during his time with us!"
+                  </SuiTypography>
+                  <SuiBox pt={1}>
+                    <Rating name="readOnly" value={4.9} precision={0.1} readOnly />
+                  </SuiBox>
+                  <SuiBox pl={15}>
+                    <SuiTypography variant="button" textColor="dark" fontWeight="regular">
+                      – Terraformers LLP
+                    </SuiTypography>
+                  </SuiBox>
+                </SuiBox>
+              </Grid>
+            </Grid>
+        </Carousel>
       </SuiBox>
       <SuiBox customClass={classes.projects_table}>
         <Table columns={columns} rows={rows} />

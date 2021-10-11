@@ -37,7 +37,7 @@ Coded by www.creative-tim.com
 
 // Soft UI Dashboard React layouts
 import Dashboard from "layouts/dashboard";
-import Tables from "layouts/tables";
+import Organisation from "layouts/organisation";
 import Billing from "layouts/billing";
 import Profile from "layouts/profile";
 import LabourSharing from "layouts/labour-sharing";
@@ -65,11 +65,11 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Tables",
-    key: "tables",
-    route: "/tables",
+    name: "Organisation",
+    key: "organisation",
+    route: "/organisation",
     icon: <Office size="12px" />,
-    component: Tables,
+    component: Organisation,
     noCollapse: true,
   },
   {

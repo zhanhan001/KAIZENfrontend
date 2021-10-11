@@ -1,7 +1,7 @@
 import React from "react";
 
-import { FormInputText } from "layouts/tables/input/FormInputText";
-import { FormInputDate } from "layouts/tables/input/FormInputDate";
+import { FormInputText } from "layouts/organisation/input/FormInputText";
+import { FormInputDate } from "layouts/organisation/input/FormInputDate";
 
 import DialogContent from "@mui/material/DialogContent";
 import Grid from "@mui/material/Grid";
@@ -10,7 +10,7 @@ import SuiBox from "components/SuiBox";
 import SuiButton from "components/SuiButton";
 
 import { useForm } from "react-hook-form";
-import styles from "layouts/tables/styles";
+import styles from "layouts/organisation/styles";
 
 import { Auth } from "aws-amplify";
 import SuiTypography from "components/SuiTypography";

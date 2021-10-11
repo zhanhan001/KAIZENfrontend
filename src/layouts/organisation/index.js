@@ -34,17 +34,15 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import Table from "examples/Table";
 
-// Custom styles for the Tables
-import styles from "layouts/tables/styles";
+// Custom styles for the Organisation
+import styles from "layouts/organisation/styles";
 
-// import EmployeePage from "layouts/tables/data/EmployeeListing";
-// import Popup from "layouts/tables/popup";
 
 import { useDispatch, useSelector } from "react-redux";
 import { setEmployees } from "redux/actions/employeesActions";
 
 // Data
-import projectsTableData from "layouts/tables/data/projectsTableData";
+import projectsTableData from "layouts/organisation/data/projectsTableData";
 import EmployeeForm from "./data/EmployeeForm";
 
 import MUIDataTable from "mui-datatables";
@@ -53,7 +51,7 @@ import { Auth } from "aws-amplify";
 
 import Modal from "components/Custom/Modal"
 
-function Tables() {
+function Organisation() {
   const classes = styles();
   // const { columns } = authorsTableData;
   //  const rows = authorsTableDataRow();
@@ -222,4 +220,4 @@ function Tables() {
   );
 }
 
-export default Tables;
+export default Organisation;

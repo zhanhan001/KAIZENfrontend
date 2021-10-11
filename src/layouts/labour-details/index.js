@@ -6,15 +6,15 @@ import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 
-import profileImage from "assets/images/team-1.jpg"
+import profileImage1 from "assets/images/team-1.jpg"
+import profileImage2 from "assets/images/team-2.jpg"
+import profileImage3 from "assets/images/team-3.jpg"
 
 import styles from "./styles";
 import SuiBadge from "components/SuiBadge";
-import SuiButton from "components/SuiButton";
 import data from "layouts/labour-details/data";
 import Table from "examples/Table";
-import HireShare from "./components/HireShare";
-import BasicDateRangePicker from "./components/Availability";
+import Carousel from 'react-material-ui-carousel';
 import HireDialog from "./components/HireDialog";
 
 function LabourDetails() {
@@ -33,7 +33,14 @@ function LabourDetails() {
                             </SuiTypography>
                             <Grid container spacing={3} p={3}>
                                 <Grid item xs={12} lg={4}>
-                                    <SuiBox component="img" src={profileImage} alt="profile-image" width="100%" borderRadius="10%" />
+                                    <Carousel 
+                                        indicators={false}
+                                        interval="5000"
+                                    >
+                                        <SuiBox component="img" src={profileImage1} alt="profile-image" width="100%" borderRadius="10%" />
+                                        <SuiBox component="img" src={profileImage2} alt="profile-image" width="100%" borderRadius="10%" />
+                                        <SuiBox component="img" src={profileImage3} alt="profile-image" width="100%" borderRadius="10%" />
+                                    </Carousel>
                                     <Grid container justifyContent="center">
                                         <Grid item>
                                             <SuiBadge variant="gradient" badgeContent="CLEAN" color="info" size="large" />

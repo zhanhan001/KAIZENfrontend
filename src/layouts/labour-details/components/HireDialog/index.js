@@ -74,8 +74,10 @@ export default function HireDialog() {
 
     return (
         <div>
-            <SuiButton size="large" variant="gradient" buttonColor="success" onClick={handleClickOpen}>
+            <SuiButton size="large" variant="gradient" buttonColor="success" onClick={handleClickOpen} circular>
+                <SuiBox px={3} color="white">
                 Check Availability
+                </SuiBox>
             </SuiButton>
             <SimpleDialog
                 selectedValue={selectedValue}

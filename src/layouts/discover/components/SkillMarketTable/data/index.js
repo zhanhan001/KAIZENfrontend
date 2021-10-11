@@ -64,7 +64,7 @@ export default {
         <Rating name="readOnly" value={3.7} precision={0.1} readOnly />
       ),
       action: (
-        <Button href="#text-buttons">View</Button>
+        <Button href="/labour-details">View</Button>
       ),
     },
     {
@@ -77,7 +77,7 @@ export default {
         <Rating name="readOnly" value={4.0} precision={0.1} readOnly />
       ),
       action: (
-        <Button href="#text-buttons">View</Button>
+        <Button href="/labour-details">View</Button>
       ),
     },
     {
@@ -90,7 +90,7 @@ export default {
         <Rating name="readOnly" value={4.1} precision={0.1} readOnly />
       ),
       action: (
-        <Button href="#text-buttons">View</Button>
+        <Button href="/labour-details">View</Button>
       ),
     },
     {
@@ -103,7 +103,7 @@ export default {
         <Rating name="readOnly" value={4.1} precision={0.1} readOnly />
       ),
       action: (
-        <Button href="#text-buttons">View</Button>
+        <Button href="/labour-details">View</Button>
       ),
     },
     {
@@ -116,7 +116,7 @@ export default {
         <Rating name="readOnly" value={3.5} precision={0.1} readOnly />
       ),
       action: (
-        <Button href="#text-buttons">View</Button>
+        <Button href="/labour-details">View</Button>
       ),
     },
     {
@@ -129,7 +129,7 @@ export default {
         <Rating name="readOnly" value={4.3} precision={0.1} readOnly />
       ),
       action: (
-        <Button href="#text-buttons">View</Button>
+        <Button href="/labour-details">View</Button>
       ),
     },
   ],
