@@ -12,7 +12,8 @@ const awsmobile = {
         "EMAIL"
     ],
     "aws_cognito_signup_attributes": [
-        "EMAIL"
+        "EMAIL",
+        "custom:CompanyUEN"
     ],
     "aws_cognito_mfa_configuration": "OFF",
     "aws_cognito_mfa_types": [
