@@ -16,6 +16,7 @@ import Availability from "../Availability"
 import SuiButton from "components/SuiButton";
 import SuiBox from 'components/SuiBox';
 import { Grid } from '@mui/material';
+import Checkout from '../Checkout';
 
 
 const emails = ['username@gmail.com', 'user02@gmail.com'];
@@ -43,9 +44,7 @@ function SimpleDialog(props) {
                 <SuiBox p={3}>
                     <Grid container alignItems="center" justifyContent="center">
                         <Grid item p={3}>
-                            <SuiButton size="large" variant="gradient" buttonColor="success" onClick={null}>
-                                Confirm Selection
-                            </SuiButton>
+                            <Checkout />
                         </Grid>
                     </Grid>
                 </SuiBox>
