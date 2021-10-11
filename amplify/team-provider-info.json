@@ -1,19 +1,31 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-kaizenfrontend-dev-223501-authRole",
-      "UnauthRoleArn": "arn:aws:iam::876658266128:role/amplify-kaizenfrontend-dev-223501-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::876658266128:role/amplify-kaizenfrontend-dev-223501-authRole",
+      "AuthRoleName": "amplify-damn-dev-214415-authRole",
+      "UnauthRoleArn": "arn:aws:iam::876658266128:role/amplify-damn-dev-214415-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::876658266128:role/amplify-damn-dev-214415-authRole",
       "Region": "ap-southeast-1",
-      "DeploymentBucketName": "amplify-kaizenfrontend-dev-223501-deployment",
-      "UnauthRoleName": "amplify-kaizenfrontend-dev-223501-unauthRole",
-      "StackName": "amplify-kaizenfrontend-dev-223501",
-      "StackId": "arn:aws:cloudformation:ap-southeast-1:876658266128:stack/amplify-kaizenfrontend-dev-223501/46356b90-2520-11ec-938f-02c5c17a074c",
-      "AmplifyAppId": "d3sdez0nxm1qd7"
+      "DeploymentBucketName": "amplify-damn-dev-214415-deployment",
+      "UnauthRoleName": "amplify-damn-dev-214415-unauthRole",
+      "StackName": "amplify-damn-dev-214415",
+      "StackId": "arn:aws:cloudformation:ap-southeast-1:876658266128:stack/amplify-damn-dev-214415/58e0e7a0-2a99-11ec-9c70-02e0ba0c648e",
+      "AmplifyAppId": "d2f3krxkeh1r3g"
     },
     "categories": {
       "auth": {
-        "kaizenfrontendd3677e81": {}
+        "damn063948c1": {
+          "userPoolId": "ap-southeast-1_3b7jmH7cr",
+          "userPoolName": "kaizenfrontendd3677e81_userpool_d3677e81-dev",
+          "webClientId": "6s8reia54o8nio0oc0mia6e8uo",
+          "nativeClientId": "5l31h8rduu0p7h6pviuh9lbbl4",
+          "identityPoolId": "ap-southeast-1:85887ecf-55ad-42a6-ab3c-8f7c3fe8ec9a",
+          "identityPoolName": "kaizenfrontendd3677e81_identitypool_d3677e81__dev",
+          "allowUnauthenticatedIdentities": false,
+          "authRoleArn": "arn:aws:iam::876658266128:role/amplify-kaizenfrontend-dev-223501-authRole",
+          "authRoleName": "amplify-kaizenfrontend-dev-223501-authRole",
+          "unauthRoleArn": "arn:aws:iam::876658266128:role/amplify-kaizenfrontend-dev-223501-unauthRole",
+          "unauthRoleName": "amplify-kaizenfrontend-dev-223501-unauthRole"
+        }
       }
     }
   }

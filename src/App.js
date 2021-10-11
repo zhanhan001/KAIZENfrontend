@@ -98,6 +98,18 @@ const App = () => {
       return null;
     });
 
+    const signUpConfig = {
+      signUpFields: [
+          {
+              label: "Company UEN",
+              key: "custom:CompanyUEN",
+              placeholder: "Company UEN",
+              required: true,
+              displayOrder: 5
+          }
+      ]
+  };
+
   const configsButton = (
     <SuiBox
       display="flex"
@@ -142,7 +154,7 @@ const App = () => {
           </StyledEngineProvider>
     </div>
   ) : (<div className = "bg">
-    <AmplifyAuthenticator styles={{ SignInStyles }}/>
+    <AmplifyAuthenticator styles={{ SignInStyles }} signUpConfig={signUpConfig} />
     </div>
 );
 
