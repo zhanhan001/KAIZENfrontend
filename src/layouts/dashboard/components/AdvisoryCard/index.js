@@ -23,7 +23,7 @@ function AdvisoryCard() {
           headers: {
           }})
           .then(response => response.json())
-          .then(data => setboxes(data))
+          .then(data => setboxes(Array.from(data)))
     })
   }, []);
   
