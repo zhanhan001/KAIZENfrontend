@@ -43,7 +43,7 @@ import Profile from "layouts/profile";
 import LabourSharing from "layouts/labour-sharing";
 import LabourDetails from "layouts/labour-details";
 import Discovery from "layouts/discover";
-
+import Categories from "layouts/categories";
 
 // Soft UI Dashboard React icons
 import Shop from "examples/Icons/Shop";
@@ -52,6 +52,7 @@ import Settings from "examples/Icons/Settings";
 import CustomerSupport from "examples/Icons/CustomerSupport";
 import CreditCard from "examples/Icons/CreditCard";
 import Basket from "examples/Icons/Basket";
+import Cube from "examples/Icons/Cube"
 
 const routes = [
   {
@@ -89,7 +90,16 @@ const routes = [
     route: "/labour-sharing",
     icon: <Basket size="12px" />,
     component: LabourSharing,
-    noCollapse: false,
+    noCollapse: true,
+  },
+  {
+    type: "collapse",
+    name: "Categories",
+    key: "categories",
+    route: "/labour-sharing/categories",
+    icon: <Cube size="12px" />,
+    component: Categories,
+    noCollapse: true,
   },
   {
     type: "collapse",

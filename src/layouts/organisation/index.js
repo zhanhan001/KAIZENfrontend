@@ -177,7 +177,7 @@ function Organisation() {
               <div>
                 <SuiBox py={3}>
                   <SuiTypography variant="h4" textColor="info" fontWeight="bold" textGradient>
-                    Employees Table
+                    My Organisation
                   </SuiTypography>
                 </SuiBox>
                 <SuiBox pt={1}>

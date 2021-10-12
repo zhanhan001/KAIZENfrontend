@@ -191,7 +191,7 @@ export default function data() {
         category: [logoGeneric, "Welding"],
         availability: (
           <SuiTypography variant="caption" textColor="text" fontWeight="medium">
-            66
+            6
           </SuiTypography>
         ),
         cost: (
@@ -201,7 +201,7 @@ export default function data() {
         ),
         action: (
           <SuiBox width="8rem" textAlign="center">
-            <Button href="#text-buttons">Select</Button>
+            <Button href="/labour-sharing/categories">Select</Button>
           </SuiBox>
         ),
       },
