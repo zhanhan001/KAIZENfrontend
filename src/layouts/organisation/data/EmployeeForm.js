@@ -43,9 +43,20 @@ export default function EmployeeForm(props) {
   const methods = useForm({ defaultValues: defaultValues });
   const { handleSubmit, control, reset } = methods;
 
+  function objToQueryString(obj) {
+    const keyValuePairs = [];
+    for (const key in obj) {
+      keyValuePairs.push(encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]));
+    }
+    return keyValuePairs.join('&');
+  }
+
   const onSubmit = (data) => {
     const response = Auth.currentSession().then((res) => {
-      fetch('/api/employees' + (employee[5] ? '/' + employee[5] : ''), {
+      const queryString = objToQueryString({
+        compId: "0123456789",
+      });
+      fetch('/api/employees' + (employee[5] ? '/' + employee[5] : '') + `?${queryString}`, {
         method: (employee[5]) ? 'PUT' : 'POST',
         headers: {
           'Authorization': 'Bearer ' + res.getIdToken().getJwtToken(),
