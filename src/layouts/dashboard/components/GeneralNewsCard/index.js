@@ -34,7 +34,7 @@ import Carousel from 'react-material-ui-carousel';
 import mock from "assets/images/mock.svg";
 
 function GeneralNewsCard() {
-  // const classes = styles();
+  const classes = styles();
   const [boxes, setboxes] = useState([]);
 
   useEffect(() => {
@@ -48,58 +48,95 @@ function GeneralNewsCard() {
     })
   }, []);
 
-  const classes = styles();
+  // let headers = boxes.map(box =>
+  //   <SuiTypography textColor="white">
+  //     <SuiTypography key={box.id} display="flex" variant="h5" fontWeight="bold" gutterBottom>
+  //       {box.header}
+  //     </SuiTypography>
+  //     <SuiBox
+              
+  //             justifyContent="center"
+  //             alignItems="center"
+  //             borderRadius="50"
+  //             height="auto" p={3}
+  //             inputProps={{style:{height:50, width: 50}}}
+  //           ><img src={box.imageUrl} max-width="100%" class="img-fluid"/></SuiBox>
+  //     <SuiTypography key={box.id} display="flex" variant="body2" textColor="text">
+  //       {box.excerpt}
+  //     </SuiTypography>
+  //     {/* <SuiTypography key={box.id} style= {{height:70}} variant="h5" fontWeight="bold" gutterBottom>
+  //       {box}
+  //     </SuiTypography> */}
+
+  //     <SuiTypography key={box.id}
+  //       component="a"
+  //       href={box.url}
+  //       variant="button"
+  //       textColor="text"
+  //       fontWeight="medium"
+  //       customClass={classes.generalNewsCard_button}
+  //     > Read More
+  //       <Icon className="font-bold">arrow_forward</Icon>
+  //     </SuiTypography>
+
+  //   </SuiTypography>
+  // );
   let headers = boxes.map(box =>
-    <SuiTypography textColor="white">
-      <SuiTypography key={box.id} style={{ height: 100 }} variant="h5" fontWeight="bold" gutterBottom>
-        {box.header}
-      </SuiTypography>
+    <SuiBox textColor="white" flexDirection="column">
+      <SuiBox mb={3}>
+        <Grid container spacing={3}>
+          <Grid item xs={12} lg={8}>
+            <SuiTypography key={box.id}  variant="h5" fontWeight="bold" gutterBottom>
+              {box.header}
+            </SuiTypography>
+          </Grid>
+          <Grid item xs={12} lg={4}>
+          <SuiBox
+                    class="img"
+                  justifyContent="right"
+                  // alignItems="center"
+                  borderRadius="50" style={{height:80}}
+                ><img  height="80" maxWidth="20%" src={box.imageUrl} /></SuiBox>
+          </Grid>
+        </Grid>
+      </SuiBox>
+      <SuiTypography>
 
-      {/* <SuiBox
-              // display="grid"
-              justifyContent="center"
-              alignItems="center"
-              borderRadius="50"
-              backgroundGradient
-              component="img" src={box.imageUrl} alt="news-image" width="100%" height="100%" p={3}
-              inputProps={{style:{padding:0}}}
-            /> */}
-      <SuiTypography key={box.id} style={{ height: 100 }} variant="body2" textColor="text">
-        {box.excerpt}
+        <SuiTypography style={{height:70}} mb={3} variant="body2" >
+          {box.excerpt}
+        </SuiTypography>
+        <SuiTypography key={box.id}
+              component="a"
+              href={box.url}
+              variant="button"
+              textColor="text"
+              fontWeight="medium"
+              customClass={classes.generalNewsCard_button}
+            > Read More
+              <Icon className="font-bold">arrow_forward</Icon>
+        </SuiTypography>
       </SuiTypography>
-      {/* <SuiTypography key={box.id} style= {{height:70}} variant="h5" fontWeight="bold" gutterBottom>
-        {box}
-      </SuiTypography> */}
-
-      <SuiTypography key={box.id}
-        component="a"
-        href={box.url}
-        variant="button"
-        textColor="text"
-        fontWeight="medium"
-        customClass={classes.generalNewsCard_button}
-      > Read More
-        <Icon className="font-bold">arrow_forward</Icon>
-      </SuiTypography>
-
-    </SuiTypography>
+    </SuiBox>
   );
+
 
 
   return (
     <Card className="h-100">
-      <SuiBox p={2} position="relative" height="100%">
-        <SuiBox mb={3} pt={1}>
-          <SuiTypography variant="h5" textColor="text" fontWeight="medium">
-            General COVID-19 News
-          </SuiTypography>
+      <SuiBox p={2}  position="relative" height="100%">
+        <SuiBox >
+          <SuiBox mb={3} pt={1}>
+            <SuiTypography variant="h5" textColor="text" fontWeight="medium">
+              General COVID-19 News
+            </SuiTypography>
+          </SuiBox>
         </SuiBox>
         <Grid container spacing={3}>
           <Grid item xs={20} lg={40}>
-            <SuiBox display="flex" flexDirection="column" height="100%">
-              <Carousel>
-                {headers}
-              </Carousel>
+            <SuiBox display="flex" flexDirection="column" mb={2} pt={1}>
+                <Carousel maxHeight="140">
+                  {headers}
+                </Carousel>
             </SuiBox>
           </Grid>
         </Grid>
