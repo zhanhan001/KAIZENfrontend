@@ -14,6 +14,7 @@ Coded by www.creative-tim.com
 */
 
 // @mui material components
+import { red } from "@mui/material/colors";
 import { makeStyles } from "@mui/styles";
 
 export default makeStyles(({ functions }) => {
@@ -37,5 +38,7 @@ export default makeStyles(({ functions }) => {
         transform: `translate(${pxToRem(6)}, ${pxToRem(-1)})`,
       },
     },
+
+    ["@media only screen and (min-width: 768px)"]: { remove_img: {display: "none !important"} },
   };
 });

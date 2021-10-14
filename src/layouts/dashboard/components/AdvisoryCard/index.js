@@ -52,7 +52,7 @@ function AdvisoryCard() {
     
 
   return (
-    <Card className="h-100">
+    <Card style={{height: "40vh"}}>
       <SuiBox position="relative" height="100%">
         <SuiBox customClass={classes.advisoryCard_content}>
           <SuiBox mb={3} pt={1}>
@@ -62,7 +62,7 @@ function AdvisoryCard() {
           </SuiBox>
           <SuiBox mb={2}>
             <SuiTypography variant="body2" textColor="white">
-            <Carousel interval="5000">
+            <Carousel animation="slide" indicators={false} interval="5000">
                 {headers}
             </Carousel>
             </SuiTypography>

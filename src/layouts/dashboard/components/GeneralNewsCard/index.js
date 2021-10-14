@@ -54,7 +54,7 @@ function GeneralNewsCard() {
   //       {box.header}
   //     </SuiTypography>
   //     <SuiBox
-              
+
   //             justifyContent="center"
   //             alignItems="center"
   //             borderRadius="50"
@@ -82,30 +82,21 @@ function GeneralNewsCard() {
   //   </SuiTypography>
   // );
   let headers = boxes.map(box =>
-    <SuiBox textColor="white" flexDirection="column">
-      <SuiBox mb={3}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} lg={8}>
-            <SuiTypography key={box.id}  variant="h5" fontWeight="bold" gutterBottom>
-              {box.header}
+    <Grid container spacing={3}>
+      <Grid item item xs={12} lg={7}>
+        <SuiBox textColor="white" flexDirection="column">
+          <SuiBox mb={3}>
+            <SuiBox>
+              <SuiTypography key={box.id} variant="h5" fontWeight="bold" gutterBottom>
+                {box.header}
+              </SuiTypography>
+            </SuiBox>
+          </SuiBox>
+          <SuiTypography>
+            <SuiTypography mb={3} variant="body2" >
+              {box.excerpt}
             </SuiTypography>
-          </Grid>
-          <Grid item xs={12} lg={4}>
-          <SuiBox
-                    class="img"
-                  justifyContent="right"
-                  // alignItems="center"
-                  borderRadius="50" style={{height:80}}
-                ><img  height="80" maxWidth="20%" src={box.imageUrl} /></SuiBox>
-          </Grid>
-        </Grid>
-      </SuiBox>
-      <SuiTypography>
-
-        <SuiTypography style={{height:70}} mb={3} variant="body2" >
-          {box.excerpt}
-        </SuiTypography>
-        <SuiTypography key={box.id}
+            <SuiTypography key={box.id}
               component="a"
               href={box.url}
               variant="button"
@@ -114,16 +105,30 @@ function GeneralNewsCard() {
               customClass={classes.generalNewsCard_button}
             > Read More
               <Icon className="font-bold">arrow_forward</Icon>
-        </SuiTypography>
-      </SuiTypography>
-    </SuiBox>
+            </SuiTypography>
+          </SuiTypography>
+        </SuiBox>
+      </Grid>
+      <Grid item xs={12} lg={5}>
+        <SuiBox
+          p={3}
+          class="img"
+          justifyContent="center"
+          alignItems="center"
+          style={{ height: "20vh"}}
+          customClass={classes.remove_img}
+        >
+          <img height="100%" width="100%" style={{borderRadius: "10%"}} src={box.imageUrl} />
+        </SuiBox>
+      </Grid>
+    </Grid>
   );
 
 
 
   return (
-    <Card className="h-100">
-      <SuiBox p={2}  position="relative" height="100%">
+    <Card style={{height: "40vh"}}>
+      <SuiBox p={2} position="relative" height="100%">
         <SuiBox >
           <SuiBox mb={3} pt={1}>
             <SuiTypography variant="h5" textColor="text" fontWeight="medium">
@@ -134,9 +139,9 @@ function GeneralNewsCard() {
         <Grid container spacing={3}>
           <Grid item xs={20} lg={40}>
             <SuiBox display="flex" flexDirection="column" mb={2} pt={1}>
-                <Carousel maxHeight="140">
-                  {headers}
-                </Carousel>
+              <Carousel animation="slide" indicators={false} interval="5000">
+                {headers}
+              </Carousel>
             </SuiBox>
           </Grid>
         </Grid>
