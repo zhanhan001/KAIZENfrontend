@@ -201,7 +201,7 @@ export default function data() {
         ),
         action: (
           <SuiBox width="8rem" textAlign="center">
-            <Button href="/labour-sharing/categories">Select</Button>
+            <Button href="/categories">Select</Button>
           </SuiBox>
         ),
       },
