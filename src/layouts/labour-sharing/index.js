@@ -3,14 +3,19 @@ import Footer from "examples/Footer";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import MarketplaceBanner from "layouts/labour-sharing/components/MarketplaceBanner"
-import styles from "layouts/labour-sharing/styles";
-
 import CategoryTable from "./components/CategoryTable";
 import { Grid } from "@mui/material";
 import FeaturedTable from "./components/FeaturedTable";
 
+/**
+ * {@code labour-sharing} creates the layout for the labour sharing marketplace.
+ *
+ * @author Pang Jun Rong
+ * @version 1.0
+ * @since 2021-10-16
+ */
+
 function LabourSharing() {
-  const classes = styles();
 
   return (
     <DashboardLayout>

@@ -1,38 +1,19 @@
-/**
-=========================================================
-* Soft UI Dashboard React - v2.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-material-ui
-* Copyright 2021 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
-// prop-types is a library for typechecking of props
 import PropTypes from "prop-types";
-
-// @mui material components
 import Grid from "@mui/material/Grid";
-
-// Soft UI Dashboard React components
 import SuiBox from "components/SuiBox";
 import SuiTypography from "components/SuiTypography";
-
-// Soft UI Dashboard React example components
 import PageLayout from "examples/LayoutContainers/PageLayout";
-
-// Authentication layout components
 import Footer from "layouts/authentication/components/Footer";
-
-// Custom styles for the Baise
 import styles from "layouts/authentication/components/CoverLayout/styles";
-
 import kaizenlogo from "assets/images/kaizen-logo.png";
+
+/**
+ * {@code CoverLayout} provides the cover layout for authentication page.
+ *
+ * @author Pang Jun Rong
+ * @version 1.0
+ * @since 2021-10-16
+ */
 
 function CoverLayout({ color, header, title, description, image, top, children }) {
   const classes = styles({ image });
@@ -78,7 +59,6 @@ function CoverLayout({ color, header, title, description, image, top, children }
   );
 }
 
-// Setting default values for the props of CoverLayout
 CoverLayout.defaultProps = {
   header: "",
   title: "",
@@ -87,7 +67,6 @@ CoverLayout.defaultProps = {
   top: 5,
 };
 
-// Typechecking props for the CoverLayout
 CoverLayout.propTypes = {
   color: PropTypes.oneOf([
     "primary",

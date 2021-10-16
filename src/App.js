@@ -1,39 +1,29 @@
-// eslint-disable-next-line
-
 import React from "react";
-
 import { useState, useEffect } from "react";
-
-// react-router components
 import { Route, Switch, Redirect, useLocation } from "react-router-dom";
-
-// @mui material components
 import { ThemeProvider, StyledEngineProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Icon from "@mui/material/Icon";
-
-// Soft UI Dashboard PRO React components
 import SuiBox from "components/SuiBox";
-
-// Soft UI Dashboard PRO React example components
 import Sidenav from "examples/Sidenav";
-
-// Soft UI Dashboard PRO React themes
 import theme from "assets/theme";
-
-// Soft UI Dashboard PRO React routes
 import routes from "routes";
-
-// Soft UI Dashboard PRO React contexts
 import { useSoftUIController } from "context";
-
 import Amplify from "aws-amplify";
 import { AmplifyAuthenticator } from "@aws-amplify/ui-react";
 import { AuthState, onAuthUIStateChange } from "@aws-amplify/ui-components";
 import awsconfig from "./aws-exports";
-
 import SignInStyles from "./SignIn.css";
 import EmployeePage from "layouts/organisation/data/EmployeeListing";
+
+/**
+ * {@code App} is the main frontend injection w/ cognito integrated authentication
+ *
+ * @author Pang Jun Rong
+ * @author Chong Zhang Han
+ * @version 1.0
+ * @since 2021-10-16
+ */
 
 Amplify.configure(awsconfig);
 

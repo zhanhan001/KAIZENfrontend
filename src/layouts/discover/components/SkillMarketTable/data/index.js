@@ -1,17 +1,20 @@
-/* eslint-disable react/prop-types */
-// Soft UI Dashboard React components
 import SuiBox from "components/SuiBox";
 import SuiTypography from "components/SuiTypography";
 import SuiAvatar from "components/SuiAvatar";
 import SuiBadge from "components/SuiBadge";
 import Button from "@mui/material/Button";
-
-
-// Images
 import team2 from "assets/images/team-2.jpg";
 import team3 from "assets/images/team-3.jpg";
 import team4 from "assets/images/team-4.jpg";
 import { Rating } from "@mui/material";
+
+/**
+ * {@code SkillMarketTable/data} provides static data for skill market table.
+ *
+ * @author Pang Jun Rong
+ * @version 1.0
+ * @since 2021-10-16
+ */
 
 function Labour({ image, name, company }) {
   return (

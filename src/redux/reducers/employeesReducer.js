@@ -1,4 +1,13 @@
 import { ActionTypes } from "../constants/action-types";
+
+/**
+ * {@code employeesReducer} creates a proxy from the frontend to the backend for employee removal.
+ *
+ * @author Teo Keng Swee
+ * @version 1.0
+ * @since 2021-10-16
+ */
+
 const intialState = {
   employees: [],
 };

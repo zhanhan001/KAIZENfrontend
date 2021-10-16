@@ -1,37 +1,18 @@
-/**
-=========================================================
-* Soft UI Dashboard React - v2.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-material-ui
-* Copyright 2021 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
-import { useState } from "react";
-
-// @mui material components
 import Card from "@mui/material/Card";
 import Icon from "@mui/material/Icon";
-
-
-// Soft UI Dashboard React components
 import SuiBox from "components/SuiBox";
 import SuiTypography from "components/SuiTypography";
-
-// Soft UI Dashboard Materail-UI example components
 import Table from "examples/Table";
-
-// Custom styles for the Projects
 import styles from "layouts/dashboard/components/Projects/styles";
-
-// Data
 import data from "layouts/dashboard/components/Projects/data";
+
+/**
+ * {@code Projects} creates a component to display projects completed in a table.
+ *
+ * @author Pang Jun Rong
+ * @version 1.0
+ * @since 2021-10-16
+ */
 
 function Projects() {
   const { columns, rows } = data();

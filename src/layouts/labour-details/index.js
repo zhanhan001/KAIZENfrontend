@@ -5,17 +5,23 @@ import SuiTypography from "components/SuiTypography";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
-
 import profileImage1 from "assets/images/team-1.jpg"
 import profileImage2 from "assets/images/team-2.jpg"
 import profileImage3 from "assets/images/team-3.jpg"
-
 import styles from "./styles";
 import SuiBadge from "components/SuiBadge";
 import data from "layouts/labour-details/data";
 import Table from "examples/Table";
 import Carousel from 'react-material-ui-carousel';
 import HireDialog from "./components/HireDialog";
+
+/**
+ * {@code labour-details} creates the layout for the labour details page.
+ *
+ * @author Pang Jun Rong
+ * @version 1.0
+ * @since 2021-10-16
+ */
 
 function LabourDetails() {
     const { columns, rows } = data();

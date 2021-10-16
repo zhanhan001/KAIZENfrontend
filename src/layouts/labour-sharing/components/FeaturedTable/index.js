@@ -1,40 +1,22 @@
-/**
-=========================================================
-* Soft UI Dashboard React - v2.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-material-ui
-* Copyright 2021 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
-
-// @mui material components
 import Card from "@mui/material/Card";
 import Icon from "@mui/material/Icon";
-
-// Soft UI Dashboard React components
 import SuiBox from "components/SuiBox";
 import SuiTypography from "components/SuiTypography";
 import Carousel from "react-material-ui-carousel";
-
-// Soft UI Dashboard Materail-UI example components
 import Table from "examples/Table";
-
-// Custom styles for the Projects
 import styles from "layouts/labour-sharing/components/FeaturedTable/styles";
-
-// Data
 import data from "layouts/labour-sharing/components/FeaturedTable/data";
 import profileImage1 from "assets/images/team-1.jpg"
 import profileImage2 from "assets/images/team-2.jpg"
-
 import { Grid, Rating } from "@mui/material";
+
+/**
+ * {@code FeaturedTable} creates the component for featured professionals.
+ *
+ * @author Pang Jun Rong
+ * @version 1.0
+ * @since 2021-10-16
+ */
 
 function FeaturedTable() {
   const { columns, rows } = data();

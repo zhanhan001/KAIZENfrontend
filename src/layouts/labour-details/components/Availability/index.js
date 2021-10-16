@@ -1,9 +1,16 @@
-import 'react-date-range/dist/styles.css'; // main css file
-import 'react-date-range/dist/theme/default.css'; // theme css file
-
+import 'react-date-range/dist/styles.css';
+import 'react-date-range/dist/theme/default.css';
 import { addDays } from 'date-fns';
 import { useState } from 'react';
 import { DateRangePicker } from 'react-date-range';
+
+/**
+ * {@code Availability} creates the date range picker component.
+ *
+ * @author Pang Jun Rong
+ * @version 1.0
+ * @since 2021-10-16
+ */
 
 export default function BasicDateRangePicker() {
     const [state, setState] = useState({

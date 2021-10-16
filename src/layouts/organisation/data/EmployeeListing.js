@@ -3,6 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { setEmployees } from "redux/actions/employeesActions";
 import { Auth } from 'aws-amplify';
 
+/**
+ * {@code EmployeeListing} creates the listing component for the CRUD interface.
+ *
+ * @author Teo Keng Swee
+ * @version 1.0
+ * @since 2021-10-16
+ */
 
 const EmployeePage = () => {
   const employees = useSelector((state) => state.allEmployees.employees);

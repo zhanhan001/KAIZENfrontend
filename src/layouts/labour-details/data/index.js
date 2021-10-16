@@ -1,16 +1,18 @@
 import SuiBox from "components/SuiBox";
 import SuiTypography from "components/SuiTypography";
-
-// Custom styles for the Projects
-import styles from "layouts/labour-sharing/components/CategoryTable/styles";
-
 import avatar1 from "assets/images/team-2.jpg"
 import Button from "@mui/material/Button";
 import { Rating } from "@mui/material";
 
+/**
+ * {@code labour-details/data} provides static data for the labour details page.
+ *
+ * @author Pang Jun Rong
+ * @version 1.0
+ * @since 2021-10-16
+ */
 
 export default function data() {
-  const classes = styles();
 
   return {
     columns: [

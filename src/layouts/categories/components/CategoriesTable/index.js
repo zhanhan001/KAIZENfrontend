@@ -1,13 +1,19 @@
 import * as React from 'react';
 import data from "layouts/categories/components/CategoriesTable/data";
 import styles from "./styles";
-
 import MUIDataTable from "mui-datatables";
 import SuiTypography from 'components/SuiTypography';
 import SuiBox from 'components/SuiBox';
 
+/**
+ * {@code CategoriesTable} provides a table component for the categories page.
+ *
+ * @author Pang Jun Rong
+ * @version 1.0
+ * @since 2021-10-16
+ */
+
 export default function CategoriesTable() {
-  const classes = styles();
 
   const options = {
     filterType: "checkbox",

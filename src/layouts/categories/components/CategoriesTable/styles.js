@@ -1,5 +1,13 @@
 import { makeStyles } from "@mui/styles";
 
+/**
+ * {@code CategoryTable} provides the static example data for insertion into frontend.
+ *
+ * @author Pang Jun Rong
+ * @version 1.0
+ * @since 2021-10-16
+ */
+
 export default makeStyles(({ functions, borders, palette }) => {
   const { white } = palette;
   const { pxToRem } = functions;

@@ -1,28 +1,16 @@
-/**
-=========================================================
-* Soft UI Dashboard React - v2.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-material-ui
-* Copyright 2021 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
-// @mui material components
 import Card from "@mui/material/Card";
 import Icon from "@mui/material/Icon";
-
-// Soft UI Dashboard PRO Material-UI components
 import SuiBox from "components/SuiBox";
 import SuiTypography from "components/SuiTypography";
-
-// Soft UI Dashboard PRO Material-UI example components
 import TimelineItem from "examples/Timeline/TimelineItem";
+
+/**
+ * {@code OrderOverview} creates a component to display contextual information on actions and/or alerts.
+ *
+ * @author Pang Jun Rong
+ * @version 1.0
+ * @since 2021-10-16
+ */
 
 function OrdersOverview() {
   return (

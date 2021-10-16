@@ -1,18 +1,19 @@
-
-// @mui material components
 import Card from "@mui/material/Card";
 import Icon from "@mui/material/Icon";
-
-// Soft UI Dashboard React components
 import SuiBox from "components/SuiBox";
 import SuiTypography from "components/SuiTypography";
-
-// Custom styles for the WorkWithTheRockets
 import styles from "layouts/dashboard/components/AdvisoryCard/styles";
 import { Auth } from 'aws-amplify';
 import { useState, useEffect } from "react";
-
 import Carousel from 'react-material-ui-carousel';
+
+/**
+ * {@code AdvisoryCard} creates a component to display industry-related media releases.
+ *
+ * @author Pang Jun Rong
+ * @version 1.0
+ * @since 2021-10-16
+ */
 
 function AdvisoryCard() { 
   const[boxes, setboxes] = useState([]);

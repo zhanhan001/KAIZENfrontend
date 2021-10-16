@@ -1,5 +1,13 @@
 import { makeStyles } from "@mui/styles";
 
+/**
+ * {@code SkillMarketTable} creates a component table to display entities in the skill market .
+ *
+ * @author Pang Jun Rong
+ * @version 1.0
+ * @since 2021-10-16
+ */
+
 export default makeStyles(({ functions, borders, palette }) => {
   const { white } = palette;
   const { pxToRem } = functions;

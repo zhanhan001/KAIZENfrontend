@@ -1,11 +1,16 @@
 import * as React from 'react';
 import data from "layouts/labour-sharing/components/SkillMarketTable/data";
-import styles from "./styles";
-
 import MUIDataTable from "mui-datatables";
 
+/**
+ * {@code SkillMarketTable} creates the component for the skill market table.
+ *
+ * @author Pang Jun Rong
+ * @version 1.0
+ * @since 2021-10-16
+ */
+
 export default function SkillMarketTable() {
-  const classes = styles();
 
   const options = {
     filterType: "checkbox",

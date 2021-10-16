@@ -1,34 +1,28 @@
 import React from "react";
-
-// @mui material components
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-
-// Soft UI Dashboard React components
 import SuiBox from "components/SuiBox";
 import SuiTypography from "components/SuiTypography";
 import SuiButton from "components/SuiButton";
-
-// Soft UI Dashboard React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
-
-// Custom styles for the Organisation
-import styles from "layouts/organisation/styles";
-
 import { useDispatch, useSelector } from "react-redux";
 import { setEmployees } from "redux/actions/employeesActions";
-
-// Data
 import EmployeeForm from "./data/EmployeeForm";
 import MUIDataTable from "mui-datatables";
-
 import { Auth } from "aws-amplify";
-
 import Modal from "components/Custom/Modal";
+
+/**
+ * {@code organisation} creates the layout for the CRUD interface.
+ *
+ * @author Teo Keng Swee
+ * @version 1.0
+ * @since 2021-10-16
+ */
 
 function Organisation() {
   const employees = useSelector((state) => state.allEmployees.employees);

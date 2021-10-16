@@ -1,21 +1,22 @@
-// @mui material components
 import Tooltip from "@mui/material/Tooltip";
-
-// Soft UI Dashboard React components
 import SuiBox from "components/SuiBox";
 import SuiTypography from "components/SuiTypography";
 import SuiAvatar from "components/SuiAvatar";
 import SuiProgress from "components/SuiProgress";
-
-// Custom styles for the Projects
 import styles from "layouts/dashboard/components/Projects/styles";
-
-// Images
 import logoGeneric from "assets/images/small-logos/logo-building.svg"
 import team1 from "assets/images/team-1.jpg";
 import team2 from "assets/images/team-2.jpg";
 import team3 from "assets/images/team-3.jpg";
 import team4 from "assets/images/team-4.jpg";
+
+/**
+ * {@code Projects/data} provides static data from the projects table.
+ *
+ * @author Pang Jun Rong
+ * @version 1.0
+ * @since 2021-10-16
+ */
 
 export default function data() {
   const classes = styles();

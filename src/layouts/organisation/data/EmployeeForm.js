@@ -1,20 +1,24 @@
 import React from "react";
-
 import { FormInputText } from "layouts/organisation/input/FormInputText";
 import { FormInputDate } from "layouts/organisation/input/FormInputDate";
-
 import DialogContent from "@mui/material/DialogContent";
 import Grid from "@mui/material/Grid";
 import SuiBox from "components/SuiBox";
-
 import SuiButton from "components/SuiButton";
-
 import { useForm } from "react-hook-form";
 import styles from "layouts/organisation/styles";
-
 import { Auth } from "aws-amplify";
 import SuiTypography from "components/SuiTypography";
 import { Divider } from "@mui/material";
+
+/**
+ * {@code EmployeeForm} creates the form component for the CRUD interface.
+ *
+ * @author Teo Keng Swee
+ * @author Pang Jun Rong
+ * @version 1.0
+ * @since 2021-10-16
+ */
 
 export default function EmployeeForm(props) {
   const classes = styles();

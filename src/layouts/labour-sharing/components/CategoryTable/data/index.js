@@ -1,20 +1,17 @@
-// @mui material components
-import Tooltip from "@mui/material/Tooltip";
-
-// Soft UI Dashboard React components
 import SuiBox from "components/SuiBox";
 import SuiTypography from "components/SuiTypography";
-import SuiAvatar from "components/SuiAvatar";
-
-// Custom styles for the Projects
-import styles from "layouts/labour-sharing/components/CategoryTable/styles";
-
 import logoGeneric from "assets/images/small-logos/logo-category.svg"
 import Button from "@mui/material/Button";
 
+/**
+ * {@code CategoryTable/data} provides the static data for category table.
+ *
+ * @author Pang Jun Rong
+ * @version 1.0
+ * @since 2021-10-16
+ */
 
 export default function data() {
-  const classes = styles();
 
   return {
     columns: [
