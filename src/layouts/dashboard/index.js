@@ -43,7 +43,6 @@ import GeneralNewsCard from "./components/GeneralNewsCard";
 import AdvisoryCard from "./components/AdvisoryCard/index";
 
 function Dashboard() {
-
   const { size } = typography;
   const { chart, items } = reportsBarChartData;
 
@@ -119,12 +118,26 @@ function Dashboard() {
                 title="Cashflow Overview"
                 description={
                   <SuiBox display="flex" alignItems="center">
-                    <SuiBox fontSize={size.lg} color="success" mb={0.3} mr={0.5} lineHeight={0}>
+                    <SuiBox
+                      fontSize={size.lg}
+                      color="success"
+                      mb={0.3}
+                      mr={0.5}
+                      lineHeight={0}
+                    >
                       <Icon className="font-bold">arrow_upward</Icon>
                     </SuiBox>
-                    <SuiTypography variant="button" textColor="text" fontWeight="medium">
+                    <SuiTypography
+                      variant="button"
+                      textColor="text"
+                      fontWeight="medium"
+                    >
                       4% more{" "}
-                      <SuiTypography variant="button" textColor="text" fontWeight="regular">
+                      <SuiTypography
+                        variant="button"
+                        textColor="text"
+                        fontWeight="regular"
+                      >
                         in 2021
                       </SuiTypography>
                     </SuiTypography>

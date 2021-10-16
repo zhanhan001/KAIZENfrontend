@@ -1,17 +1,12 @@
 {
-  "name": "soft-ui-dashboard-react",
-  "version": "2.0.0",
+  "name": "kaizen",
+  "version": "1.0.0",
   "private": true,
-  "author": "Creative Tim",
-  "license": "See license in https://www.creative-tim.com/license",
-  "description": "Material UI version of Soft UI Dashboard by Creative Tim",
-  "homepage": "https://demos.creative-tim.com/soft-ui-dashboard-react/#/dashboard",
-  "bugs": {
-    "url": "https://github.com/creativetimofficial/soft-ui-dashboard-react/issues"
-  },
+  "author": "Nori Furikake",
+  "description": "Collaborative Software Development Project for Construction Industry with Credit Suisse",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/creativetimofficial/soft-ui-dashboard-react.git"
+    "url": "git+https://github.com/zhanhan001/KAIZENfrontend.git"
   },
   "dependencies": {
     "2": "^3.0.0",
@@ -40,7 +35,6 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "aws-amplify": "^4.2.8",
-    "axios": "^0.22.0",
     "chart.js": "^3.4.1",
     "chroma-js": "^2.1.2",
     "clsx": "^1.1.1",
@@ -77,12 +71,6 @@
     "eject": "react-scripts eject",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -94,14 +82,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "eslint": "^7.30.0",
-    "eslint-config-airbnb": "^18.2.1",
-    "eslint-plugin-import": "^2.23.4",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-react": "^7.24.0",
-    "eslint-plugin-react-hooks": "^4.2.0"
   },
   "proxy": "http://localhost:8080"
 }

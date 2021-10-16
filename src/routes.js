@@ -38,7 +38,6 @@ Coded by www.creative-tim.com
 // Soft UI Dashboard React layouts
 import Dashboard from "layouts/dashboard";
 import Organisation from "layouts/organisation";
-import Billing from "layouts/billing";
 import Profile from "layouts/profile";
 import LabourSharing from "layouts/labour-sharing";
 import LabourDetails from "layouts/labour-details";
@@ -50,7 +49,6 @@ import Shop from "examples/Icons/Shop";
 import Office from "examples/Icons/Office";
 import Settings from "examples/Icons/Settings";
 import CustomerSupport from "examples/Icons/CustomerSupport";
-import CreditCard from "examples/Icons/CreditCard";
 import Basket from "examples/Icons/Basket";
 import Cube from "examples/Icons/Cube"
 
@@ -71,15 +69,6 @@ const routes = [
     route: "/organisation",
     icon: <Office size="12px" />,
     component: Organisation,
-    noCollapse: true,
-  },
-  {
-    type: "collapse",
-    name: "Billing",
-    key: "billing",
-    route: "/billing",
-    icon: <CreditCard size="12px" />,
-    component: Billing,
     noCollapse: true,
   },
   

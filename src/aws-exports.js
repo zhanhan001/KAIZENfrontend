@@ -23,14 +23,7 @@ const awsmobile = {
         "passwordPolicyMinLength": 8,
         "passwordPolicyCharacters": []
     },
-    // "Auth" : 
-    // {   cookieStorage: {
-    //     domain: 'localhost',
-    //     path: '/',
-    //     expires: 365,
-    //     secure: false
-
-    //   }}
+    
 };
 
 

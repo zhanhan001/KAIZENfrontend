@@ -16,7 +16,6 @@ import { Auth } from "aws-amplify";
 import SuiTypography from "components/SuiTypography";
 import { Divider } from "@mui/material";
 
-
 export default function EmployeeForm(props) {
   const classes = styles();
   const employee = props.attr;
@@ -24,12 +23,12 @@ export default function EmployeeForm(props) {
   console.log("testing" + employee);
 
   const defaultValues = {
-    workId: employee[1] || "",
+    workId: employee[2] || "",
     name: employee[0] || "",
-    email: employee[2] || "",
-    employeeRole: employee[3] || "",
-    passportNumber: employee[4] || "",
-    workPermitNumber: employee[5] || "",
+    email: employee[3] || "",
+    employeeRole: employee[4] || "",
+    passportNumber: employee[5] || "",
+    workPermitNumber: employee[1] || "",
     levy: employee[6] || "",
     workContactNumber: employee[7] || "",
     workSiteLocation: employee[8] || "",
@@ -46,9 +45,11 @@ export default function EmployeeForm(props) {
   function objToQueryString(obj) {
     const keyValuePairs = [];
     for (const key in obj) {
-      keyValuePairs.push(encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]));
+      keyValuePairs.push(
+        encodeURIComponent(key) + "=" + encodeURIComponent(obj[key])
+      );
     }
-    return keyValuePairs.join('&');
+    return keyValuePairs.join("&");
   }
 
   const onSubmit = (data) => {
@@ -56,15 +57,20 @@ export default function EmployeeForm(props) {
       const queryString = objToQueryString({
         compId: "0123456789",
       });
-      fetch('/api/employees' + (employee[5] ? '/' + employee[5] : '') + `?${queryString}`, {
-        method: (employee[5]) ? 'PUT' : 'POST',
-        headers: {
-          'Authorization': 'Bearer ' + res.getIdToken().getJwtToken(),
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data),
-      });
+      fetch(
+        "/api/employees" +
+          (employee[1] ? "/" + employee[1] : "") +
+          `?${queryString}`,
+        {
+          method: employee[1] ? "PUT" : "POST",
+          headers: {
+            Authorization: "Bearer " + res.getIdToken().getJwtToken(),
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
       console.log(JSON.stringify(data));
     });
     window.location.reload();
@@ -72,7 +78,12 @@ export default function EmployeeForm(props) {
 
   return (
     <DialogContent>
-      <SuiTypography variant="h6" textColor="info" fontWeight="bold" textGradient>
+      <SuiTypography
+        variant="h6"
+        textColor="info"
+        fontWeight="bold"
+        textGradient
+      >
         Personal Particulars
       </SuiTypography>
       <SuiBox customClass={classes.tables_table} pt={1}>
@@ -80,9 +91,13 @@ export default function EmployeeForm(props) {
       </SuiBox>
 
       <SuiBox customClass={classes.tables_table} pt={1} pb={3}>
-        <Grid container spacing={1} direction={'row'}>
+        <Grid container spacing={1} direction={"row"}>
           <Grid item>
-            <FormInputText name="name" control={control} label="Employee Name" />
+            <FormInputText
+              name="name"
+              control={control}
+              label="Employee Name"
+            />
           </Grid>
           <Grid item>
             <FormInputText name="email" control={control} label="Email" />
@@ -105,12 +120,17 @@ export default function EmployeeForm(props) {
       </SuiBox>
 
       <Divider variant="middle" />
-      <SuiTypography variant="h6" textColor="info" fontWeight="bold" textGradient>
+      <SuiTypography
+        variant="h6"
+        textColor="info"
+        fontWeight="bold"
+        textGradient
+      >
         Job Details
       </SuiTypography>
 
       <SuiBox customClass={classes.tables_table} pt={1} pb={3}>
-        <Grid container spacing={1} direction={'row'}>
+        <Grid container spacing={1} direction={"row"}>
           <Grid item>
             <FormInputText
               name="employeeRole"
@@ -160,11 +180,16 @@ export default function EmployeeForm(props) {
       </SuiBox>
 
       <Divider variant="middle" />
-      <SuiTypography variant="h6" textColor="info" fontWeight="bold" textGradient>
+      <SuiTypography
+        variant="h6"
+        textColor="info"
+        fontWeight="bold"
+        textGradient
+      >
         Health Information
       </SuiTypography>
       <SuiBox customClass={classes.tables_table} pt={1} pb={3}>
-        <Grid container spacing={1} direction={'row'}>
+        <Grid container spacing={1} direction={"row"}>
           <Grid item>
             <FormInputText
               name="vaccStatus"
@@ -185,18 +210,29 @@ export default function EmployeeForm(props) {
       <SuiBox py={3}>
         <Grid container direction="row" spacing={3}>
           <Grid item>
-            <SuiButton size="medium" onClick={handleSubmit(onSubmit)} variant={"contained"} buttonColor="success" circular>
+            <SuiButton
+              size="medium"
+              onClick={handleSubmit(onSubmit)}
+              variant={"contained"}
+              buttonColor="success"
+              circular
+            >
               Submit
             </SuiButton>
           </Grid>
           <Grid item>
-            <SuiButton size="medium" variant={"contained"} buttonColor="error" circular onClick={() => reset()}>
+            <SuiButton
+              size="medium"
+              variant={"contained"}
+              buttonColor="error"
+              circular
+              onClick={() => reset()}
+            >
               Reset
             </SuiButton>
           </Grid>
         </Grid>
       </SuiBox>
-
     </DialogContent>
   );
 }

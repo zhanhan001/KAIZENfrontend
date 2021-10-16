@@ -1,7 +1,6 @@
 import React, { useEffect, useCallback, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setEmployees } from "redux/actions/employeesActions";
-import axios from "axios";
 import { Auth } from 'aws-amplify';
 
 

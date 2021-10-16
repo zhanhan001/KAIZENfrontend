@@ -1,21 +1,8 @@
-/**
-=========================================================
-* Soft UI Dashboard React - v2.0.0
-=========================================================
-* Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-pro-material-ui
-* Copyright 2021 Creative Tim (https://www.creative-tim.com)
-Coded by www.creative-tim.com
- =========================================================
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
-//import awsconfig from "./aws-exports";
-
-// Amplify.configure(awsconfig);
+// eslint-disable-next-line
 
 import React from "react";
 
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 
 // react-router components
 import { Route, Switch, Redirect, useLocation } from "react-router-dom";
@@ -30,7 +17,6 @@ import SuiBox from "components/SuiBox";
 
 // Soft UI Dashboard PRO React example components
 import Sidenav from "examples/Sidenav";
-import Configurator from "examples/Configurator";
 
 // Soft UI Dashboard PRO React themes
 import theme from "assets/theme";
@@ -41,32 +27,28 @@ import routes from "routes";
 // Soft UI Dashboard PRO React contexts
 import { useSoftUIController } from "context";
 
-
-import Amplify from 'aws-amplify';
-import { AmplifyAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
-import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
+import Amplify from "aws-amplify";
+import { AmplifyAuthenticator } from "@aws-amplify/ui-react";
+import { AuthState, onAuthUIStateChange } from "@aws-amplify/ui-components";
 import awsconfig from "./aws-exports";
-
 
 import SignInStyles from "./SignIn.css";
 import EmployeePage from "layouts/organisation/data/EmployeeListing";
 
-
 Amplify.configure(awsconfig);
 
 const App = () => {
-
   const [controller, dispatch] = useSoftUIController();
   const { direction, layout, openConfigurator } = controller;
   const { pathname } = useLocation();
   const [authState, setAuthState] = useState();
   const [user, setUser] = useState();
 
-    useEffect(() => {
-      return onAuthUIStateChange((nextAuthState, authData) => {
-          setAuthState(nextAuthState);
-          setUser(authData)
-      });
+  useEffect(() => {
+    return onAuthUIStateChange((nextAuthState, authData) => {
+      setAuthState(nextAuthState);
+      setUser(authData);
+    });
   }, []);
 
   // Change the openConfigurator state
@@ -92,22 +74,29 @@ const App = () => {
       }
 
       if (route.route) {
-        return <Route exact path={route.route} component={route.component} key={route.key} />;
+        return (
+          <Route
+            exact
+            path={route.route}
+            component={route.component}
+            key={route.key}
+          />
+        );
       }
 
       return null;
     });
 
-    const signUpConfig = {
-      signUpFields: [
-          {
-              label: "Company UEN",
-              key: "custom:CompanyUEN",
-              placeholder: "Company UEN",
-              required: true,
-              displayOrder: 5
-          }
-      ]
+  const signUpConfig = {
+    signUpFields: [
+      {
+        label: "Company UEN",
+        key: "custom:CompanyUEN",
+        placeholder: "Company UEN",
+        required: true,
+        displayOrder: 5,
+      },
+    ],
   };
 
   const configsButton = (
@@ -135,74 +124,31 @@ const App = () => {
 
   return authState === AuthState.SignedIn && user ? (
     <div className="App">
-        <StyledEngineProvider injectFirst>
-            <ThemeProvider theme={theme}>
-              <CssBaseline />
-              {layout === "dashboard" && (
-                <>
-                  <Sidenav routes={routes} />
-                  <Configurator />
-                  <EmployeePage />
-                  {configsButton}
-                </>
-              )}
-              <Switch>
-                {getRoutes(routes)}
-              <Redirect from="*" to="/dashboard" />
-              </Switch>
-            </ThemeProvider>
-          </StyledEngineProvider>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          {layout === "dashboard" && (
+            <>
+              <Sidenav routes={routes} />
+              <EmployeePage />
+              {configsButton}
+            </>
+          )}
+          <Switch>
+            {getRoutes(routes)}
+            <Redirect from="*" to="/dashboard" />
+          </Switch>
+        </ThemeProvider>
+      </StyledEngineProvider>
     </div>
-  ) : (<div className = "bg">
-    <AmplifyAuthenticator styles={{ SignInStyles }} signUpConfig={signUpConfig} />
+  ) : (
+    <div className="bg">
+      <AmplifyAuthenticator
+        styles={{ SignInStyles }}
+        signUpConfig={signUpConfig}
+      />
     </div>
-);
-
-}
+  );
+};
 
 export default App;
-
-
-
-
-
-  // return direction === "rtl" ? (
-  //   <CacheProvider value={rtlCache}>
-  //     <StylesProvider jss={jss}>
-  //       <ThemeProvider theme={themeRTL}>
-  //         <CssBaseline />
-  //         {layout === "dashboard" && (
-  //           <>
-  //             <Sidenav routes={routes} />
-  //             <Configurator />
-  //             {configsButton}
-  //           </>
-  //         )}
-  //         {layout === "vr" && <Configurator />}
-  //         <Switch>
-  //           {getRoutes(routes)}
-  //           <Redirect from="*" to="/dashboard" />
-  //         </Switch>
-  //       </ThemeProvider>
-  //     </StylesProvider>
-  //   </CacheProvider>
-  // ) : (
-  //   // </CacheProvider>
-  //   <StyledEngineProvider injectFirst>
-  //     <ThemeProvider theme={theme}>
-  //       <CssBaseline />
-  //       {layout === "dashboard" && (
-  //         <>
-  //           <Sidenav routes={routes} />
-  //           <Configurator />
-  //           {configsButton}
-  //         </>
-  //       )}
-  //       {layout === "vr" && <Configurator />}
-  //       <Switch>
-  //         {getRoutes(routes)}
-  //         <Redirect from="*" to="/dashboard" />
-  //       </Switch>
-  //     </ThemeProvider>
-  //   </StyledEngineProvider>
-  // );

@@ -1,23 +1,6 @@
-/**
-=========================================================
-* Soft UI Dashboard React - v2.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-material-ui
-* Copyright 2021 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
+import React from "react";
 
 // @mui material components
-import React, { useState } from "react";
-
-import Card from "@mui/material/Card";
-
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
@@ -32,34 +15,25 @@ import SuiButton from "components/SuiButton";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
-import Table from "examples/Table";
 
 // Custom styles for the Organisation
 import styles from "layouts/organisation/styles";
-
 
 import { useDispatch, useSelector } from "react-redux";
 import { setEmployees } from "redux/actions/employeesActions";
 
 // Data
-import projectsTableData from "layouts/organisation/data/projectsTableData";
 import EmployeeForm from "./data/EmployeeForm";
-
 import MUIDataTable from "mui-datatables";
 
 import { Auth } from "aws-amplify";
 
-import Modal from "components/Custom/Modal"
+import Modal from "components/Custom/Modal";
 
 function Organisation() {
-  const classes = styles();
-  // const { columns } = authorsTableData;
-  //  const rows = authorsTableDataRow();
-  const { columns: prCols, rows: prRows } = projectsTableData;
   const employees = useSelector((state) => state.allEmployees.employees);
   const empty = {};
   const dispatch = useDispatch();
-
 
   const options = {
     filterType: "checkbox",
@@ -121,7 +95,6 @@ function Organisation() {
     });
   };
 
-
   const columns = [
     { name: "name", label: "Employee Name" },
     { name: "workPermitNumber", label: "Work Permit Number" },
@@ -149,8 +122,8 @@ function Organisation() {
               </Modal>
             </div>
           );
-        }
-      }
+        },
+      },
     },
     {
       name: "Delete",
@@ -158,14 +131,14 @@ function Organisation() {
         filter: true,
         customBodyRender: (value, tableMeta, updatedValue) => {
           return (
-            <SuiButton onClick={() => remove(tableMeta.rowData[5])}>Delete</SuiButton>
+            <SuiButton onClick={() => remove(tableMeta.rowData[5])}>
+              Delete
+            </SuiButton>
           );
-        }
-      }
-    }
-  ]
-
-
+        },
+      },
+    },
+  ];
 
   return (
     <DashboardLayout>
@@ -176,12 +149,22 @@ function Organisation() {
             title={
               <div>
                 <SuiBox py={3}>
-                  <SuiTypography variant="h4" textColor="info" fontWeight="bold" textGradient>
+                  <SuiTypography
+                    variant="h4"
+                    textColor="info"
+                    fontWeight="bold"
+                    textGradient
+                  >
                     My Organisation
                   </SuiTypography>
                 </SuiBox>
                 <SuiBox pt={1}>
-                  <SuiButton size="large" variant="text" buttonColor="success" onClick={handleClickOpen("paper")}>
+                  <SuiButton
+                    size="large"
+                    variant="text"
+                    buttonColor="success"
+                    onClick={handleClickOpen("paper")}
+                  >
                     Add Employee
                   </SuiButton>
                 </SuiBox>
@@ -193,7 +176,14 @@ function Organisation() {
                   aria-describedby="scroll-dialog-description"
                 >
                   <DialogTitle id="scroll-dialog-title">
-                    <SuiTypography variant="h5" textColor="info" fontWeight="bold" textGradient>Add Employee</SuiTypography>
+                    <SuiTypography
+                      variant="h5"
+                      textColor="info"
+                      fontWeight="bold"
+                      textGradient
+                    >
+                      Add Employee
+                    </SuiTypography>
                   </DialogTitle>
                   <DialogContent dividers={scroll === "paper"}>
                     <DialogContentText
@@ -204,11 +194,9 @@ function Organisation() {
                       {<EmployeeForm attr={empty} />}
                     </DialogContentText>
                   </DialogContent>
-                  {/* <DialogActions>
-                  <SuiButton onClick={handleClose}>Cancel</SuiButton>
-                  <SuiButton onClick={handleClose}>Subscribe</SuiButton>
-                </DialogActions> */}
-                </Dialog></div>}
+                </Dialog>
+              </div>
+            }
             data={employees}
             columns={columns}
             options={options}
