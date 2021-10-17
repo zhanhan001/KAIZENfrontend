@@ -1,5 +1,6 @@
 import Dashboard from "layouts/dashboard";
 import Organisation from "layouts/organisation";
+import ART from "layouts/art";
 import Profile from "layouts/profile";
 import LabourSharing from "layouts/labour-sharing";
 import LabourDetails from "layouts/labour-details";
@@ -11,6 +12,7 @@ import Office from "examples/Icons/Office";
 import Settings from "examples/Icons/Settings";
 import CustomerSupport from "examples/Icons/CustomerSupport";
 import Basket from "examples/Icons/Basket";
+import Document from "examples/Icons/Document";
 import Cube from "examples/Icons/Cube"
 
 /**
@@ -31,6 +33,7 @@ const routes = [
     component: Dashboard,
     noCollapse: true,
   },
+  { type: "title", title: "Employee Management", key: "employee-pages" },
   {
     type: "collapse",
     name: "Organisation",
@@ -40,7 +43,16 @@ const routes = [
     component: Organisation,
     noCollapse: true,
   },
-  
+  {
+    type: "collapse",
+    name: "ART (Covid Testing)",
+    key: "ART",
+    route: "/art",
+    icon: <Document size="12px" />,
+    component: ART,
+    noCollapse: true,
+  },
+  { type: "title", title: "Labour Marketplace", key: "labour-pages" },
   {
     type: "collapse",
     name: "Labour Sharing",
