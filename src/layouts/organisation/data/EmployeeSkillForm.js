@@ -12,22 +12,30 @@ import SuiTypography from "components/SuiTypography";
 import { Divider } from "@mui/material";
 
 /**
- * {@code TestForm} creates the form component for the CRUD interface.
+ * {@code EmployeeTable} creates the layout for the CRUD interface.
  *
- * @author Teo Keng Swee
- * @author Pang Jun Rong
+ * @author Chong Zhan Han
+ * @author Tan Jie En
+ * @author Teo Keng Swee 
  * @version 1.0
- * @since 2021-10-16
+ * @since 2021-10-18
  */
 
-export default function TestForm() {
+export default function EmployeeSkillForm(props) {
   const classes = styles();
+  const employeeSkill = props.attr || ["","","","",""];
+
+  console.log("Testinggg  " + employeeSkill);
 
   const defaultValues = {
-    employeeWP: "",
-    result: "",
-    dateOfTest: new Date(),
+    employeeId: employeeSkill[0] ,
+    skillId: employeeSkill[1] ,
+    cost:employeeSkill[2] ,
+    experience:employeeSkill[3] ,
+    rating:employeeSkill[4] ,
   };
+
+
 
   const methods = useForm({ defaultValues: defaultValues });
   const { handleSubmit, control, reset } = methods;
@@ -45,18 +53,29 @@ export default function TestForm() {
   const onSubmit = (data) => {
     const response = Auth.currentSession().then((res) => {
       const queryString = objToQueryString({
-        empId: data.employeeWP,
+        empId: data.employeeId,
+        skillId: data.skillId
       });
-      fetch("/api/covidTest" + `?${queryString}`, {
-        method: "POST",
+      var dataFormatted = {
+          "id" : {
+              "employee" : data.employeeId,
+              "skill" : data.skillId
+          },
+          "experience" : data.experience,
+          "rating" : data.rating,
+          "cost" : data.cost
+      }
+      fetch("/api/employeeSkills" +
+      (employeeSkill[0] ? `?${queryString}` : "") , { 
+        method: employeeSkill[0] ? "PUT" : "POST",
         headers: {
           Authorization: "Bearer " + res.getIdToken().getJwtToken(),
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(dataFormatted),
       });
-      console.log(JSON.stringify(data));
+      console.log("sending post request " + JSON.stringify(dataFormatted));
     });
     window.location.reload();
   };
@@ -69,13 +88,13 @@ export default function TestForm() {
         fontWeight="bold"
         textGradient
       >
-        Personal Particulars
+        Add/Edit Employee Skills
       </SuiTypography>
       <SuiBox customClass={classes.tables_table} pt={1}>
         <FormInputText
-          name="employeeWP"
+          name="employeeId"
           control={control}
-          label="Work Permit Number"
+          label="Employee Id"
         />
       </SuiBox>
 
@@ -83,16 +102,32 @@ export default function TestForm() {
         <Grid container spacing={1} direction={"row"}>
           <Grid item>
             <FormInputText
-              name="result"
+              name="skillId"
               control={control}
-              label="Test Result"
+              label="Skill"
             />
           </Grid>
           <Grid item>
-            <FormInputDate
-              name="dateOfTest"
+            <FormInputText
+              name="cost"
               control={control}
-              label="Test Date"
+              label="Cost"
+            />
+          </Grid>
+
+          <Grid item>
+            <FormInputText
+              name="experience"
+              control={control}
+              label="Experience"
+            />
+          </Grid>
+
+          <Grid item>
+            <FormInputText
+              name="rating"
+              control={control}
+              label="rating"
             />
           </Grid>
         </Grid>
