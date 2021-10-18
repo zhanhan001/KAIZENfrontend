@@ -20,7 +20,7 @@ import EmployeePage from "layouts/organisation/data/EmployeeListing";
  * {@code App} is the main frontend injection w/ cognito integrated authentication
  *
  * @author Pang Jun Rong
- * @author Chong Zhang Han
+ * @author Chong Zhan Han
  * @version 1.0
  * @since 2021-10-16
  */
