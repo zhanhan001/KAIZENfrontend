@@ -18,6 +18,7 @@ class EmployeeImage extends Component {
     this.state = {
       // Initially, no file is selected
       selectedFile: null,
+      isUploaded: false,
     };
   }
 
@@ -29,6 +30,10 @@ class EmployeeImage extends Component {
 
   // On file upload (click the upload button)
   onFileUpload = () => {
+    if (!this.state.selectedFile) {
+      alert("Please upload a file first.")
+      return;
+    }
     // Create an object of formData
     const formData = new FormData();
     // Update the formData object
@@ -40,6 +45,9 @@ class EmployeeImage extends Component {
 
     // Details of the uploaded file
     console.log(this.state.selectedFile);
+
+    this.setState({ isUploaded: true });
+
 
     function objToQueryString(obj) {
       const keyValuePairs = [];
@@ -76,11 +84,16 @@ class EmployeeImage extends Component {
   // File content to be displayed after
   // file upload is complete
   fileData = () => {
-    if (this.state.selectedFile) {
+    if (this.state.isUploaded) {
+      return (
+        <div>
+          <h2>File successfully uploaded.</h2>
+          </div>
+      );
+    } else if (this.state.selectedFile) {
       return (
         <div>
           <h2>File Details:</h2>
-
           <p>File Name: {this.state.selectedFile.name}</p>
 
           <p>File Type: {this.state.selectedFile.type}</p>

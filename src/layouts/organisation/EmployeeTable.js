@@ -106,7 +106,7 @@ function EmployeeTable() {
     {
       name: "Edit",
       options: {
-        filter: true,
+        filter: false,
         customBodyRender: (value, tableMeta, updatedValue) => {
           return (
             <div>
@@ -121,7 +121,7 @@ function EmployeeTable() {
     {
       name: "Delete",
       options: {
-        filter: true,
+        filter: false,
         customBodyRender: (value, tableMeta, updatedValue) => {
           return (
             <SuiButton onClick={() => remove(tableMeta.rowData[1])}>
@@ -134,7 +134,7 @@ function EmployeeTable() {
     {
       name: "Upload Image",
       options: {
-        filter: true,
+        filter: false,
         customBodyRender: (value, tableMeta, updatedValue) => {
           return (
             <ImageModal>
