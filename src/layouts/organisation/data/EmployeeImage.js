@@ -1,11 +1,19 @@
 import React, { Component } from "react";
 import { Auth } from "aws-amplify";
 import { Button } from "@mui/material";
+import SuiTypography from "components/SuiTypography";
+import DialogContent from "@mui/material/DialogContent";
+import { Divider } from "@mui/material";
+
+
+import SuiBox from "components/SuiBox";
+
 
 /**
  * {@code EmployeeTable} creates the layout for the CRUD interface.
  *
  * @author Tan Jie En
+ * @author Bryan Tan
  * @version 1.0
  * @since 2021-10-20
  */
@@ -67,7 +75,7 @@ class EmployeeImage extends Component {
       });
       fetch(
         "/api/employees/image"
-          + `?${queryString}`,
+        + `?${queryString}`,
         {
           method: "POST",
           headers: {
@@ -85,53 +93,64 @@ class EmployeeImage extends Component {
   // file upload is complete
   fileData = () => {
     if (this.state.isUploaded) {
+      window.location.reload();
+
+    }
+    if (this.state.selectedFile) {
       return (
-        <div>
-          <h2>File successfully uploaded.</h2>
+        <SuiBox mb={3}>
+          <div>
+          <SuiTypography
+            variant="h6"
+            textColor="info"
+            fontWeight="bold"
+            textGradient>
+            File Details
+          </SuiTypography>
           </div>
-      );
-    } else if (this.state.selectedFile) {
-      return (
-        <div>
-          <h2>File Details:</h2>
-          <p>File Name: {this.state.selectedFile.name}</p>
-
-          <p>File Type: {this.state.selectedFile.type}</p>
-
-          <p>
-            Last Modified:{" "}
-            {this.state.selectedFile.lastModifiedDate.toDateString()}
-          </p>
-        </div>
+          <SuiTypography
+          variant="h7"
+          textGradient>
+            <p>File Name: {this.state.selectedFile.name}</p>
+            <p>File Type: {this.state.selectedFile.type}</p>
+            <p> Last Modified:{" "}
+                  {this.state.selectedFile.lastModifiedDate.toDateString()} </p>
+          </SuiTypography>
+          
+        </SuiBox>
       );
     } else {
       return (
-        <div>
-          <br />
-          <h4>Choose before Pressing the Upload button</h4>
-        </div>
+        <SuiTypography
+          variant="h7"
+          
+          textGradient>
+          Choose a photo to upload
+        </SuiTypography>
+        
       );
     }
   };
 
   render() {
     return (
-      <div>
-        <div>
-          <Button
-            variant="contained"
-            component="label"
-            style={{
-              margin: "20px",
-            }}
-          >
-            Select Image
-            <input type="file" onChange={this.onFileChange} hidden />
-          </Button>
-          <Button onClick={this.onFileUpload}>Upload</Button>
-        </div>
+      <DialogContent>
         {this.fileData()}
-      </div>
+        <Divider variant="middle" />
+
+        <Button
+          variant="contained"
+          component="label"
+          style={{
+            margin: "20px",
+          }}
+        >
+          Select Image
+          <input type="file" onChange={this.onFileChange} hidden />
+        </Button>
+        <Button onClick={this.onFileUpload}>Upload</Button>
+      </DialogContent>
+
     );
   }
 }
