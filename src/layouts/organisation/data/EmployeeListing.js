@@ -32,8 +32,6 @@ const EmployeePage = () => {
     fetchEmployees();
   }, []);
 
-  //onsole.log("Employees :", employees);
-
   Auth.currentSession().then(res =>{console.log(res.getIdToken()); } );
   
   return(

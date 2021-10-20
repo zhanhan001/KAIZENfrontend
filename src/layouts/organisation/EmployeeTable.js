@@ -12,6 +12,8 @@ import EmployeeForm from "./data/EmployeeForm";
 import MUIDataTable from "mui-datatables";
 import { Auth } from "aws-amplify";
 import Modal from "components/Custom/Modal";
+import EmployeeImage from "./data/EmployeeImage";
+import ImageModal from "components/Custom/ImageModal";
 
 /**
  * {@code EmployeeTable} creates the layout for the CRUD interface.
@@ -122,9 +124,22 @@ function EmployeeTable() {
         filter: true,
         customBodyRender: (value, tableMeta, updatedValue) => {
           return (
-            <SuiButton onClick={() => remove(tableMeta.rowData[5])}>
+            <SuiButton onClick={() => remove(tableMeta.rowData[1])}>
               Delete
             </SuiButton>
+          );
+        },
+      },
+    },
+    {
+      name: "Upload Image",
+      options: {
+        filter: true,
+        customBodyRender: (value, tableMeta, updatedValue) => {
+          return (
+            <ImageModal>
+              <EmployeeImage employee = {tableMeta.rowData[1]}/>
+            </ImageModal>  
           );
         },
       },
