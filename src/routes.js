@@ -19,7 +19,7 @@ import Cube from "examples/Icons/Cube"
  * {@code routes} lists all routes in the frontend, which will be displayed on the sidenav
  *
  * @author Pang Jun Rong
- * @version 1.0
+ * @version 1.1
  * @since 2021-10-16
  */
 
@@ -76,16 +76,16 @@ const routes = [
     name: "Labour Details",
     key: "labour-details",
     route: "/labour-details",
-    icon: <Settings size="12px" />,
+    icon: <CustomerSupport size="12px" />,
     component: LabourDetails,
     noCollapse: true,
   },
   {
     type: "collapse",
     name: "Labour Discovery",
-    key: "labour-discover",
-    route: "/labour-discover",
-    icon: <Settings size="12px" />,
+    key: "labour-discovery",
+    route: "/labour-discovery",
+    icon: <Shop size="12px" />,
     component: Discovery,
     noCollapse: true,
   },
