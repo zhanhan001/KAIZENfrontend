@@ -4,6 +4,7 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import EmployeeTable from "./EmployeeTable";
 import EmployeeSkillTable from "./EmployeeSkillTable";
+import ProjectTable from "./ProjectTable";
 
 /**
  * {@code organisation} creates the layout for the CRUD interface.
@@ -25,7 +26,7 @@ function Organisation() {
 
       <EmployeeTable/>
       <EmployeeSkillTable/>
-
+      <ProjectTable />
      
       <Footer />
     </DashboardLayout>

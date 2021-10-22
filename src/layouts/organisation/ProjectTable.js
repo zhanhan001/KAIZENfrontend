@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
@@ -7,23 +7,22 @@ import SuiBox from "components/SuiBox";
 import SuiTypography from "components/SuiTypography";
 import SuiButton from "components/SuiButton";
 import { useDispatch, useSelector } from "react-redux";
-import { setEmployees } from "redux/actions/employeesActions";
-import EmployeeForm from "./data/EmployeeForm";
+import { setProjects } from "redux/actions/projectsActions";
 import MUIDataTable from "mui-datatables";
 import { Auth } from "aws-amplify";
 import Modal from "components/Custom/Modal";
+import ProjectForm from "./data/ProjectForm";
 
 /**
- * {@code EmployeeTable} creates the layout for the CRUD interface.
+ * {@code ProjectTable} creates the layout for the CRUD interface.
  *
- * @author Teo Keng Swee
  * @author Pang Jun Rong
- * @version 1.1
- * @since 2021-10-16
+ * @version 1.0
+ * @since 2021-10-22
  */
 
-function EmployeeTable() {
-  const employees = useSelector((state) => state.allEmployees.employees);
+function ProjectTable() {
+  const projects = useState([]);
   const empty = {};
   const dispatch = useDispatch();
 
@@ -70,9 +69,9 @@ function EmployeeTable() {
     }
   }, [open]);
 
-  const remove = (workId) => {
+  const remove = (projectId) => {
     Auth.currentSession().then((res) => {
-      fetch(`/api/employees/${workId}`, {
+      fetch(`/api/project/${projectId}`, {
         method: "DELETE",
         headers: {
           Authorization: "Bearer " + res.getIdToken().getJwtToken(),
@@ -80,27 +79,20 @@ function EmployeeTable() {
           "Content-Type": "application/json",
         },
       }).then(() => {
-        let updatedEmployees = employees.filter((i) => i.workId !== workId);
-        dispatch(setEmployees(updatedEmployees));
+        let updatedProjects = projects.filter((i) => i.projectId !== projectId);
+        dispatch(setProjects(updatedProjects));
         window.location.reload();
       });
     });
   };
 
   const columns = [
-    { name: "name", label: "Employee Name" },
-    { name: "workPermitNumber", label: "Work Permit Number" },
-    { name: "workId", label: " Work ID" },
-    { name: "email", align: "center" },
-    { name: "employeeRole", label: "Employee Role" },
-    { name: "passportNumber", label: "PassportNumber" },
-    { name: "levy", label: "Levy" },
-    { name: "workContactNumber", label: "Work Contact Number" },
-    { name: "workSiteLocation", label: "Work Site Location" },
-    { name: "singaporeAddress", label: "Singapore Address" },
-    { name: "vaccStatus", label: "Vaccination Status" },
-    { name: "workPermitDateOfIssue", label: "Work Permit Date Of Issue" },
-    { name: "workPermitExpiryDate", label: "Work Permit Date Of Expiry" },
+    { name: "projectId", label: "Project Id" },
+    { name: "projectName", label: "Project Name" },
+    { name: "budget", label: "Budget" },
+    { name: "startDate", label: "Start Date" },
+    { name: "completionDate", label: "Completion Date" },
+    { name: "progress", label: "Progress" },
     {
       name: "Edit",
       options: {
@@ -109,7 +101,7 @@ function EmployeeTable() {
           return (
             <div>
               <Modal>
-                <EmployeeForm attr={tableMeta.rowData} />
+                <ProjectForm attr={tableMeta.rowData} />
               </Modal>
             </div>
           );
@@ -146,7 +138,7 @@ function EmployeeTable() {
                     fontWeight="bold"
                     textGradient
                   >
-                    My Organisation
+                    Projects
                   </SuiTypography>
                 </SuiBox>
                 <SuiBox pt={1}>
@@ -156,7 +148,7 @@ function EmployeeTable() {
                     buttonColor="success"
                     onClick={handleClickOpen("paper")}
                   >
-                    Add Employee
+                    Add Project
                   </SuiButton>
                 </SuiBox>
                 <Dialog
@@ -173,7 +165,7 @@ function EmployeeTable() {
                       fontWeight="bold"
                       textGradient
                     >
-                      Add Employee
+                      Add Project
                     </SuiTypography>
                   </DialogTitle>
                   <DialogContent dividers={scroll === "paper"}>
@@ -182,13 +174,13 @@ function EmployeeTable() {
                       ref={descriptionElementRef}
                       tabIndex={-1}
                     >
-                      {<EmployeeForm attr={empty} />}
+                      {<ProjectForm attr={empty} />}
                     </DialogContentText>
                   </DialogContent>
                 </Dialog>
               </div>
             }
-            data={employees}
+            data={projects}
             columns={columns}
             options={options}
           ></MUIDataTable>
@@ -198,4 +190,4 @@ function EmployeeTable() {
   );
 }
 
-export default EmployeeTable;
+export default ProjectTable;

@@ -38,7 +38,6 @@ export default function EmployeeForm(props) {
     workSiteLocation: employee[8] || "",
     singaporeAddress: employee[9] || "",
     vaccStatus: employee[10] || "",
-    covidResult: employee[11] || "",
     workPermitDateOfIssue: employee[12] || new Date(),
     workPermitExpiryDate: employee[13] || new Date(),
   };
