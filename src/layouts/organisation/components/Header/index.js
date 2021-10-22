@@ -12,22 +12,11 @@ import SuiBox from "components/SuiBox";
 import SuiTypography from "components/SuiTypography";
 import SuiAvatar from "components/SuiAvatar";
 
-// Soft UI Dashboard PRO React example components
-import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-
-// Soft UI Dashboard PRO React icons
-import Cube from "examples/Icons/Cube";
-import Document from "examples/Icons/Document";
-import Settings from "examples/Icons/Settings";
-
 // Soft UI Dashboard PRO React base styles
 import breakpoints from "assets/theme/base/breakpoints";
 
 // Custom styles for Header
 import styles from "./styles";
-
-// Images
-import burceMars from "assets/images/bruce-mars.jpg";
 
 function Header() {
   const [tabsOrientation, setTabsOrientation] = useState("horizontal");
@@ -57,8 +46,8 @@ function Header() {
         <Grid container spacing={3} alignItems="center">
           <Grid item>
             <SuiAvatar
-              src={burceMars}
-              alt="profile-image"
+              src="https://images.unsplash.com/photo-1619454016518-697bc231e7cb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1480&q=80"
+              alt="header-image"
               variant="rounded"
               size="xl"
               customClass="shadow-sm"
@@ -67,7 +56,7 @@ function Header() {
           <Grid item>
             <SuiBox height="100%" mt={0.5} lineHeight={1}>
               <SuiTypography variant="h5" fontWeight="medium">
-                Teo Keng Swee
+                Welcome
               </SuiTypography>
               <SuiTypography variant="button" textColor="text" fontWeight="medium">
                 Blackrock Industries Pte. Ltd

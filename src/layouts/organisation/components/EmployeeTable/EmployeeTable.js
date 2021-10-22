@@ -129,8 +129,6 @@ function EmployeeTable() {
     { name: "workSiteLocation", label: "Work Site Location" },
     { name: "singaporeAddress", label: "Singapore Address" },
     { name: "vaccStatus", label: "Vaccination Status" },
-    { name: "workPermitDateOfIssue", label: "Work Permit Date Of Issue" },
-    { name: "workPermitExpiryDate", label: "Work Permit Date Of Expiry" },
     {
       name: "Edit",
       options: {

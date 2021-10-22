@@ -11,6 +11,7 @@ import Carousel from 'react-material-ui-carousel';
  * {@code AdvisoryCard} creates a component to display industry-related media releases.
  *
  * @author Pang Jun Rong
+ * @author Bryan Tan Zhi Yong
  * @version 1.0
  * @since 2021-10-16
  */
