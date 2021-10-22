@@ -6,6 +6,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import SuiBox from "components/SuiBox";
 import SuiTypography from "components/SuiTypography";
 import SuiButton from "components/SuiButton";
+import SuiAvatar from "components/SuiAvatar";
 import { useDispatch, useSelector } from "react-redux";
 import { setEmployees } from "redux/actions/employeesActions";
 import EmployeeForm from "./data/EmployeeForm";
@@ -22,6 +23,24 @@ import ImageModal from "components/Custom/ImageModal";
  * @version 1.0
  * @since 2021-10-16
  */
+
+ function Labour({ image, name, company }) {
+  return (
+    <SuiBox display="flex" alignItems="center" px={1} py={0.5}>
+      <SuiBox mr={2}>
+        <SuiAvatar src={image} alt={name} size="sm" variant="rounded" />
+      </SuiBox>
+      <SuiBox display="flex" flexDirection="column">
+        <SuiTypography variant="button" fontWeight="medium">
+          {name}
+        </SuiTypography>
+        <SuiTypography variant="caption" textColor="secondary">
+          {company}
+        </SuiTypography>
+      </SuiBox>
+    </SuiBox>
+  );
+}
 
 function EmployeeTable() {
   const employees = useSelector((state) => state.allEmployees.employees);
@@ -89,10 +108,19 @@ function EmployeeTable() {
   };
 
   const columns = [
-    { name: "name", label: "Employee Name" },
+    { name: "name", 
+      label: "Profile", 
+      options:{
+        filter: false,
+        customBodyRenderLite: (dataIndex) => {
+          return (
+            <Labour image={employees[dataIndex].profileURL} name={employees[dataIndex].name} company={employees[dataIndex].company} />
+          );
+        },
+      }
+      },
     { name: "workPermitNumber", label: "Work Permit Number" },
     { name: "workId", label: " Work ID" },
-    { name: "email", align: "center" },
     { name: "employeeRole", label: "Employee Role" },
     { name: "passportNumber", label: "PassportNumber" },
     { name: "levy", label: "Levy" },
@@ -100,7 +128,6 @@ function EmployeeTable() {
     { name: "workSiteLocation", label: "Work Site Location" },
     { name: "singaporeAddress", label: "Singapore Address" },
     { name: "vaccStatus", label: "Vaccination Status" },
-    { name: "covidResult", label: "Covid Test Result" },
     { name: "workPermitDateOfIssue", label: "Work Permit Date Of Issue" },
     { name: "workPermitExpiryDate", label: "Work Permit Date Of Expiry" },
     {
