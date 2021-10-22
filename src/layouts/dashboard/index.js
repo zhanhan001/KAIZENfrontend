@@ -10,7 +10,7 @@ import ReportsBarChart from "examples/Charts/BarCharts/ReportsBarChart";
 import GradientLineChart from "examples/Charts/LineCharts/GradientLineChart";
 import typography from "assets/theme/base/typography";
 import Projects from "layouts/dashboard/components/Projects";
-import OrderOverview from "layouts/dashboard/components/OrderOverview";
+import ActivitiesOverview from "layouts/dashboard/components/ActivitiesOverview";
 import reportsBarChartData from "layouts/dashboard/data/reportsBarChartData";
 import gradientLineChartData from "layouts/dashboard/data/gradientLineChartData";
 import GeneralNewsCard from "./components/GeneralNewsCard";
@@ -136,7 +136,7 @@ function Dashboard() {
             <Projects />
           </Grid>
           <Grid item xs={12} md={6} lg={4}>
-            <OrderOverview />
+            <ActivitiesOverview />
           </Grid>
         </Grid>
       </SuiBox>
