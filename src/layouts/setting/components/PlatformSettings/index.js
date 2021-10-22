@@ -1,19 +1,12 @@
-/**
-=========================================================
-* Soft UI Dashboard React - v2.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-pro-material-ui
-* Copyright 2021 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { useState } from "react";
+
+/**
+ * {@code EmployeeTable} creates the layout for the CRUD interface.
+ *
+ * @author Pang Jun Rong
+ * @version 1.0
+ * @since 2021-10-22
+ */
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -53,7 +46,7 @@ function PlatformSettings() {
           </SuiBox>
           <SuiBox width="80%" ml={2}>
             <SuiTypography variant="button" fontWeight="regular" textColor="text">
-              Email me when someone follows me
+              Email me when work permits are expiring
             </SuiTypography>
           </SuiBox>
         </SuiBox>
@@ -63,7 +56,7 @@ function PlatformSettings() {
           </SuiBox>
           <SuiBox width="80%" ml={2}>
             <SuiTypography variant="button" fontWeight="regular" textColor="text">
-              Email me when someone answers on my post
+              Email me about daily ART results
             </SuiTypography>
           </SuiBox>
         </SuiBox>
@@ -73,7 +66,7 @@ function PlatformSettings() {
           </SuiBox>
           <SuiBox width="80%" ml={2}>
             <SuiTypography variant="button" fontWeight="regular" textColor="text">
-              Email me when someone mentions me
+              Email me when changes are made to the database
             </SuiTypography>
           </SuiBox>
         </SuiBox>
@@ -84,7 +77,7 @@ function PlatformSettings() {
             textColor="text"
             textTransform="uppercase"
           >
-            application
+            labour sharing
           </SuiTypography>
         </SuiBox>
         <SuiBox display="flex" py={1} mb={0.25}>
@@ -93,7 +86,7 @@ function PlatformSettings() {
           </SuiBox>
           <SuiBox width="80%" ml={2}>
             <SuiTypography variant="button" fontWeight="regular" textColor="text">
-              New launches and projects
+              Payment Invoices
             </SuiTypography>
           </SuiBox>
         </SuiBox>
@@ -103,7 +96,7 @@ function PlatformSettings() {
           </SuiBox>
           <SuiBox width="80%" ml={2}>
             <SuiTypography variant="button" fontWeight="regular" textColor="text">
-              Monthly product updates
+              Recommendations
             </SuiTypography>
           </SuiBox>
         </SuiBox>
@@ -113,7 +106,7 @@ function PlatformSettings() {
           </SuiBox>
           <SuiBox width="80%" ml={2}>
             <SuiTypography variant="button" fontWeight="regular" textColor="text">
-              Subscribe to newsletter
+              Labour-Hire Requests
             </SuiTypography>
           </SuiBox>
         </SuiBox>

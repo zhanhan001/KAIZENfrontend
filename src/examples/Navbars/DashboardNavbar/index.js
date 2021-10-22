@@ -116,25 +116,35 @@ function DashboardNavbar({ absolute, light, isMini }) {
       style={{ marginTop: "1rem" }}
     >
       <NotificationItem
-        image={<img src={team2} alt="person" />}
-        title={["New message", "from Laur"]}
-        date="13 minutes ago"
+        color="info"
+        image={
+          <Icon fontSize="small" className="material-icon-round text-white">
+            timelapse
+          </Icon>
+        }
+        title={["", "3 Work Permits Expiring in 14 Days"]}
+        date="30 minutes"
         onClick={handleCloseMenu}
       />
       <NotificationItem
-        image={<img src={logoSpotify} alt="person" />}
-        title={["New album", "by Travis Scott"]}
-        date="1 day"
+        color="error"
+        image={
+          <Icon fontSize="small" className="material-icon-round text-white">
+            announcement
+          </Icon>
+        }
+        title={["", "New BCA Advisory – Updated SMMs"]}
+        date="7 hours"
         onClick={handleCloseMenu}
       />
       <NotificationItem
-        color="secondary"
+        color="success"
         image={
           <Icon fontSize="small" className="material-icon-round text-white">
             payment
           </Icon>
         }
-        title={["", "Payment successfully completed"]}
+        title={["", "Labour Sharing Transaction Success"]}
         date="2 days"
         onClick={handleCloseMenu}
       />

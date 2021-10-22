@@ -6,7 +6,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import SuiBox from "components/SuiBox";
 import SuiTypography from "components/SuiTypography";
 import SuiButton from "components/SuiButton";
-import EmployeeSkillForm from "./data/EmployeeSkillForm";
+import EmployeeSkillForm from "../../data/EmployeeSkillForm";
 import MUIDataTable from "mui-datatables";
 import { Auth } from "aws-amplify";
 import Modal from "components/Custom/Modal";

@@ -1,7 +1,7 @@
 import Dashboard from "layouts/dashboard";
 import Organisation from "layouts/organisation";
 import ART from "layouts/art";
-import Profile from "layouts/profile";
+import Setting from "layouts/setting";
 import LabourSharing from "layouts/labour-sharing";
 import LabourDetails from "layouts/labour-details";
 import Discovery from "layouts/discover";
@@ -89,14 +89,14 @@ const routes = [
     component: Discovery,
     noCollapse: true,
   },
-  { type: "title", title: "Account Pages", key: "account-pages" },
+  { type: "title", title: "Configuration", key: "configuration-pages" },
   {
     type: "collapse",
-    name: "Profile",
-    key: "profile",
-    route: "/profile",
-    icon: <CustomerSupport size="12px" />,
-    component: Profile,
+    name: "Settings",
+    key: "settings",
+    route: "/settings",
+    icon: <Settings size="12px" />,
+    component: Setting,
     noCollapse: true,
   },
   
