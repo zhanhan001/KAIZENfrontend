@@ -13,7 +13,7 @@ import EmployeeForm from "../../data/EmployeeForm";
 import MUIDataTable from "mui-datatables";
 import { Auth } from "aws-amplify";
 import Modal from "components/Custom/Modal";
-import EmployeeImage from "./data/EmployeeImage";
+import EmployeeImage from "../../data/EmployeeImage";
 import ImageModal from "components/Custom/ImageModal";
 
 /**
