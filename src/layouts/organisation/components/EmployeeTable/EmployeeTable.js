@@ -8,7 +8,7 @@ import SuiTypography from "components/SuiTypography";
 import SuiButton from "components/SuiButton";
 import { useDispatch, useSelector } from "react-redux";
 import { setEmployees } from "redux/actions/employeesActions";
-import EmployeeForm from "./data/EmployeeForm";
+import EmployeeForm from "../../data/EmployeeForm";
 import MUIDataTable from "mui-datatables";
 import { Auth } from "aws-amplify";
 import Modal from "components/Custom/Modal";

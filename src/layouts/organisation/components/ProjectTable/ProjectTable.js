@@ -11,7 +11,7 @@ import { setProjects } from "redux/actions/projectsActions";
 import MUIDataTable from "mui-datatables";
 import { Auth } from "aws-amplify";
 import Modal from "components/Custom/Modal";
-import ProjectForm from "./data/ProjectForm";
+import ProjectForm from "../../data/ProjectForm";
 
 /**
  * {@code ProjectTable} creates the layout for the CRUD interface.

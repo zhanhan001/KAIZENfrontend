@@ -33,7 +33,7 @@ function LabourDetails() {
             <SuiBox py={3}>
                 <Card>
                     <SuiBox display="flex" flexDirection="column" height="100%">
-                        <SuiBox p={2} mb={0.5}>
+                        <SuiBox p={3} mb={0.5}>
                             <SuiTypography variant="h4" textColor="dark" fontWeight="medium" pl={3}>
                                 Labour Profile
                             </SuiTypography>
@@ -67,7 +67,7 @@ function LabourDetails() {
                                         <SuiTypography variant="h6" textColor="text" fontWeight="medium">
                                             WELDING | 10 YEARS
                                         </SuiTypography>
-                                        <Rating name="readOnly" value={4.9} precision={0.1} readOnly />
+                                        <Rating name="readOnly" value={4.5} precision={0.1} readOnly />
                                         <SuiBox py={3} pl={1}>
                                             <SuiTypography variant="h5" textColor="dark" fontWeight="medium">
                                                 Price
@@ -89,7 +89,7 @@ function LabourDetails() {
                                         </SuiBox>
                                         <SuiBox pl={1}>
                                             <SuiTypography variant="h5" textColor="dark" fontWeight="medium">
-                                                Interested in Sharing James?
+                                                Interested in Hiring James?
                                             </SuiTypography>
                                         </SuiBox>
                                         <SuiBox p={3}>
