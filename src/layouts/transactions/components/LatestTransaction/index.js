@@ -1,36 +1,23 @@
-/**
-=========================================================
-* Soft UI Dashboard React - v2.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-material-ui
-* Copyright 2021 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
-// @mui material components
 import Card from "@mui/material/Card";
-// import Divider from "@mui/material/Divider";
 import Icon from "@mui/material/Icon";
-
-// Soft UI Dashboard React components
 import SuiBox from "components/SuiBox";
 import SuiTypography from "components/SuiTypography";
-
-// Transactions page components
 import Transaction from "layouts/transactions/components/Transaction";
+
+/**
+ * {@code LatestTransaction} creates a component which shows the latest transactions.
+ *
+ * @author Pang Jun Rong
+ * @version 1.0
+ * @since 2021-10-25
+ */
 
 function Transactions() {
   return (
     <Card className="h-100">
       <SuiBox display="flex" justifyContent="space-between" alignItems="center" pt={3} px={2}>
         <SuiTypography variant="h6" fontWeight="medium" textTransform="capitalize">
-          Latest Transaction
+          Latest Transactions
         </SuiTypography>
         <SuiBox display="flex" alignItems="flex-start">
           <SuiBox color="text" mr={0.5} lineHeight={0}>
