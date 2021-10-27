@@ -18,18 +18,21 @@ import Modal from "components/Custom/Modal";
  * @author Chong Zhan Han
  * @author Tan Jie En
  * @author Teo Keng Swee 
- * @version 1.0
+ * @author Pang Jun Rong
+ * @version 1.1
  * @since 2021-10-18
  */
 
 function EmployeeSkillTable() {
-
     const [employeeSkills, setEmployeeSkills] = useState([]);
     const empty = {};
   
     const FetchData = async () => {
       await Auth.currentSession().then(res => {
-        fetch('/api/employeeSkills/all', {
+        const queryString = objToQueryString({
+          compId: res.getIdToken().payload['cognito:groups'][0],
+        });
+        fetch('/api/employeeSkills' + `?${queryString}`, {
             headers: {
                 'Authorization': 'Bearer ' + res.getIdToken().getJwtToken()
             }
