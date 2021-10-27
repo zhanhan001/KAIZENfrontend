@@ -14,9 +14,23 @@ import { Auth } from 'aws-amplify';
 const EmployeePage = () => {
   const employees = useSelector((state) => state.allEmployees.employees);
   const dispatch = useDispatch();
+
+  function objToQueryString(obj) {
+    const keyValuePairs = [];
+    for (const key in obj) {
+      keyValuePairs.push(
+        encodeURIComponent(key) + "=" + encodeURIComponent(obj[key])
+      );
+    }
+    return keyValuePairs.join("&");
+  }
+
   const fetchEmployees = async () => {
     const response = await Auth.currentSession().then(res => {
-       fetch('/api/employees', {
+      const queryString = objToQueryString({
+        compId: res.getIdToken().payload['cognito:groups'][0],
+      });
+       fetch('/api/employees' + `?${queryString}`, {
           headers: {
               'Authorization': 'Bearer ' + res.getIdToken().getJwtToken()
           }
@@ -32,7 +46,7 @@ const EmployeePage = () => {
     fetchEmployees();
   }, []);
 
-  Auth.currentSession().then(res =>{console.log(res.getIdToken()); } );
+  Auth.currentSession().then(res =>{console.log(res.getIdToken().payload['cognito:groups'][0]); } );
   
   return(
     <></>

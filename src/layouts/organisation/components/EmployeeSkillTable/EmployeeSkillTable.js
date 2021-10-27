@@ -113,8 +113,8 @@ function EmployeeSkillTable() {
     };
   
     const columns = [
-        { name: "id.employee", label: "Employee Id" },
-        { name: "id.skill", label: "Skill Id" },
+        { name: "name", label: "Employee Name" },
+        { name: "skillName", label: "Name of Specialisation" },
         { name: "cost", label: "Cost" },
         { name: "experience", label: "Years of Experience" },
         { name: "rating", label: "Rating" },

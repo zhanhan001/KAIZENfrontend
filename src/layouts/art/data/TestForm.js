@@ -10,6 +10,7 @@ import styles from "layouts/organisation/styles";
 import { Auth } from "aws-amplify";
 import SuiTypography from "components/SuiTypography";
 import { Divider } from "@mui/material";
+import { FormInputRadio } from "../input/FormInputRadio";
 
 /**
  * {@code TestForm} creates the form component for the CRUD interface.
@@ -82,7 +83,7 @@ export default function TestForm() {
       <SuiBox customClass={classes.tables_table} pt={1} pb={3}>
         <Grid container spacing={1} direction={"row"}>
           <Grid item>
-            <FormInputText
+            <FormInputRadio
               name="result"
               control={control}
               label="Test Result"
