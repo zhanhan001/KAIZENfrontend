@@ -27,10 +27,23 @@ import { useState, useEffect } from 'react';
 function ART() {
   const [results, setResults] = useState([]);
   const empty = {};
+  
+  function objToQueryString(obj) {
+    const keyValuePairs = [];
+    for (const key in obj) {
+      keyValuePairs.push(
+        encodeURIComponent(key) + "=" + encodeURIComponent(obj[key])
+      );
+    }
+    return keyValuePairs.join("&");
+  }
 
   const FetchData = async () => {
     await Auth.currentSession().then(res => {
-      fetch('/api/covidTest', {
+      const queryString = objToQueryString({
+        compId: res.getIdToken().payload['cognito:groups'][0],
+      });
+      fetch('/api/covidTest' + `?${queryString}`, {
           headers: {
               'Authorization': 'Bearer ' + res.getIdToken().getJwtToken()
           }
