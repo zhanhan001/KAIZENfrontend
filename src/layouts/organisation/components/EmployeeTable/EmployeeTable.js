@@ -25,7 +25,7 @@ import ImageModal from "components/Custom/ImageModal";
  * @since 2021-10-16
  */
 
- function Labour({ image, name, company }) {
+function Labour({ image, name, company }) {
   return (
     <SuiBox display="flex" alignItems="center" px={1} py={0.5}>
       <SuiBox mr={2}>
@@ -109,17 +109,22 @@ function EmployeeTable() {
   };
 
   const columns = [
-    { name: "name", 
-      label: "Profile", 
-      options:{
+    {
+      name: "name",
+      label: "Profile",
+      options: {
         filter: false,
         customBodyRenderLite: (dataIndex) => {
           return (
-            <Labour image={employees[dataIndex].profileURL} name={employees[dataIndex].name} company={employees[dataIndex].company} />
+            <Labour
+              image={employees[dataIndex].profileURL}
+              name={employees[dataIndex].name}
+              company={employees[dataIndex].company}
+            />
           );
         },
-      }
       },
+    },
     { name: "workPermitNumber", label: "Work Permit Number" },
     { name: "workId", label: " Work ID" },
     { name: "employeeRole", label: "Employee Role" },
@@ -127,6 +132,27 @@ function EmployeeTable() {
     { name: "levy", label: "Levy" },
     { name: "workContactNumber", label: "Work Contact Number" },
     { name: "workSiteLocation", label: "Work Site Location" },
+    {
+      name: "workPermitDateOfIssue",
+      label: "Work Permit Date of Issue",
+      options: {
+        display: false,
+      },
+    },
+    {
+      name: "workPermitExpiryDate",
+      label: "Work Permit Expiry Date",
+      options: {
+        display: false,
+      },
+    },
+    {
+      name: "description",
+      label: "Description of Employee",
+      options: {
+        display: false,
+      },
+    },
     { name: "singaporeAddress", label: "Singapore Address" },
     { name: "vaccStatus", label: "Vaccination Status" },
     {
@@ -164,8 +190,8 @@ function EmployeeTable() {
         customBodyRender: (value, tableMeta, updatedValue) => {
           return (
             <ImageModal>
-              <EmployeeImage employee = {tableMeta.rowData[1]}/>
-            </ImageModal>  
+              <EmployeeImage employee={tableMeta.rowData[1]} />
+            </ImageModal>
           );
         },
       },
@@ -173,69 +199,66 @@ function EmployeeTable() {
   ];
 
   return (
-
-      
-      <SuiBox py={3}>
-        <SuiBox mb={3}>
-          <MUIDataTable
-            title={
-              <div>
-                <SuiBox py={3}>
+    <SuiBox py={3}>
+      <SuiBox mb={3}>
+        <MUIDataTable
+          title={
+            <div>
+              <SuiBox py={3}>
+                <SuiTypography
+                  variant="h4"
+                  textColor="info"
+                  fontWeight="bold"
+                  textGradient
+                >
+                  My Organisation
+                </SuiTypography>
+              </SuiBox>
+              <SuiBox pt={1}>
+                <SuiButton
+                  size="large"
+                  variant="text"
+                  buttonColor="success"
+                  onClick={handleClickOpen("paper")}
+                >
+                  Add Employee
+                </SuiButton>
+              </SuiBox>
+              <Dialog
+                open={open}
+                onClose={handleClose}
+                scroll={scroll}
+                aria-labelledby="scroll-dialog-title"
+                aria-describedby="scroll-dialog-description"
+              >
+                <DialogTitle id="scroll-dialog-title">
                   <SuiTypography
-                    variant="h4"
+                    variant="h5"
                     textColor="info"
                     fontWeight="bold"
                     textGradient
                   >
-                    My Organisation
-                  </SuiTypography>
-                </SuiBox>
-                <SuiBox pt={1}>
-                  <SuiButton
-                    size="large"
-                    variant="text"
-                    buttonColor="success"
-                    onClick={handleClickOpen("paper")}
-                  >
                     Add Employee
-                  </SuiButton>
-                </SuiBox>
-                <Dialog
-                  open={open}
-                  onClose={handleClose}
-                  scroll={scroll}
-                  aria-labelledby="scroll-dialog-title"
-                  aria-describedby="scroll-dialog-description"
-                >
-                  <DialogTitle id="scroll-dialog-title">
-                    <SuiTypography
-                      variant="h5"
-                      textColor="info"
-                      fontWeight="bold"
-                      textGradient
-                    >
-                      Add Employee
-                    </SuiTypography>
-                  </DialogTitle>
-                  <DialogContent dividers={scroll === "paper"}>
-                    <DialogContentText
-                      id="scroll-dialog-description"
-                      ref={descriptionElementRef}
-                      tabIndex={-1}
-                    >
-                      {<EmployeeForm attr={empty} />}
-                    </DialogContentText>
-                  </DialogContent>
-                </Dialog>
-              </div>
-            }
-            data={employees}
-            columns={columns}
-            options={options}
-          ></MUIDataTable>
-        </SuiBox>
+                  </SuiTypography>
+                </DialogTitle>
+                <DialogContent dividers={scroll === "paper"}>
+                  <DialogContentText
+                    id="scroll-dialog-description"
+                    ref={descriptionElementRef}
+                    tabIndex={-1}
+                  >
+                    {<EmployeeForm attr={empty} />}
+                  </DialogContentText>
+                </DialogContent>
+              </Dialog>
+            </div>
+          }
+          data={employees}
+          columns={columns}
+          options={options}
+        ></MUIDataTable>
       </SuiBox>
-
+    </SuiBox>
   );
 }
 

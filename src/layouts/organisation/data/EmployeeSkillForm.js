@@ -1,6 +1,7 @@
+
 import React from "react";
 import { FormInputText } from "layouts/organisation/input/FormInputText";
-import { FormInputDate } from "layouts/organisation/input/FormInputDate";
+import { FormInputDropdown } from "layouts/organisation/input/FormInputDropdown";
 import DialogContent from "@mui/material/DialogContent";
 import Grid from "@mui/material/Grid";
 import SuiBox from "components/SuiBox";
@@ -101,7 +102,7 @@ export default function EmployeeSkillForm(props) {
       <SuiBox customClass={classes.tables_table} pt={1} pb={3}>
         <Grid container spacing={1} direction={"row"}>
           <Grid item>
-            <FormInputText
+            <FormInputDropdown
               name="skillId"
               control={control}
               label="Skill"
@@ -127,7 +128,7 @@ export default function EmployeeSkillForm(props) {
             <FormInputText
               name="rating"
               control={control}
-              label="rating"
+              label="Rating"
             />
           </Grid>
         </Grid>
@@ -161,3 +162,4 @@ export default function EmployeeSkillForm(props) {
     </DialogContent>
   );
 }
+

@@ -1,6 +1,8 @@
+
 import React from "react";
 import { FormInputText } from "layouts/organisation/input/FormInputText";
 import { FormInputDate } from "layouts/organisation/input/FormInputDate";
+import { FormInputRadio } from "layouts/organisation/input/FormInputRadio";
 import DialogContent from "@mui/material/DialogContent";
 import Grid from "@mui/material/Grid";
 import SuiBox from "components/SuiBox";
@@ -24,22 +26,22 @@ export default function EmployeeForm(props) {
   const classes = styles();
   const employee = props.attr;
 
-  console.log("testing" + employee);
+  console.log(employee);
 
   const defaultValues = {
     workId: employee[2] || "",
     name: employee[0] || "",
-    email: employee[3] || "",
-    employeeRole: employee[4] || "",
-    passportNumber: employee[5] || "",
+    employeeRole: employee[3] || "",
+    passportNumber: employee[4] || "",
     workPermitNumber: employee[1] || "",
-    levy: employee[6] || "",
-    workContactNumber: employee[7] || "",
-    workSiteLocation: employee[8] || "",
-    singaporeAddress: employee[9] || "",
-    vaccStatus: employee[10] || "",
-    workPermitDateOfIssue: employee[12] || new Date(),
-    workPermitExpiryDate: employee[13] || new Date(),
+    levy: employee[5] || "",
+    workContactNumber: employee[6] || "",
+    workSiteLocation: employee[7] || "",
+    singaporeAddress: employee[11] || "",
+    vaccStatus: employee[12] || "",
+    description: employee[10] || "",
+    workPermitDateOfIssue: employee[8] || new Date(),
+    workPermitExpiryDate: employee[9] || new Date(),
   };
 
   const methods = useForm({ defaultValues: defaultValues });
@@ -58,7 +60,7 @@ export default function EmployeeForm(props) {
   const onSubmit = (data) => {
     const response = Auth.currentSession().then((res) => {
       const queryString = objToQueryString({
-        compId: "0123456789",
+        compId: res.getIdToken().payload['cognito:groups'][0],
       });
       fetch(
         "/api/employees" +
@@ -79,7 +81,7 @@ export default function EmployeeForm(props) {
     window.location.reload();
   };
 
-  return (
+  return employee[12]? (
     <DialogContent>
       <SuiTypography
         variant="h6"
@@ -101,9 +103,6 @@ export default function EmployeeForm(props) {
               control={control}
               label="Employee Name"
             />
-          </Grid>
-          <Grid item>
-            <FormInputText name="email" control={control} label="Email" />
           </Grid>
           <Grid item>
             <FormInputText
@@ -189,22 +188,15 @@ export default function EmployeeForm(props) {
         fontWeight="bold"
         textGradient
       >
-        Health Information
+        Employee Description
       </SuiTypography>
       <SuiBox customClass={classes.tables_table} pt={1} pb={3}>
         <Grid container spacing={1} direction={"row"}>
           <Grid item>
             <FormInputText
-              name="vaccStatus"
+              name="description"
               control={control}
-              label="Vaccination Status"
-            />
-          </Grid>
-          <Grid item>
-            <FormInputText
-              name="covidResult"
-              control={control}
-              label="Covid Test Result"
+              label="Description"
             />
           </Grid>
         </Grid>
@@ -237,5 +229,174 @@ export default function EmployeeForm(props) {
         </Grid>
       </SuiBox>
     </DialogContent>
-  );
+  ): (<DialogContent>
+    <SuiTypography
+      variant="h6"
+      textColor="info"
+      fontWeight="bold"
+      textGradient
+    >
+      Personal Particulars
+    </SuiTypography>
+    <SuiBox customClass={classes.tables_table} pt={1}>
+      <FormInputText name="workId" control={control} label="Work ID" />
+    </SuiBox>
+
+    <SuiBox customClass={classes.tables_table} pt={1} pb={3}>
+      <Grid container spacing={1} direction={"row"}>
+        <Grid item>
+          <FormInputText
+            name="name"
+            control={control}
+            label="Employee Name"
+          />
+        </Grid>
+        <Grid item>
+          <FormInputText
+            name="passportNumber"
+            control={control}
+            label="Passport Number"
+          />
+        </Grid>
+        <Grid item>
+          <FormInputText
+            name="workContactNumber"
+            control={control}
+            label="Contact Number"
+          />
+        </Grid>
+      </Grid>
+    </SuiBox>
+
+    <Divider variant="middle" />
+    <SuiTypography
+      variant="h6"
+      textColor="info"
+      fontWeight="bold"
+      textGradient
+    >
+      Job Details
+    </SuiTypography>
+
+    <SuiBox customClass={classes.tables_table} pt={1} pb={3}>
+      <Grid container spacing={1} direction={"row"}>
+        <Grid item>
+          <FormInputText
+            name="employeeRole"
+            control={control}
+            label="Employee Role"
+          />
+        </Grid>
+        <Grid item>
+          <FormInputText
+            name="workPermitNumber"
+            control={control}
+            label="Work Permit Number"
+          />
+        </Grid>
+        <Grid item>
+          <FormInputDate
+            name="workPermitDateOfIssue"
+            control={control}
+            label="Work Permit Issue Date"
+          />
+        </Grid>
+        <Grid item>
+          <FormInputDate
+            name="workPermitExpiryDate"
+            control={control}
+            label="Work Permit Expiry"
+          />
+        </Grid>
+        <Grid item>
+          <FormInputText
+            name="workSiteLocation"
+            control={control}
+            label="Work Location"
+          />
+        </Grid>
+        <Grid item>
+          <FormInputText
+            name="singaporeAddress"
+            control={control}
+            label="Residence Address"
+          />
+        </Grid>
+        <Grid item>
+          <FormInputText name="levy" control={control} label="Levy" />
+        </Grid>
+      </Grid>
+    </SuiBox>
+
+    <Divider variant="middle" />
+        <SuiTypography
+          variant="h6"
+          textColor="info"
+          fontWeight="bold"
+          textGradient
+        >
+          Health Information
+        </SuiTypography>
+        <SuiBox customClass={classes.tables_table} pt={1} pb={3}>
+          <Grid container spacing={1} direction={"row"}>
+            <Grid item>
+              <FormInputRadio
+                name="vaccStatus"
+                control={control}
+                label="Vaccination Status"
+              />
+            </Grid>
+          </Grid>
+        </SuiBox>
+
+
+    <Divider variant="middle" />
+    <SuiTypography
+      variant="h6"
+      textColor="info"
+      fontWeight="bold"
+      textGradient
+    >
+      Employee Description
+    </SuiTypography>
+    <SuiBox customClass={classes.tables_table} pt={1} pb={3}>
+      <Grid container spacing={1} direction={"row"}>
+        <Grid item>
+          <FormInputText
+            name="description"
+            control={control}
+            label="Description"
+          />
+        </Grid>
+      </Grid>
+    </SuiBox>
+
+    <SuiBox py={3}>
+      <Grid container direction="row" spacing={3}>
+        <Grid item>
+          <SuiButton
+            size="medium"
+            onClick={handleSubmit(onSubmit)}
+            variant={"contained"}
+            buttonColor="success"
+            circular
+          >
+            Submit
+          </SuiButton>
+        </Grid>
+        <Grid item>
+          <SuiButton
+            size="medium"
+            variant={"contained"}
+            buttonColor="error"
+            circular
+            onClick={() => reset()}
+          >
+            Reset
+          </SuiButton>
+        </Grid>
+      </Grid>
+    </SuiBox>
+  </DialogContent>);
 }
+
