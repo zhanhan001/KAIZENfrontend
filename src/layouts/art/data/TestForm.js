@@ -48,6 +48,7 @@ export default function TestForm() {
     const response = Auth.currentSession().then((res) => {
       const queryString = objToQueryString({
         empId: data.employeeWP,
+        compId: res.getIdToken().payload['cognito:groups'][0],
       });
       fetch("/api/covidTest" + `?${queryString}`, {
         method: "POST",
