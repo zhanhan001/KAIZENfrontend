@@ -15,6 +15,7 @@ import { AuthState, onAuthUIStateChange } from "@aws-amplify/ui-components";
 import awsconfig from "./aws-exports";
 import SignInStyles from "./SignIn.css";
 import EmployeePage from "layouts/organisation/data/EmployeeListing";
+import KommunicateChat from "chat";
 
 /**
  * {@code App} is the main frontend injection w/ cognito integrated authentication
@@ -121,7 +122,8 @@ const App = () => {
             <>
               <Sidenav routes={routes} />
               <EmployeePage />
-              {configsButton}
+              {/* {configsButton} */}
+              <KommunicateChat/>
             </>
           )}
           <Switch>
