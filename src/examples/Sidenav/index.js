@@ -37,7 +37,6 @@ import SuiTypography from "components/SuiTypography";
 
 // Soft UI Dashboard React example components
 import SidenavCollapse from "examples/Sidenav/SidenavCollapse";
-import SidenavCard from "examples/Sidenav/SidenavCard";
 
 // Custom styles for the Sidenav
 import styles from "examples/Sidenav/styles/sidenav";
@@ -164,9 +163,6 @@ function Sidenav({ routes, ...rest }) {
       </SuiBox>
       <Divider />
       <List>{renderRoutes}</List>
-      <SuiBox customClass={classes.sidenav_footer}>
-        <SidenavCard />
-      </SuiBox>
     </Drawer>
   );
 }
