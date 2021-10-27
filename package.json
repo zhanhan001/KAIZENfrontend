@@ -1,3 +1,4 @@
+
 {
   "name": "kaizen",
   "version": "1.0.0",
@@ -18,6 +19,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/react-fontawesome": "^0.1.15",
+    "@kommunicate/kommunicate-chatbot-plugin": "0.0.5",
     "@material-ui/core": "^4.12.3",
     "@material-ui/data-grid": "^4.0.0-alpha.37",
     "@material-ui/icons": "^4.11.2",
@@ -45,7 +47,6 @@
     "package.json": "^2.0.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
-    "react-bootstrap": "^2.0.0",
     "react-chartjs-2": "^3.0.4",
     "react-countup": "^5.2.0",
     "react-date-range": "^1.4.0",

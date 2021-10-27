@@ -14,18 +14,60 @@ import data from "layouts/labour-details/data";
 import Table from "examples/Table";
 import Carousel from 'react-material-ui-carousel';
 import HireDialog from "./components/HireDialog";
+import LabourCard from "./components/LabourDetails/LabourCard"
+import { useState, useEffect } from "react";
+import { Auth } from "aws-amplify";
 
 /**
  * {@code labour-details} creates the layout for the labour details page.
  *
  * @author Pang Jun Rong
- * @version 1.0
- * @since 2021-10-16
+ * @author Chong Zhan Han
+ * @version 2.0
+ * @since 2021-10-27
  */
 
 function LabourDetails() {
-    const { columns, rows } = data();
+
     const classes = styles();
+
+    const [employeeSkillDTO, setEmployeeSkillDTO] = useState(null);
+    const [recommendations, setRecommendations] = useState([]);
+    const empty = {};
+
+    const FetchData = async () => {
+        await Auth.currentSession().then(res => {
+            fetch('/api/employeeSkills/all', {
+                headers: {
+                    'Authorization': 'Bearer ' + res.getIdToken().getJwtToken()
+                }
+            })
+                .then(response => response.json())
+                .then(data => setRecommendations(data))
+                .then(data => console.log("Testing labour sharing " + data));
+        })
+    }
+
+    //Recommendation will be refreshed the first time the page is loaded
+    useEffect(() => {
+        FetchData();    
+        console.log("recommendation : " + recommendations[0]);
+    }, []);
+
+    //First item in recommendation will be set as the displayed employee skill
+    useEffect(() => {
+        setEmployeeSkillDTO(recommendations[0]);
+    }, [recommendations]);
+
+    //if we select an employee detail in the recommendation section
+    const findEmployeeSkillDTO = (employeeName) => {
+        recommendations.filter((e) => e.name === employeeName).map(
+            e => setEmployeeSkillDTO(e)
+        )
+    }
+
+
+    const { columns, rows } = data(recommendations, findEmployeeSkillDTO);
 
     return (
         <DashboardLayout>
@@ -33,72 +75,7 @@ function LabourDetails() {
             <SuiBox py={3}>
                 <Card>
                     <SuiBox display="flex" flexDirection="column" height="100%">
-                        <SuiBox p={3} mb={0.5}>
-                            <SuiTypography variant="h4" textColor="dark" fontWeight="medium" pl={3}>
-                                Labour Profile
-                            </SuiTypography>
-                            <Grid container spacing={3} p={3}>
-                                <Grid item xs={12} lg={4}>
-                                    <Carousel 
-                                        indicators={false}
-                                        interval="5000"
-                                    >
-                                        <SuiBox component="img" src={profileImage1} alt="profile-image" width="100%" borderRadius="10%" />
-                                        <SuiBox component="img" src={profileImage2} alt="profile-image" width="100%" borderRadius="10%" />
-                                        <SuiBox component="img" src={profileImage3} alt="profile-image" width="100%" borderRadius="10%" />
-                                    </Carousel>
-                                    <Grid container justifyContent="center">
-                                        <Grid item>
-                                            <SuiBadge variant="gradient" badgeContent="CLEAN" color="info" size="large" />
-                                        </Grid>
-                                        <Grid item>
-                                            <SuiBadge variant="gradient" badgeContent="TEAMPLAYER" color="info" size="large" />
-                                        </Grid>
-                                        <Grid item>
-                                            <SuiBadge variant="gradient" badgeContent="PUNCTUAL" color="info" size="large" />
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                                <Grid item xs={12} lg={8}>
-                                    <SuiBox pb={8} pl={8} pr={8} pl={1}>
-                                        <SuiTypography variant="h3" textColor="dark" fontWeight="bold">
-                                            James Smith
-                                        </SuiTypography>
-                                        <SuiTypography variant="h6" textColor="text" fontWeight="medium">
-                                            WELDING | 10 YEARS
-                                        </SuiTypography>
-                                        <Rating name="readOnly" value={4.5} precision={0.1} readOnly />
-                                        <SuiBox py={3} pl={1}>
-                                            <SuiTypography variant="h5" textColor="dark" fontWeight="medium">
-                                                Price
-                                            </SuiTypography>
-                                            <SuiTypography variant="h5" textColor="dark" fontWeight="medium">
-                                                $800/Week
-                                            </SuiTypography>
-                                        </SuiBox>
-                                        <SuiBox pb={6} pl={1}>
-                                            <SuiTypography variant="h6" textColor="dark" fontWeight="medium">
-                                                Description
-                                            </SuiTypography>
-                                            <SuiTypography variant="h6" textColor="text" fontWeight="medium">
-                                                James is a hardworking individual with a wealth of experience in the construction industry.
-                                                Since 1999, James has participated in numerous commercial projects as a general worker, performing
-                                                tasks beyond his duty. He obtained his welding certification in 2011 and has been our company
-                                                welder ever since.
-                                            </SuiTypography>
-                                        </SuiBox>
-                                        <SuiBox pl={1}>
-                                            <SuiTypography variant="h5" textColor="dark" fontWeight="medium">
-                                                Interested in Hiring James?
-                                            </SuiTypography>
-                                        </SuiBox>
-                                        <SuiBox p={3}>
-                                            <HireDialog />
-                                        </SuiBox>
-                                    </SuiBox>
-                                </Grid>
-                            </Grid>
-                        </SuiBox>
+                        <LabourCard employeeSkillDTO = {employeeSkillDTO} />
                         <SuiBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
                             <SuiBox>
                                 <SuiTypography variant="h3" gutterBottom>

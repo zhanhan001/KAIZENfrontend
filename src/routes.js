@@ -6,7 +6,6 @@ import LabourSharing from "layouts/labour-sharing";
 import LabourDetails from "layouts/labour-details";
 import Discovery from "layouts/discover";
 import Categories from "layouts/categories";
-import Transactions from "layouts/transactions";
 
 import Shop from "examples/Icons/Shop";
 import Office from "examples/Icons/Office";
@@ -14,8 +13,7 @@ import Settings from "examples/Icons/Settings";
 import CustomerSupport from "examples/Icons/CustomerSupport";
 import Basket from "examples/Icons/Basket";
 import Document from "examples/Icons/Document";
-import Cube from "examples/Icons/Cube";
-import CreditCard from "examples/Icons/CreditCard";
+import Cube from "examples/Icons/Cube"
 
 /**
  * {@code routes} lists all routes in the frontend, which will be displayed on the sidenav
@@ -64,15 +62,15 @@ const routes = [
     component: LabourSharing,
     noCollapse: true,
   },
-  {
-    type: "collapse",
-    name: "Categories",
-    key: "categories",
-    route: "/categories",
-    icon: <Cube size="12px" />,
-    component: Categories,
-    noCollapse: true,
-  },
+  // {
+  //   type: "collapse",
+  //   name: "Categories",
+  //   key: "categories",
+  //   route: "/categories",
+  //   icon: <Cube size="12px" />,
+  //   component: Categories,
+  //   noCollapse: true,
+  // },
   {
     type: "collapse",
     name: "Labour Details",
@@ -89,15 +87,6 @@ const routes = [
     route: "/labour-discovery",
     icon: <Shop size="12px" />,
     component: Discovery,
-    noCollapse: true,
-  },
-  {
-    type: "collapse",
-    name: "Transaction History",
-    key: "transaction-history",
-    route: "/transaction-history",
-    icon: <CreditCard size="12px" />,
-    component: Transactions,
     noCollapse: true,
   },
   { type: "title", title: "Configuration", key: "configuration-pages" },

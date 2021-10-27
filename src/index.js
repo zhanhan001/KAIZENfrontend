@@ -6,7 +6,9 @@ import App from "App";
 import { SoftUIControllerProvider } from "context";
 import store from "./redux/store";
 import { Provider } from "react-redux";
+import Kommunicate from '@kommunicate/kommunicate-chatbot-plugin';
 
+Kommunicate.init("1326488dc77f91039518354a26d80239f")
 /**
  * {@code index} is a react component for the injection of react components into root.
  *
