@@ -1,9 +1,12 @@
 import SuiBox from "components/SuiBox";
 import SuiTypography from "components/SuiTypography";
+import SuiButton from "components/SuiButton";
 import logoGeneric from "assets/images/small-logos/logo-category.svg"
 import Button from "@mui/material/Button";
 import { Auth } from "aws-amplify";
 import { useState, useEffect } from "react";
+import { Link, withRouter } from 'react-router-dom';
+
 
 /**
  * {@code CategoryTable/data} provides the static data for category table.
@@ -69,7 +72,9 @@ export default function data() {
           ),
           action: (
             <SuiBox width="8rem" textAlign="center">
-              <Button href="#text-buttons">Select</Button>
+              <Link to={{ pathname: "/categories/" + detail.name , state: detail.name}}>
+                  <SuiButton > Select </SuiButton>
+              </Link>   
             </SuiBox>
           )
       } || [];
