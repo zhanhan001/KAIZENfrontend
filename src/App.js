@@ -129,7 +129,7 @@ const App = () => {
           )}
           <Switch>
             {getRoutes(routes)}
-            <Route path='/labour-details/:id' component={LabourDetails}/>
+            <Route path='/labour-details/:id' component={LabourDetails}/> 
             <Redirect from="*" to="/dashboard" />
           </Switch>
         </ThemeProvider>
