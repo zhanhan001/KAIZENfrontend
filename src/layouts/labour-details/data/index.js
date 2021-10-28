@@ -38,8 +38,14 @@ export default function data(prop) {
       action: (
         <SuiBox width="8rem" textAlign="center">
           <Link to={{ pathname: "/labour-details/" + details.workPermitNumber, state: details }}>
-            <SuiButton > View </SuiButton>
-          </Link>          
+            <SuiButton
+              size="large"
+              variant="text"
+              buttonColor="info"
+            >
+              View
+            </SuiButton>
+          </Link>
         </SuiBox>
       ),
     } || [];

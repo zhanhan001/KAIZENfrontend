@@ -30,11 +30,6 @@ import Recommendation from "./components/Recommendation";
 
 function LabourDetails(props) {
 
-    
-
-
-    const classes = styles();
-
     const [employeeSkillDTO, setEmployeeSkillDTO] = useState(null);
     const [recommendations, setRecommendations] = useState([]);
     const empty = {};
@@ -96,9 +91,10 @@ function LabourDetails(props) {
                 <Card>
                     <SuiBox display="flex" flexDirection="column" height="100%">
                         <LabourCard employeeSkillDTO = {currEmployeeSkill} />
+                        <Recommendation attr={recommendations}/>
                     </SuiBox>
                 </Card>
-                <Recommendation attr={recommendations}/>
+                
             </SuiBox>
             <Footer />
         </DashboardLayout>
