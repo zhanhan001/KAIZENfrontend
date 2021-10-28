@@ -55,8 +55,11 @@ export default function EmployeeSkillForm(props) {
     const response = Auth.currentSession().then((res) => {
       const queryString = objToQueryString({
         empId: data.employeeId,
-        skillId: data.skillId
+        skillId: data.skillId,
       });
+      const queryComp = objToQueryString({
+        compId: res.getIdToken().payload['cognito:groups'][0]
+      })
       var dataFormatted = {
           "id" : {
               "employee" : data.employeeId,
@@ -67,7 +70,7 @@ export default function EmployeeSkillForm(props) {
           "cost" : data.cost
       }
       fetch("/api/employeeSkills" +
-      (employeeSkill[0] ? `?${queryString}` : "") , { 
+      (employeeSkill[0] ? `?${queryString}` : "") + (`?${queryComp}`) , { 
         method: employeeSkill[0] ? "PUT" : "POST",
         headers: {
           Authorization: "Bearer " + res.getIdToken().getJwtToken(),

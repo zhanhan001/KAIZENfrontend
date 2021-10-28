@@ -6,6 +6,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import SuiBox from "components/SuiBox";
 import SuiTypography from "components/SuiTypography";
 import SuiButton from "components/SuiButton";
+import SuiBadge from "components/SuiBadge";
 import SuiAvatar from "components/SuiAvatar";
 import { useDispatch, useSelector } from "react-redux";
 import { setEmployees } from "redux/actions/employeesActions";
@@ -153,8 +154,25 @@ function EmployeeTable() {
         display: false,
       },
     },
+
+
+
     { name: "singaporeAddress", label: "Singapore Address" },
-    { name: "vaccStatus", label: "Vaccination Status" },
+    {
+      name: "vaccStatus", options: {
+        filter: false,
+        customBodyRender: (dataIndex) => {
+          console.log(dataIndex);
+
+          return dataIndex ? (
+            <SuiBadge variant="gradient" badgeContent="Vaccinated" color="success" size="extra-small" />
+          ) : (
+            <SuiBadge variant="gradient" badgeContent="Not Vaccinated" color="secondary" size="extra-small" />
+
+          );
+        },
+      }, label: "Vaccination Status"
+    },
     {
       name: "Edit",
       options: {
