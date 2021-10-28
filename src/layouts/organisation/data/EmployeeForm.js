@@ -60,7 +60,7 @@ export default function EmployeeForm(props) {
   const onSubmit = (data) => {
     const response = Auth.currentSession().then((res) => {
       const queryString = objToQueryString({
-        compId: res.getIdToken().payload['cognito:groups'][0],
+        compId: res.getIdToken().payload['cognito:groups'][0]
       });
       fetch(
         "/api/employees" +
