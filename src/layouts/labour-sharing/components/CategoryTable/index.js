@@ -7,6 +7,7 @@ import styles from "layouts/labour-sharing/components/CategoryTable/styles";
 import data from "layouts/labour-sharing/components/CategoryTable/data";
 
 
+
 /**
  * {@code CategoryTable} creates the component table for labour sharing categories.
  *
@@ -14,8 +15,9 @@ import data from "layouts/labour-sharing/components/CategoryTable/data";
  * @version 1.0
  * @since 2021-10-16
  */
-
 function CategoryTable() {
+
+
   const { columns, rows } = data();
   const classes = styles();
 

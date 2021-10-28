@@ -13,14 +13,15 @@ import Card from "@mui/material/Card";
  * @since 2021-10-16
  */
 
-function Categories() {
+function Categories(props) {
+
 
   return (
     <DashboardLayout>
       <DashboardNavbar />
       <SuiBox py={3}>
         <Card>
-          <CategoriesTable />
+          <CategoriesTable attr={props.location.state}/>
         </Card>
       </SuiBox>
       <Footer />
