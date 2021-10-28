@@ -1,7 +1,6 @@
 import SuiBox from "components/SuiBox";
+import SuiButton from "components/SuiButton";
 import SuiTypography from "components/SuiTypography";
-import avatar1 from "assets/images/team-2.jpg"
-import Button from "@mui/material/Button";
 import { Rating } from "@mui/material";
 import { Link } from 'react-router-dom';
 
@@ -17,31 +16,33 @@ import { Link } from 'react-router-dom';
 
 
 //takes in an array of employee skills to throw out the correct data
-export default function data(prop, findEmployeeSkillDTO) {
+export default function data(prop) {
 
 
   const rows = prop.map((details) => {
 
-    const setRow = () => {
-      findEmployeeSkillDTO(details.name);
-    }
+    // const setRow = () => {
+    //   findEmployeeSkillDTO(details.name);
+    // }
     //console.log(details);
-      return {
-        name: [,details.name],
-        rating: (
-          <Rating name="readOnly" value={details.rating} precision={0.1} readOnly />
-        ),
-        category: (
-          <SuiTypography variant="caption" textColor="text" fontWeight="medium">
-            {details.skillName}
-          </SuiTypography>
-        ),
-        action: (
-          <SuiBox width="8rem" textAlign="center">
-            <Button href={"/labour-details/" + details.workPermitNumber} >Select</Button>
-          </SuiBox>
-        ),
-      } || [];
+    return {
+      name: [details.imageURL, details.name],
+      rating: (
+        <Rating name="readOnly" value={details.rating} precision={0.1} readOnly />
+      ),
+      category: (
+        <SuiTypography variant="caption" textColor="text" fontWeight="medium">
+          {details.skillName}
+        </SuiTypography>
+      ),
+      action: (
+        <SuiBox width="8rem" textAlign="center">
+          <Link to={{ pathname: "/labour-details/" + details.workPermitNumber, state: details }}>
+            <SuiButton > View </SuiButton>
+          </Link>          
+        </SuiBox>
+      ),
+    } || [];
   });
 
 
@@ -51,7 +52,7 @@ export default function data(prop, findEmployeeSkillDTO) {
       { name: "category", align: "center" },
       { name: "rating", align: "left" },
       { name: "action", align: "center" },
-    ],    
+    ],
 
     rows: rows
   };
