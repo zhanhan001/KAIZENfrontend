@@ -6,6 +6,7 @@ import Table from "examples/Table";
 import styles from "layouts/labour-sharing/components/CategoryTable/styles";
 import data from "layouts/labour-sharing/components/CategoryTable/data";
 
+
 /**
  * {@code CategoryTable} creates the component table for labour sharing categories.
  *
