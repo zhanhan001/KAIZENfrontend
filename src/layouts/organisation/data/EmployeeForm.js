@@ -45,7 +45,8 @@ export default function EmployeeForm(props) {
   };
 
   const methods = useForm({ defaultValues: defaultValues });
-  const { handleSubmit, control, reset } = methods;
+  const { register, handleSubmit, control, reset, formState: { errors } } = methods;
+  console.log(errors);
 
   function objToQueryString(obj) {
     const keyValuePairs = [];
@@ -64,8 +65,8 @@ export default function EmployeeForm(props) {
       });
       fetch(
         "/api/employees" +
-          (employee[1] ? "/" + employee[1] : "") +
-          `?${queryString}`,
+        (employee[1] ? "/" + employee[1] : "") +
+        `?${queryString}`,
         {
           method: employee[1] ? "PUT" : "POST",
           headers: {
@@ -78,10 +79,9 @@ export default function EmployeeForm(props) {
       );
       console.log(JSON.stringify(data));
     });
-    window.location.reload();
   };
 
-  return employee[12]? (
+  return employee[12] ? (
     <DialogContent>
       <SuiTypography
         variant="h6"
@@ -92,7 +92,10 @@ export default function EmployeeForm(props) {
         Personal Particulars
       </SuiTypography>
       <SuiBox customClass={classes.tables_table} pt={1}>
-        <FormInputText name="workId" control={control} label="Work ID" />
+        <FormInputText name="workId" control={control} label="Work ID" ref={register({
+          required: true, minLength: 10
+        })} />
+        {errors.workId && <p>Work ID requiRes at least 10 characters.</p>}
       </SuiBox>
 
       <SuiBox customClass={classes.tables_table} pt={1} pb={3}>
@@ -229,7 +232,7 @@ export default function EmployeeForm(props) {
         </Grid>
       </SuiBox>
     </DialogContent>
-  ): (<DialogContent>
+  ) : (<DialogContent>
     <SuiTypography
       variant="h6"
       textColor="info"
@@ -329,25 +332,25 @@ export default function EmployeeForm(props) {
     </SuiBox>
 
     <Divider variant="middle" />
-        <SuiTypography
-          variant="h6"
-          textColor="info"
-          fontWeight="bold"
-          textGradient
-        >
-          Health Information
-        </SuiTypography>
-        <SuiBox customClass={classes.tables_table} pt={1} pb={3}>
-          <Grid container spacing={1} direction={"row"}>
-            <Grid item>
-              <FormInputRadio
-                name="vaccStatus"
-                control={control}
-                label="Vaccination Status"
-              />
-            </Grid>
-          </Grid>
-        </SuiBox>
+    <SuiTypography
+      variant="h6"
+      textColor="info"
+      fontWeight="bold"
+      textGradient
+    >
+      Health Information
+    </SuiTypography>
+    <SuiBox customClass={classes.tables_table} pt={1} pb={3}>
+      <Grid container spacing={1} direction={"row"}>
+        <Grid item>
+          <FormInputRadio
+            name="vaccStatus"
+            control={control}
+            label="Vaccination Status"
+          />
+        </Grid>
+      </Grid>
+    </SuiBox>
 
 
     <Divider variant="middle" />
