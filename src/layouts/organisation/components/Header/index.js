@@ -1,22 +1,19 @@
 import { useState, useEffect } from "react";
-
-// @mui material components
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
-import AppBar from "@mui/material/AppBar";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-
-// Soft UI Dashboard PRO React components
 import SuiBox from "components/SuiBox";
 import SuiTypography from "components/SuiTypography";
 import SuiAvatar from "components/SuiAvatar";
-
-// Soft UI Dashboard PRO React base styles
 import breakpoints from "assets/theme/base/breakpoints";
-
-// Custom styles for Header
 import styles from "./styles";
+
+/**
+ * {@code Header} creates the header for the CRUD interface.
+ *
+ * @author Pang Jun Rong
+ * @version 1.0
+ * @since 2021-10-28
+ */
 
 function Header() {
   const [tabsOrientation, setTabsOrientation] = useState("horizontal");

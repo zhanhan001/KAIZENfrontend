@@ -12,11 +12,18 @@ import MUIDataTable from "mui-datatables";
 import { Auth } from "aws-amplify";
 import { useState, useEffect } from 'react';
 
-
+/**
+ * {@code LatestARTsTable} creates the table for the latest ART results for every employee.
+ *
+ * @author Teo Keng Swee
+ * @author Pang Jun Rong
+ * @version 1.0
+ * @since 2021-10-28
+ */
 
 function AllArtsTable(){
 
-    const [results, setResults] = useState([]);
+  const [results, setResults] = useState([]);
   const empty = {};
   
   function objToQueryString(obj) {
@@ -43,7 +50,7 @@ function AllArtsTable(){
           .then(data => setResults(data))
           .then(data => console.log(data));
     })
-}
+  }
 
   useEffect(() => {
     FetchData()
@@ -110,7 +117,7 @@ function AllArtsTable(){
                 console.log(dataIndex);
 
                 return dataIndex? (
-                    <SuiBadge variant="gradient" badgeContent="Postive" color="primary" size="extra-small" />
+                    <SuiBadge variant="gradient" badgeContent="Postive" color="error" size="extra-small" />
                 ): (
                     <SuiBadge variant="gradient" badgeContent="Negative" color="success" size="extra-small" />
 
@@ -146,7 +153,7 @@ function AllArtsTable(){
                     fontWeight="bold"
                     textGradient
                   >
-                    Latest Art Result by Each Employee 
+                  Employee's Latest ART Results
                   </SuiTypography>
                 </SuiBox>
                 <SuiBox pt={1}>

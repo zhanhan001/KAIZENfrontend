@@ -110,6 +110,7 @@ function EmployeeTable() {
   };
 
   const columns = [
+    { name: "workId", label: "Work ID" },
     {
       name: "name",
       label: "Profile",
@@ -120,17 +121,13 @@ function EmployeeTable() {
             <Labour
               image={employees[dataIndex].profileURL}
               name={employees[dataIndex].name}
-              company={employees[dataIndex].company}
             />
           );
         },
       },
     },
     { name: "workPermitNumber", label: "Work Permit Number" },
-    { name: "workId", label: " Work ID" },
     { name: "employeeRole", label: "Employee Role" },
-    { name: "passportNumber", label: "PassportNumber" },
-    { name: "levy", label: "Levy" },
     { name: "workContactNumber", label: "Work Contact Number" },
     { name: "workSiteLocation", label: "Work Site Location" },
     {
@@ -154,10 +151,6 @@ function EmployeeTable() {
         display: false,
       },
     },
-
-
-
-    { name: "singaporeAddress", label: "Singapore Address" },
     {
       name: "vaccStatus", options: {
         filter: false,
@@ -167,7 +160,7 @@ function EmployeeTable() {
           return dataIndex ? (
             <SuiBadge variant="gradient" badgeContent="Vaccinated" color="success" size="extra-small" />
           ) : (
-            <SuiBadge variant="gradient" badgeContent="Not Vaccinated" color="secondary" size="extra-small" />
+            <SuiBadge variant="gradient" badgeContent="Not Vaccinated" color="error" size="extra-small" />
 
           );
         },

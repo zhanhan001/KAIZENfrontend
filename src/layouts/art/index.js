@@ -8,10 +8,11 @@ import LatestArtsTable from "./component/LatestArtsTable";
 
 
 /**
- * {@code organisation} creates the layout for the CRUD interface.
+ * {@code ART} creates the layout for the ART interface.
  *
  * @author Teo Keng Swee
- * @version 1.0
+ * @author Pang Jun Rong
+ * @version 1.1
  * @since 2021-10-16
  */
 
@@ -25,7 +26,7 @@ function ART() {
          <LatestArtsTable />
         </SuiBox>
       </SuiBox>
-      <SuiBox py={3}>
+      <SuiBox>
         <SuiBox mb={3}>
          <AllArtsTable />
         </SuiBox>

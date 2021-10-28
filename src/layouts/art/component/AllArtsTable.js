@@ -12,7 +12,14 @@ import MUIDataTable from "mui-datatables";
 import { Auth } from "aws-amplify";
 import { useState, useEffect } from 'react';
 
-
+/**
+ * {@code AllArtsTable} creates the table for all ART results.
+ *
+ * @author Teo Keng Swee
+ * @author Pang Jun Rong
+ * @version 1.0
+ * @since 2021-10-28
+ */
 
 function AllArtsTable() {
 
@@ -114,7 +121,7 @@ function AllArtsTable() {
                     console.log(dataIndex);
 
                     return dataIndex? (
-                        <SuiBadge variant="gradient" badgeContent="Postive" color="primary" size="extra-small" />
+                        <SuiBadge variant="gradient" badgeContent="Postive" color="error" size="extra-small" />
                     ): (
                         <SuiBadge variant="gradient" badgeContent="Negative" color="success" size="extra-small" />
 
@@ -150,7 +157,7 @@ function AllArtsTable() {
                             fontWeight="bold"
                             textGradient
                         >
-                            All ART Results by Company
+                            ART Result Database
                         </SuiTypography>
                     </SuiBox>
                     <SuiBox pt={1}>
