@@ -3,11 +3,14 @@ import data from "layouts/labour-sharing/components/SkillMarketTable/data";
 import { Rating } from "@mui/material";
 import React,{ useEffect, useCallback, useMemo, useState } from "react";
 import SuiBox from "components/SuiBox";
+import SuiButton from "components/SuiButton";
 import SuiTypography from "components/SuiTypography";
 import SuiAvatar from "components/SuiAvatar";
 import MUIDataTable from "mui-datatables";
 import { Auth } from "aws-amplify";
 import Modal from "components/Custom/Modal";
+import { Link, withRouter } from 'react-router-dom';
+
 
 /**
  * {@code SkillMarketTable} creates a component table to display entities in the skill market .
@@ -61,7 +64,7 @@ export default function SkillMarketTable() {
     }
     return keyValuePairs.join("&");
   }
-  
+
   const FetchData = async () => {
     await Auth.currentSession().then((res) => {
       const queryString = objToQueryString({
@@ -74,7 +77,6 @@ export default function SkillMarketTable() {
       })
         .then((response) => response.json())
         .then((data) => setEmployeeSkills(data))
-        .then((data) => console.log(data));
     });
   };
 
@@ -154,21 +156,22 @@ export default function SkillMarketTable() {
       },
     },
     {
-      name: "View",
+      name: "workPermitNumber",
       options: {
         filter: true,
         enableNestedDataAccess: ".",
-        customBodyRender: (value, tableMeta, updatedValue) => {
-          return (
-            <div>
-              <Modal></Modal>
-            </div>
+        customBodyRenderLite: (dataIndex) => {
+          return (          
+            <Link  to={{  pathname: "/labour-details/" + employeeSkills[dataIndex].workPermitNumber, state: employeeSkills[dataIndex] }}>
+              <SuiButton > View </SuiButton>
+            </Link>
           );
         },
       },
+      label: "View More"
     },
   ];
-
+//href={"/labour-details/" + dataIndex }
   return (
     <MUIDataTable
       data={employeeSkills}

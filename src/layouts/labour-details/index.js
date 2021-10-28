@@ -17,6 +17,7 @@ import HireDialog from "./components/HireDialog";
 import LabourCard from "./components/LabourDetails/LabourCard"
 import { useState, useEffect } from "react";
 import { Auth } from "aws-amplify";
+import Recommendation from "./components/Recommendation";
 
 /**
  * {@code labour-details} creates the layout for the labour details page.
@@ -27,7 +28,10 @@ import { Auth } from "aws-amplify";
  * @since 2021-10-27
  */
 
-function LabourDetails() {
+function LabourDetails(props) {
+
+    
+
 
     const classes = styles();
 
@@ -62,14 +66,12 @@ function LabourDetails() {
             })
                 .then(response => response.json())
                 .then(data => setRecommendations(data))
-                .then(data => console.log("Testing labour sharing " + data));
         })
     }
 
     //Recommendation will be refreshed the first time the page is loaded
     useEffect(() => {
         FetchData();    
-        console.log("recommendation : " + recommendations[0]);
     }, []);
 
     //First item in recommendation will be set as the displayed employee skill
@@ -84,8 +86,8 @@ function LabourDetails() {
         )
     }
 
+    const currEmployeeSkill = props.location.state || employeeSkillDTO;
 
-    const { columns, rows } = data(recommendations, findEmployeeSkillDTO);
 
     return (
         <DashboardLayout>
@@ -93,25 +95,10 @@ function LabourDetails() {
             <SuiBox py={3}>
                 <Card>
                     <SuiBox display="flex" flexDirection="column" height="100%">
-                        <LabourCard employeeSkillDTO = {employeeSkillDTO} />
-                        <SuiBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
-                            <SuiBox>
-                                <SuiTypography variant="h3" gutterBottom>
-                                    Recommendations
-                                </SuiTypography>
-                                <SuiBox display="flex" alignItems="center" lineHeight={0}>
-                                    <Icon className="font-bold text-info">recommend</Icon>
-                                    <SuiTypography variant="button" fontWeight="regular" textColor="text">
-                                        &nbsp;based on your <strong>past interactions</strong>.
-                                    </SuiTypography>
-                                </SuiBox>
-                            </SuiBox>
-                        </SuiBox>
-                        <SuiBox customClass={classes.projects_table}>
-                            <Table columns={columns} rows={rows} />
-                        </SuiBox>
+                        <LabourCard employeeSkillDTO = {currEmployeeSkill} />
                     </SuiBox>
                 </Card>
+                <Recommendation attr={recommendations}/>
             </SuiBox>
             <Footer />
         </DashboardLayout>
