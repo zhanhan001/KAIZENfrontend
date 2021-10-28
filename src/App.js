@@ -12,6 +12,7 @@ import { useSoftUIController } from "context";
 import Amplify from "aws-amplify";
 import { AmplifyAuthenticator } from "@aws-amplify/ui-react";
 import { AuthState, onAuthUIStateChange } from "@aws-amplify/ui-components";
+import LabourDetails from "layouts/labour-details";
 import awsconfig from "./aws-exports";
 import SignInStyles from "./SignIn.css";
 import EmployeePage from "layouts/organisation/data/EmployeeListing";
@@ -128,6 +129,7 @@ const App = () => {
           )}
           <Switch>
             {getRoutes(routes)}
+            <Route path='/labour-details/:id' component={LabourDetails}/>
             <Redirect from="*" to="/dashboard" />
           </Switch>
         </ThemeProvider>
