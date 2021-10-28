@@ -3,6 +3,8 @@ import SuiTypography from "components/SuiTypography";
 import avatar1 from "assets/images/team-2.jpg"
 import Button from "@mui/material/Button";
 import { Rating } from "@mui/material";
+import { Link } from 'react-router-dom';
+
 
 /**
  * {@code labour-details/data} provides static data for the labour details page.
@@ -16,6 +18,7 @@ import { Rating } from "@mui/material";
 
 //takes in an array of employee skills to throw out the correct data
 export default function data(prop, findEmployeeSkillDTO) {
+
 
   const rows = prop.map((details) => {
 
@@ -35,7 +38,7 @@ export default function data(prop, findEmployeeSkillDTO) {
         ),
         action: (
           <SuiBox width="8rem" textAlign="center">
-            <Button href="#text-buttons" onClick = {setRow}>Select</Button>
+            <Button href={"/labour-details/" + details.workPermitNumber} >Select</Button>
           </SuiBox>
         ),
       } || [];
