@@ -1,4 +1,3 @@
-
 import data from "layouts/labour-sharing/components/SkillMarketTable/data";
 import { Rating } from "@mui/material";
 import React,{ useEffect, useCallback, useMemo, useState } from "react";
