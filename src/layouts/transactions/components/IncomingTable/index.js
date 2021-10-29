@@ -35,10 +35,12 @@ function IncomingTable(){
       const queryString = objToQueryString({
         compId: res.getIdToken().payload['cognito:groups'][0],
       });
-      fetch('/api/transactions' + `?${queryString}`, {
+      fetch('/api/transactions/incoming' + `?${queryString}`, {
           headers: {
-              'Authorization': 'Bearer ' + res.getIdToken().getJwtToken()
-          }
+              'Authorization': 'Bearer ' + res.getIdToken().getJwtToken(),
+              Accept: "application/json",
+              "Content-Type": "application/json",
+          },
       })
           .then(response => response.json())
           .then(data => setTransactions(data))

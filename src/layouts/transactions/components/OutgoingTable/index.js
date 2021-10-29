@@ -2,43 +2,56 @@ import React from "react";
 import SuiBox from "components/SuiBox";
 import SuiTypography from "components/SuiTypography";
 import SuiButton from "components/SuiButton";
-import SuiAvatar from "components/SuiAvatar";
-import { useDispatch, useSelector } from "react-redux";
-import { setEmployees } from "redux/actions/employeesActions";
 import MUIDataTable from "mui-datatables";
 import { Auth } from "aws-amplify";
+import { useState, useEffect } from 'react';
 
 /**
- * {@code OutgoingTable} is an user interface for accessing outgoing transactions.
+ * {@code LatestoutgoingTable} creates the table for the latest outgoing results for every employee.
  *
- * @author Pang Jun Rong
  * @author Teo Keng Swee
+ * @author Pang Jun Rong
  * @version 1.0
- * @since 2021-10-25
+ * @since 2021-10-28
  */
 
- function Transaction({ image, name, company }) {
-  return (
-    <SuiBox display="flex" alignItems="center" px={1} py={0.5}>
-      <SuiBox mr={2}>
-        <SuiAvatar src={image} alt={name} size="sm" variant="rounded" />
-      </SuiBox>
-      <SuiBox display="flex" flexDirection="column">
-        <SuiTypography variant="button" fontWeight="medium">
-          {name}
-        </SuiTypography>
-        <SuiTypography variant="caption" textColor="secondary">
-          {company}
-        </SuiTypography>
-      </SuiBox>
-    </SuiBox>
-  );
-}
+function OutgoingTable(){
 
-function OutgoingTable() {
-  const employees = useSelector((state) => state.allEmployees.employees);
+  const [transactions, setTransactions] = useState([]);
   const empty = {};
-  const dispatch = useDispatch();
+  
+  function objToQueryString(obj) {
+    const keyValuePairs = [];
+    for (const key in obj) {
+      keyValuePairs.push(
+        encodeURIComponent(key) + "=" + encodeURIComponent(obj[key])
+      );
+    }
+    return keyValuePairs.join("&");
+  }
+
+  const FetchData = async () => {
+    await Auth.currentSession().then(res => {
+      const queryString = objToQueryString({
+        compId: res.getIdToken().payload['cognito:groups'][0],
+      });
+      fetch('/api/transactions/outgoing' + `?${queryString}`, {
+          headers: {
+              'Authorization': 'Bearer ' + res.getIdToken().getJwtToken(),
+              Accept: "application/json",
+          "Content-Type": "application/json",
+          },
+      })
+          .then(response => response.json())
+          .then(data => setTransactions(data))
+          .then(data => console.log(data));
+    })
+  }
+
+  useEffect(() => {
+    FetchData()
+  }, []);
+
 
   const options = {
     filterType: "checkbox",
@@ -61,83 +74,91 @@ function OutgoingTable() {
     },
   };
 
-  const [open, setOpen] = React.useState(false);
-  const [scroll, setScroll] = React.useState("paper");
-
-  const handleClickOpen = (scrollType) => () => {
-    setOpen(true);
-    setScroll(scrollType);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const descriptionElementRef = React.useRef(null);
-  React.useEffect(() => {
-    if (open) {
-      const { current: descriptionElement } = descriptionElementRef;
-      if (descriptionElement !== null) {
-        descriptionElement.focus();
+  const accepted = (empId, date) => {
+    Auth.currentSession().then((res) => {
+      const queryString = objToQueryString({
+        empId: empId,
+        date: date,
+        status: "Accepted",
+      });
+      var dataFormatted = {
+          "empid" : empId,
+          "date" : date,
+          "status" : "Accepted",
       }
-    }
-  }, [open]);
+      fetch(`/api/transactions?${queryString}`, {
+        method: "PUT",
+        headers: {
+          Authorization: "Bearer " + res.getIdToken().getJwtToken(),
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dataFormatted),
+      });
+      window.location.reload();
+    });
+  };
 
-  // const remove = (workId) => {
-  //   Auth.currentSession().then((res) => {
-  //     fetch(`/api/employees/${workId}`, {
-  //       method: "DELETE",
-  //       headers: {
-  //         Authorization: "Bearer " + res.getIdToken().getJwtToken(),
-  //         Accept: "application/json",
-  //         "Content-Type": "application/json",
-  //       },
-  //     }).then(() => {
-  //       let updatedEmployees = employees.filter((i) => i.workId !== workId);
-  //       dispatch(setEmployees(updatedEmployees));
-  //       window.location.reload();
-  //     });
-  //   });
-  // };
+  const rejected = (empId, date) => {
+    Auth.currentSession().then((res) => {
+      const queryString = objToQueryString({
+        empId: empId,
+        date: date,
+        status: "Rejected",
+      });
+      var dataFormatted = {
+          "empid" : empId,
+          "date" : date,
+          "status" : "Accepted",
+      }
+      fetch(`/api/transactions?${queryString}`, {
+        method: "PUT",
+        headers: {
+          Authorization: "Bearer " + res.getIdToken().getJwtToken(),
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dataFormatted),
+      });
+      window.location.reload();
+    });
+  };
 
   const columns = [
-    { name: "name", 
-      label: "Profile", 
-      options:{
-        filter: false,
-        customBodyRenderLite: (dataIndex) => {
-          return (
-            <Transaction image={employees[dataIndex].profileURL} name={employees[dataIndex].name} company={employees[dataIndex].company} />
-          );
-        },
-      }
-      },
-    { name: "workPermitNumber", label: "Work Permit Number" },
-    { name: "workId", label: "Worker Name" },
-    { name: "employeeRole", label: "Profession" },
-    { name: "passportNumber", label: "Hosting Company" },
-    { name: "levy", label: "Loan Duration" },
-    { name: "workContactNumber", label: "Amount Paid" },
-    { name: "workSiteLocation", label: "Status" },
+    { name: "employeeId", label: "Employee Id"},
+    { name: "loanCompanyId", label: "loan Company Id" },
+    { name: "borrowingCompanyId", label: "Borrowing Company Id" },
+    { name: "startDate", label: "Loan start Date" },
+    { name: "endDate", label: "Loan end Date" },
+    { name: "totalCost", label: "Cost of hiring" },
+    { name: "status", label: "Loan Status" },
     {
-      name: "Confirm",
+      name: "Accept",
       options: {
-        filter: false,
+        filter: true,
         customBodyRender: (value, tableMeta, updatedValue) => {
+          if(tableMeta.rowData[6] == "Accepted"||tableMeta.rowData[6] ==  "Rejected"){
+            return <h5>-</h5>
+          }
           return (
-            null
+            <SuiButton onClick={() => accepted(tableMeta.rowData[0], tableMeta.rowData[3])}>
+              Accept
+            </SuiButton>
           );
         },
       },
     },
-    {
+        {
       name: "Reject",
       options: {
-        filter: false,
+        filter: true,
         customBodyRender: (value, tableMeta, updatedValue) => {
+          if(tableMeta.rowData[6] == "Accepted"||tableMeta.rowData[6] == "Rejected"){
+            return <h5>-</h5>
+          }
           return (
-            <SuiButton onClick={() => remove(tableMeta.rowData[1])}>
-              Delete
+            <SuiButton onClick={() => rejected(tableMeta.rowData[0], tableMeta.rowData[3])}>
+              Reject
             </SuiButton>
           );
         },
@@ -146,8 +167,7 @@ function OutgoingTable() {
   ];
 
   return (
-      <SuiBox pb={3}>
-        <SuiBox mb={3}>
+        <SuiBox py={3}>
           <MUIDataTable
             title={
               <div>
@@ -158,19 +178,17 @@ function OutgoingTable() {
                     fontWeight="bold"
                     textGradient
                   >
-                    Outgoing Transactions
+                  Outgoing Transactions
                   </SuiTypography>
                 </SuiBox>
               </div>
             }
-            data={employees}
+            data={transactions}
             columns={columns}
             options={options}
-          />
+          ></MUIDataTable>
         </SuiBox>
-      </SuiBox>
-
   );
-}
 
-export default OutgoingTable;
+
+} export default OutgoingTable;
