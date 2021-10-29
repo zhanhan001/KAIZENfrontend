@@ -2,7 +2,6 @@ import React from "react";
 import SuiBox from "components/SuiBox";
 import SuiTypography from "components/SuiTypography";
 import SuiButton from "components/SuiButton";
-import SuiBadge from "components/SuiBadge";
 import MUIDataTable from "mui-datatables";
 import { Auth } from "aws-amplify";
 import { useState, useEffect } from 'react';
@@ -136,6 +135,9 @@ function IncomingTable(){
       options: {
         filter: true,
         customBodyRender: (value, tableMeta, updatedValue) => {
+          if(tableMeta.rowData[6] == "Accepted"||tableMeta.rowData[6] ==  "Rejected"){
+            return <h5>-</h5>
+          }
           return (
             <SuiButton onClick={() => accepted(tableMeta.rowData[0], tableMeta.rowData[3])}>
               Accept
@@ -149,6 +151,9 @@ function IncomingTable(){
       options: {
         filter: true,
         customBodyRender: (value, tableMeta, updatedValue) => {
+          if(tableMeta.rowData[6] == "Accepted"||tableMeta.rowData[6] == "Rejected"){
+            return <h5>-</h5>
+          }
           return (
             <SuiButton onClick={() => rejected(tableMeta.rowData[0], tableMeta.rowData[3])}>
               Reject
