@@ -80,7 +80,8 @@ export default function EmployeeForm(props) {
       console.log(JSON.stringify(data));
     });
   };
-
+  // ref={register({
+  //   required: true, minLength: 10
   return employee[12] ? (
     <DialogContent>
       <SuiTypography
@@ -92,9 +93,7 @@ export default function EmployeeForm(props) {
         Personal Particulars
       </SuiTypography>
       <SuiBox customClass={classes.tables_table} pt={1}>
-        <FormInputText name="workId" control={control} label="Work ID" ref={register({
-          required: true, minLength: 10
-        })} />
+        <FormInputText name="workId" control={control} label="Work ID" rules={{ }} errors={errors} />
         {errors.workId && <p>Work ID requiRes at least 10 characters.</p>}
       </SuiBox>
 
