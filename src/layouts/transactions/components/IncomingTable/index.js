@@ -85,7 +85,7 @@ function IncomingTable(){
           "date" : date,
           "status" : "Accepted",
       }
-      fetch(`/api/transactions? ${queryString}`, {
+      fetch(`/api/transactions?${queryString}`, {
         method: "PUT",
         headers: {
           Authorization: "Bearer " + res.getIdToken().getJwtToken(),
@@ -98,20 +98,30 @@ function IncomingTable(){
     });
   };
 
-  // const rejected = (testid) => {
-  //   Auth.currentSession().then((res) => {
-  //     fetch(`/api/covidTest/${testid}`, {
-  //       method: "PUT",
-  //       headers: {
-  //         Authorization: "Bearer " + res.getIdToken().getJwtToken(),
-  //         Accept: "application/json",
-  //         "Content-Type": "application/json",
-  //       },
-  //     });
-  //     body: JSON.stringify({"status" : "Rejected"}),
-  //     window.location.reload();
-  //   });
-  // };
+  const rejected = (empId, date) => {
+    Auth.currentSession().then((res) => {
+      const queryString = objToQueryString({
+        empId: empId,
+        date: date,
+        status: "Rejected",
+      });
+      var dataFormatted = {
+          "empid" : empId,
+          "date" : date,
+          "status" : "Accepted",
+      }
+      fetch(`/api/transactions?${queryString}`, {
+        method: "PUT",
+        headers: {
+          Authorization: "Bearer " + res.getIdToken().getJwtToken(),
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dataFormatted),
+      });
+      window.location.reload();
+    });
+  };
 
   const columns = [
     { name: "employeeId", label: "Employee Id"},
@@ -140,7 +150,7 @@ function IncomingTable(){
         filter: true,
         customBodyRender: (value, tableMeta, updatedValue) => {
           return (
-            <SuiButton onClick={() => remove(tableMeta.rowData[0])}>
+            <SuiButton onClick={() => rejected(tableMeta.rowData[0], tableMeta.rowData[3])}>
               Reject
             </SuiButton>
           );
