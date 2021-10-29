@@ -35,7 +35,7 @@ import { Auth } from "aws-amplify";
   );
 }
 
-function IncomingTable() {
+function OutgoingTable() {
   const employees = useSelector((state) => state.allEmployees.employees);
   const empty = {};
   const dispatch = useDispatch();
@@ -83,22 +83,22 @@ function IncomingTable() {
     }
   }, [open]);
 
-  const remove = (workId) => {
-    Auth.currentSession().then((res) => {
-      fetch(`/api/employees/${workId}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: "Bearer " + res.getIdToken().getJwtToken(),
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      }).then(() => {
-        let updatedEmployees = employees.filter((i) => i.workId !== workId);
-        dispatch(setEmployees(updatedEmployees));
-        window.location.reload();
-      });
-    });
-  };
+  // const remove = (workId) => {
+  //   Auth.currentSession().then((res) => {
+  //     fetch(`/api/employees/${workId}`, {
+  //       method: "DELETE",
+  //       headers: {
+  //         Authorization: "Bearer " + res.getIdToken().getJwtToken(),
+  //         Accept: "application/json",
+  //         "Content-Type": "application/json",
+  //       },
+  //     }).then(() => {
+  //       let updatedEmployees = employees.filter((i) => i.workId !== workId);
+  //       dispatch(setEmployees(updatedEmployees));
+  //       window.location.reload();
+  //     });
+  //   });
+  // };
 
   const columns = [
     { name: "name", 
@@ -173,4 +173,4 @@ function IncomingTable() {
   );
 }
 
-export default IncomingTable;
+export default OutgoingTable;
