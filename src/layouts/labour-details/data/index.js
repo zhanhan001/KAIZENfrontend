@@ -3,6 +3,7 @@ import SuiButton from "components/SuiButton";
 import SuiTypography from "components/SuiTypography";
 import { Rating } from "@mui/material";
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from "react";
 
 
 /**
@@ -17,7 +18,9 @@ import { Link } from 'react-router-dom';
 
 //takes in an array of employee skills to throw out the correct data
 export default function data(prop) {
-
+  // const[skills, setSkills] = useState(prop);
+  // // useEffect(() => {
+  // //  setSkills(Array.from(prop)), []});
 
   const rows = prop.map((details) => {
 

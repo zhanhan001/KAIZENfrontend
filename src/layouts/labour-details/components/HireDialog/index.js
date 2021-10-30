@@ -7,6 +7,9 @@ import SuiButton from "components/SuiButton";
 import SuiBox from 'components/SuiBox';
 import { Grid } from '@mui/material';
 import Checkout from '../Checkout';
+import { useState, useEffect } from "react";
+import { DateRangePicker } from 'react-date-range';
+
 
 /**
  * {@code HireDialog} creates the dialog component for both availability and checkout sub-components.
@@ -19,7 +22,7 @@ import Checkout from '../Checkout';
 const emails = ['username@gmail.com', 'user02@gmail.com'];
 
 function SimpleDialog(props) {
-    const { onClose, selectedValue, open } = props;
+    const { employeeSkill, onClose, selectedValue, open } = props;
 
     const handleClose = () => {
         onClose(selectedValue);
@@ -29,19 +32,32 @@ function SimpleDialog(props) {
         onClose(value);
     };
 
+    const [selection, setSelection] = useState({startDate: new Date(), endDate: new Date()});
+    const onChangeDateHandler = (selection) => {
+        setSelection(selection);
+    }
+
     return (
         <SuiBox>
             <Dialog onClose={handleClose} open={open}>
                 <SuiBox p={1}>
                     <DialogTitle>Select Hire Sharing Duration</DialogTitle>
                     <SuiBox pr={3}>
-                        <Availability />
+                        <Availability onChangeDate={onChangeDateHandler}/>
+                    </SuiBox>
+                    <SuiBox px={3} color="white">
+                        
                     </SuiBox>
                 </SuiBox>
                 <SuiBox p={3}>
                     <Grid container alignItems="center" justifyContent="center">
                         <Grid item p={3}>
-                            <Checkout />
+                            <Checkout 
+                                employeeSkill={employeeSkill}
+                                selectedValue={selectedValue}
+                                open={open}
+                                onClose={handleClose}
+                                selection={selection}/>
                         </Grid>
                     </Grid>
                 </SuiBox>
@@ -56,9 +72,10 @@ SimpleDialog.propTypes = {
     selectedValue: PropTypes.string.isRequired,
 };
 
-export default function HireDialog() {
+export default function HireDialog(props) {
     const [open, setOpen] = React.useState(false);
     const [selectedValue, setSelectedValue] = React.useState(emails[1]);
+    const employeeSkill = props.employeeSkillDTO || {};
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -73,10 +90,11 @@ export default function HireDialog() {
         <div>
             <SuiButton size="large" variant="gradient" buttonColor="success" onClick={handleClickOpen} circular>
                 <SuiBox px={3} color="white">
-                Check Availability
+                Check Availability 
                 </SuiBox>
             </SuiButton>
-            <SimpleDialog
+            <SimpleDialog 
+                employeeSkill={employeeSkill}
                 selectedValue={selectedValue}
                 open={open}
                 onClose={handleClose}

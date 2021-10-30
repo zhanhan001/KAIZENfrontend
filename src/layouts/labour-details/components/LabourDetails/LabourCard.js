@@ -9,6 +9,7 @@ import profileImage3 from "assets/images/team-3.jpg"
 import SuiBadge from "components/SuiBadge";
 import Carousel from 'react-material-ui-carousel';
 import HireDialog from "../HireDialog/";
+import { useState, useEffect } from "react";
 import { render } from "react-dom";
 
 /**
@@ -23,6 +24,14 @@ import { render } from "react-dom";
 function LabourCard(props) {
 
     const employeeSkill = props.employeeSkillDTO || {};
+    // const [employeeSkillDTO, setEmployeeSkillDTO] = useState(null);
+
+    // useEffect(() => {
+    //     setEmployeeSkillDTO(props.employeeSkillDTO);
+    // }, []);
+
+    
+
 
     return (
         <SuiBox p={3} mb={0.5}>
@@ -96,11 +105,11 @@ function LabourCard(props) {
                         </SuiBox>
                         <SuiBox pl={1}>
                             <SuiTypography variant="h5" textColor="dark" fontWeight="medium">
-                                Interested in Hiring {employeeSkill.name}?
+                                Interested in Hiring {employeeSkill.name}? 
                             </SuiTypography>
                         </SuiBox>
                         <SuiBox p={3}>
-                            <HireDialog />
+                            <HireDialog employeeSkillDTO={employeeSkill}/>
                         </SuiBox>
                     </SuiBox>
                 </Grid>
