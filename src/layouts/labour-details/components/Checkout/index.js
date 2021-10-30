@@ -37,36 +37,36 @@ export default function App(props) {
   async function handleToken(token) {
     console.log(token);
     Auth.currentSession().then((res) => {
-      // const queryString = objToQueryString({
-      //   empId: data.employeeId,
-      //   skillId: data.skillId,
-      // });
+      // Persist the transaction.
       const compId = res.getIdToken().payload['cognito:groups'][0];
-      // const queryComp = objToQueryString({
-      //   compId: res.getIdToken().payload['cognito:groups'][0]})
-      // var dataFormatted = {
-      //     "id" : {
-      //         "loanCompany" : employeeSkill.company,
-      //         "borrowingCompany" : compId,
-      //         "employee" : employeeSkill.employee,
-      //         "startDate" : startDate
-      //     },
-      //     "endDate" : endDate,
-      //     "totalCost" : totalCost,
-      //     "status" : "Pending"
-      // };
-      // fetch("/api/transactions" 
-      // // + (`?${queryComp}`) 
-      // , { 
-      //   method: "POST",
-      //   headers: {
-      //     Authorization: "Bearer " + res.getIdToken().getJwtToken(),
-      //     Accept: "application/json",
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify(dataFormatted),
-      // });
+      var dataFormatted = {
+          "id" : {
+              "loanCompany" : employeeSkill.company,
+              "borrowingCompany" : compId,
+              "employee" : employeeSkill.employee,
+              "startDate" : startDate
+          },
+          "endDate" : endDate,
+          "totalCost" : totalCost,
+          "status" : "Pending"
+      };
+      console.log(JSON.stringify(dataFormatted));
+      fetch("/api/transactions" 
+      // + (`?${queryComp}`) 
+      , { 
+        method: "POST",
+        headers: {
+          Authorization: "Bearer " + res.getIdToken().getJwtToken(),
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dataFormatted),
+        
+      }).catch((error) => {
+        alert(error);
+      });
 
+      //Make the Stripe payment.
       fetch(`/api/payment/charge`, {
         method: "POST",
         headers: {
