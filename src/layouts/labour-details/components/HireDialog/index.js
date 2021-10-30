@@ -41,7 +41,7 @@ function SimpleDialog(props) {
         <SuiBox>
             <Dialog onClose={handleClose} open={open}>
                 <SuiBox p={1}>
-                    <DialogTitle>Select Hire Sharing Duration {selection.startDate.getDate()}</DialogTitle>
+                    <DialogTitle>Select Hire Sharing Duration</DialogTitle>
                     <SuiBox pr={3}>
                         <Availability onChangeDate={onChangeDateHandler}/>
                     </SuiBox>
