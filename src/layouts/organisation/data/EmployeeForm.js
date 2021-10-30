@@ -93,8 +93,13 @@ export default function EmployeeForm(props) {
         Personal Particulars
       </SuiTypography>
       <SuiBox customClass={classes.tables_table} pt={1}>
-        <FormInputText name="workId" control={control} label="Work ID" rules={{ }} errors={errors} />
-        {errors.workId && <p>Work ID requiRes at least 10 characters.</p>}
+        <FormInputText
+          name="workId"
+          control={control}
+          label="Work ID"
+          min={3}
+        />
+
       </SuiBox>
 
       <SuiBox customClass={classes.tables_table} pt={1} pb={3}>

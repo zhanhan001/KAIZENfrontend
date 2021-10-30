@@ -6,12 +6,12 @@ import React from "react";
  * {@code FormInputText} creates the text input component for the CRUD interface.
  *
  * @author Teo Keng Swee
- * @version 1.0
+ * @author Pang Jun Rong
+ * @version 1.1
  * @since 2021-10-16
  */
 
-export const FormInputText = ({ name, control, label }) => {
-  
+export const FormInputText = ({ name, control, label, min }) => {
   const checkIsValid = (value) => {
     // Here you probably what to check this to some regex validation
     if (value) {
@@ -29,11 +29,10 @@ export const FormInputText = ({ name, control, label }) => {
         render={({ field: { onChange, value }, fieldState: { error } }) => (
           <div>
           <TextField onChange={onChange} value={value} label={label} error={!!error}
-            helperText={error ? error.message : null}/> 
+            helperText={error ? error.message : null} min={min} /> 
           </div>
         )}
-        rules={{ required: 'First name required' }}
-        
+        rules={{required: "This field cannot be blank", min: min}}
       />
      // , maxLength: 20, required: true, min: 3
   );
