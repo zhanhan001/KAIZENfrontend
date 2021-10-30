@@ -12,24 +12,27 @@ import { DateRangePicker } from 'react-date-range';
  * @since 2021-10-16
  */
 
-export default function BasicDateRangePicker() {
+export default function BasicDateRangePicker({onChangeDate}) {
     const [state, setState] = useState({
         selection: {
           startDate: new Date(),
-          endDate: null,
+          endDate: new Date(),
           key: 'selection'
         }
       });
     
     return (
       <DateRangePicker
-        onChange={item => setState({ ...state, ...item })}
-        months={1}
-        minDate={addDays(new Date(), 0)}
-        maxDate={addDays(new Date(), 30)}
-        direction="vertical"
-        scroll={{ enabled: true }}
-        ranges={[state.selection]}
-      />
+      onChange={item => {
+        setState({ ...state, ...item });
+      }}
+      months={1}
+      minDate={addDays(new Date(), 0)}
+      maxDate={addDays(new Date(), 30)}
+      direction="vertical"
+      scroll={{ enabled: true }}
+      ranges={[state.selection]}
+      onChangeDate={onChangeDate(state.selection)}
+    />
     );
 }
