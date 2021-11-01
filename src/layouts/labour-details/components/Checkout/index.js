@@ -21,6 +21,8 @@ export default function App(props) {
   const startDate = selection.startDate.getDate();
   const endDate = selection.endDate.getDate();
   const numDays = endDate - startDate + 1;
+  const [loanCompany, setLoanCompany] = useState(null);
+
   
   const totalCost = numDays * employeeSkill.cost * 100.00/7.0;
 
@@ -34,21 +36,56 @@ export default function App(props) {
     return keyValuePairs.join("&");
   }
 
-  async function handleToken(token) {
-    console.log(token);
+  async function retrieveCompany() {
     Auth.currentSession().then((res) => {
       // Persist the transaction.
       const compId = res.getIdToken().payload['cognito:groups'][0];
+      const queryString = objToQueryString({
+        // id: employeeSkill.workPermitNumber,
+          id: '29801093787290', 
+      });
+      fetch('/api/employees/company' + `?${queryString}`, {
+        headers: {
+            'Authorization': 'Bearer ' + res.getIdToken().getJwtToken(),
+            Accept: "application/json",
+        "Content-Type": "application/json",
+        },
+      })
+        .then(response => response.json())
+        .then(data => setLoanCompany(data))
+        .then(data => console.log(data));
+
+    });
+  }
+   async function handleToken(token) {
+    console.log(token);
+    await retrieveCompany();
+    Auth.currentSession().then((res) => {
+      // Persist the transaction.
+      const compId = res.getIdToken().payload['cognito:groups'][0];
+      // const queryString = objToQueryString({
+      //   // id: employeeSkill.workPermitNumber,
+      //     id: '29801093787290', 
+      // });
+      fetch('/api/employees/company' + ("/" + "29801093787290"), {
+        headers: {
+            'Authorization': 'Bearer ' + res.getIdToken().getJwtToken(),
+            Accept: "application/json",
+        "Content-Type": "application/json",
+        },
+    })
+        .then(response => response.json())
+        .then(data => setLoanCompany(data))
+        .then(data => console.log(data));
+
       var dataFormatted = {
-          "id" : {
-              "loanCompany" : employeeSkill.company,
-              "borrowingCompany" : compId,
-              "employee" : employeeSkill.employee,
-              "startDate" : startDate
-          },
-          "endDate" : endDate,
-          "totalCost" : totalCost,
-          "status" : "Pending"
+        "startDate" : startDate,
+        "endDate" : endDate,
+        "totalCost" : parseFloat(totalCost),
+        "loanCompanyId" : loanCompany.UEN,
+        "borrowingCompanyId" : compId,
+        "employeeId" : employeeSkill.workPermitNumber,  
+        "status" : "Pending"
       };
       console.log(JSON.stringify(dataFormatted));
       fetch("/api/transactions" 
@@ -74,7 +111,7 @@ export default function App(props) {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
           'token': token.id,
-          'amount': {totalCost},
+          'amount': "" + {totalCost},
 
         },
       }
