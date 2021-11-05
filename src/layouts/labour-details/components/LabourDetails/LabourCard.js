@@ -100,7 +100,7 @@ function LabourCard(props) {
                             </SuiTypography>
                         </SuiBox>
                         <SuiBox p={3}>
-                            <HireDialog />
+                            <HireDialog employeeSkillDTO={employeeSkill}/>
                         </SuiBox>
                     </SuiBox>
                 </Grid>
