@@ -16,119 +16,126 @@ import { useState, useEffect } from "react";
  */
 
 export default function App(props) {
-
   const { employeeSkill, onClose, selectedValue, open, selection } = props;
-  const startDate = new Date(selection.startDate.getFullYear(),selection.startDate.getMonth(), selection.startDate.getDate()+1);
-  const endDate = new Date(selection.endDate.getFullYear(),selection.endDate.getMonth(), selection.endDate.getDate()+1);
-  const numDays = (selection.endDate.getMonth() - selection.startDate.getMonth()) * 30 + selection.endDate.getDate() - selection.startDate.getDate() + 1;
+  const startDate = new Date(
+    selection.startDate.getFullYear(),
+    selection.startDate.getMonth(),
+    selection.startDate.getDate() + 1
+  );
+  const endDate = new Date(
+    selection.endDate.getFullYear(),
+    selection.endDate.getMonth(),
+    selection.endDate.getDate() + 1
+  );
+  const numDays =
+    (selection.endDate.getMonth() - selection.startDate.getMonth()) * 30 +
+    selection.endDate.getDate() -
+    selection.startDate.getDate() +
+    1;
   const [loanCompany, setLoanCompany] = useState(null);
 
-  const totalCost = numDays * employeeSkill.cost * 100.00/7.0;
+  const totalCost = (numDays * employeeSkill.cost * 100.0) / 7.0;
 
-  function objToQueryString(obj) {
-    const keyValuePairs = [];
-    for (const key in obj) {
-      keyValuePairs.push(
-        encodeURIComponent(key) + "=" + encodeURIComponent(obj[key])
-      );
-    }
-    return keyValuePairs.join("&");
-  }
+  // const handleToken = (token) => {
+  //   Auth.currentSession().then((res) => {
+  //     // Persist the transaction.
+  //     const compId = res.getIdToken().payload['cognito:groups'][0];
 
-  const retrieveCompany = async () => {
-    const response = await Auth.currentSession().then(res => {
-      const queryString = objToQueryString({
-          name: employeeSkill.company, 
-      });
-      fetch('/api/companies/specific/' + `?${queryString}`, {
-          headers: {
-              'Authorization': 'Bearer ' + res.getIdToken().getJwtToken(),
-              Accept: "application/json",
-          "Content-Type": "application/json",
-          },
-      }).catch((err) => {
-              console.log("Err: ", err);
-      })
-      .then((response) => response.json())
-      .then((data) => setLoanCompany(data))
-      .then((data) => console.log("here data is ", loanCompany))
-    });
-  };
+  //     var dataFormatted = {
+  //       "startDate" : startDate,
+  //       "endDate" : endDate,
+  //       "totalCost" : (totalCost/100).toFixed(2),
+  //       "loanCompanyId" : employeeSkill.uen,
+  //       "borrowingCompanyId" : compId,
+  //       "employeeId" : employeeSkill.workPermitNumber,
+  //       "status" : "Pending"
+  //     };
+  //     fetch("/api/transactions"
+  //     , {
+  //       method: "POST",
+  //       headers: {
+  //         Authorization: "Bearer " + res.getIdToken().getJwtToken(),
+  //         Accept: "application/json",
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(dataFormatted),
 
+  //     }).catch((error) => {
+  //       alert(error);
+  //     })
 
-  const handleToken = (token) => {
-    retrieveCompany();
-    console.log("Loan company is ", employeeSkill.uen);
+  //     //Make the Stripe payment.
+  //     fetch(`/api/payment/charge`, {
+  //       method: "POST",
+  //       headers: {
+  //         'Authorization': 'Bearer ' + res.getIdToken().getJwtToken(),
+  //         'Accept': 'application/json',
+  //         'Content-Type': 'application/json',
+  //         'token': token.id,
+  //         'amount': "" + {totalCost},
+
+  //       },
+  //     }
+  //     ).then(() => {
+
+  //       alert("Payment Success \nYou will be contacted in 1-3 business days by the parent company regarding the hire-sharing.")
+  //     })
+  //       .catch((error) => {
+  //         alert(error);
+  //       });
+  //   });
+  // };
+
+  async function handleToken(token) {
     Auth.currentSession().then((res) => {
-      // Persist the transaction.
-      const compId = res.getIdToken().payload['cognito:groups'][0];
-      // const queryString = objToQueryString({
-      //   // id: employeeSkill.workPermitNumber,
-      //     id: '29801093787290', 
-      // });
-      fetch('/api/employees/company' + ("/" + "29801093787290"), {
-        headers: {
-            'Authorization': 'Bearer ' + res.getIdToken().getJwtToken(),
-            Accept: "application/json",
-        "Content-Type": "application/json",
-        },
-    })
-
-      var dataFormatted = {
-        "startDate" : startDate,
-        "endDate" : endDate,
-        "totalCost" : (totalCost/100).toFixed(2),
-        "loanCompanyId" : employeeSkill.uen,
-        "borrowingCompanyId" : compId,
-        "employeeId" : employeeSkill.workPermitNumber,  
-        "status" : "Pending"
-      };
-      // console.log(JSON.stringify(dataFormatted));
-      fetch("/api/transactions" 
-      // + (`?${queryComp}`) 
-      , { 
+      fetch(`/api/payment/charge`, {
         method: "POST",
         headers: {
           Authorization: "Bearer " + res.getIdToken().getJwtToken(),
           Accept: "application/json",
           "Content-Type": "application/json",
+          token: token.id,
+          amount: (totalCost / 100).toFixed(2),
         },
-        body: JSON.stringify(dataFormatted),
-        
-      }).catch((error) => {
-        alert(error);
       })
-      //  .then(console.log(loanCompany));
+        .then(() => {
+          alert(
+            "Payment Success \nYou will be contacted in 1-3 business days by the parent company regarding the hire-sharing."
+          );
+          const compId = res.getIdToken().payload["cognito:groups"][0];
 
-
-      //Make the Stripe payment.
-      fetch(`/api/payment/charge`, {
-        method: "POST",
-        headers: {
-          'Authorization': 'Bearer ' + res.getIdToken().getJwtToken(),
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'token': token.id,
-          'amount': "" + {totalCost},
-
-        },
-      }
-      ).then(() => {
-        
-        alert("Payment Success \nYou will be contacted in 1-3 business days by the parent company regarding the hire-sharing.")
-      })
+          var dataFormatted = {
+            startDate: startDate,
+            endDate: endDate,
+            totalCost: (totalCost / 100).toFixed(2),
+            loanCompanyId: employeeSkill.uen,
+            borrowingCompanyId: compId,
+            employeeId: employeeSkill.workPermitNumber,
+            status: "Pending",
+          };
+          fetch("/api/transactions", {
+            method: "POST",
+            headers: {
+              Authorization: "Bearer " + res.getIdToken().getJwtToken(),
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(dataFormatted),
+          }).catch((error) => {
+            alert(error);
+          });
+        })
         .catch((error) => {
           alert(error);
         });
     });
-  };
- 
+  }
 
   return (
     <Stripe
       name={employeeSkill.name} // the pop-in header title
-      description={employeeSkill.company}// the pop-in header subtitle
-      image={profileimage}
+      description={employeeSkill.company} // the pop-in header subtitle
+      image={employeeSkill.imageURL}
       ComponentClass="div"
       label="Submit" // text inside the Stripe button
       panelLabel="Hire for" // prepended to the amount in the bottom pay button
@@ -138,7 +145,13 @@ export default function App(props) {
       stripeKey="pk_test_51JjP7qFwG6YcxwhyrbB3ljilisjDA3b28136bJ1pQONRGxQY5IxfddiZk3Wx69w8w60BEkIaOi3hVBTsB01yrq04004bU9S3XQ"
       token={handleToken}
     >
-      <SuiButton size="large" variant="gradient" buttonColor="success" circular type="submit">
+      <SuiButton
+        size="large"
+        variant="gradient"
+        buttonColor="success"
+        circular
+        type="submit"
+      >
         <SuiBox px={3} color="white">
           Submit
         </SuiBox>
