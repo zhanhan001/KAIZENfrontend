@@ -18,12 +18,11 @@ import { useState, useEffect } from "react";
 export default function App(props) {
 
   const { employeeSkill, onClose, selectedValue, open, selection } = props;
-  const startDate = selection.startDate.getDate();
-  const endDate = selection.endDate.getDate();
-  const numDays = endDate - startDate + 1;
+  const startDate = new Date(selection.startDate.getFullYear(),selection.startDate.getMonth(), selection.startDate.getDate()+1);
+  const endDate = new Date(selection.endDate.getFullYear(),selection.endDate.getMonth(), selection.endDate.getDate()+1);
+  const numDays = (selection.endDate.getMonth() - selection.startDate.getMonth()) * 30 + selection.endDate.getDate() - selection.startDate.getDate() + 1;
   const [loanCompany, setLoanCompany] = useState(null);
 
-  
   const totalCost = numDays * employeeSkill.cost * 100.00/7.0;
 
   function objToQueryString(obj) {
@@ -36,30 +35,51 @@ export default function App(props) {
     return keyValuePairs.join("&");
   }
 
-  async function retrieveCompany() {
-    Auth.currentSession().then((res) => {
-      // Persist the transaction.
-      const compId = res.getIdToken().payload['cognito:groups'][0];
-      const queryString = objToQueryString({
-        // id: employeeSkill.workPermitNumber,
-          id: '29801093787290', 
-      });
-      fetch('/api/employees/company' + `?${queryString}`, {
-        headers: {
-            'Authorization': 'Bearer ' + res.getIdToken().getJwtToken(),
-            Accept: "application/json",
-        "Content-Type": "application/json",
-        },
-      })
-        .then(response => response.json())
-        .then(data => setLoanCompany(data))
-        .then(data => console.log(data));
+  // async function retrieveCompany() {
+  //   Auth.currentSession().then((res) => {
+  //     // Persist the transaction.
+  //     const compId = res.getIdToken().payload['cognito:groups'][0];
+  //     const queryString = objToQueryString({
+  //         id: employeeSkill.workPermitNumber, 
+  //     });
+  //     fetch('/api/employees/' + `?${queryString}`, {
+  //       method: "GET",
+  //       headers: {
+  //           'Authorization': 'Bearer ' + res.getIdToken().getJwtToken(),
+  //           Accept: "application/json",
+  //       "Content-Type": "application/json",
+  //       },
+  //     }).catch((err) => {
+  //             console.log("Err: ", err);
+  //     }).then(response => response.json());
 
+  //   });
+  // }
+
+  const retrieveCompany = async () => {
+    const response = await Auth.currentSession().then(res => {
+      const queryString = objToQueryString({
+          name: employeeSkill.company, 
+      });
+      fetch('/api/companies/specific/' + `?${queryString}`, {
+          headers: {
+              'Authorization': 'Bearer ' + res.getIdToken().getJwtToken(),
+              Accept: "application/json",
+          "Content-Type": "application/json",
+          },
+      }).catch((err) => {
+              console.log("Err: ", err);
+      })
+      .then((response) => response.json())
+      .then((data) => setLoanCompany(data))
+      .then((data) => console.log("here data is ", loanCompany))
     });
-  }
-   async function handleToken(token) {
-    console.log(token);
-    await retrieveCompany();
+  };
+
+
+  const handleToken = (token) => {
+    retrieveCompany();
+    console.log("Loan company is ", loanCompany);
     Auth.currentSession().then((res) => {
       // Persist the transaction.
       const compId = res.getIdToken().payload['cognito:groups'][0];
@@ -74,20 +94,17 @@ export default function App(props) {
         "Content-Type": "application/json",
         },
     })
-        .then(response => response.json())
-        .then(data => setLoanCompany(data))
-        .then(data => console.log(data));
 
       var dataFormatted = {
         "startDate" : startDate,
         "endDate" : endDate,
-        "totalCost" : parseFloat(totalCost),
-        "loanCompanyId" : loanCompany.UEN,
+        "totalCost" : (totalCost/100).toFixed(2),
+        "loanCompanyId" : loanCompany.uen,
         "borrowingCompanyId" : compId,
         "employeeId" : employeeSkill.workPermitNumber,  
         "status" : "Pending"
       };
-      console.log(JSON.stringify(dataFormatted));
+      // console.log(JSON.stringify(dataFormatted));
       fetch("/api/transactions" 
       // + (`?${queryComp}`) 
       , { 
@@ -101,7 +118,9 @@ export default function App(props) {
         
       }).catch((error) => {
         alert(error);
-      });
+      })
+      //  .then(console.log(loanCompany));
+
 
       //Make the Stripe payment.
       fetch(`/api/payment/charge`, {

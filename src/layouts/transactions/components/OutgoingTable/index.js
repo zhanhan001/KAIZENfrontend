@@ -74,56 +74,6 @@ function OutgoingTable(){
     },
   };
 
-  const accepted = (empId, date) => {
-    Auth.currentSession().then((res) => {
-      const queryString = objToQueryString({
-        empId: empId,
-        date: date,
-        status: "Accepted",
-      });
-      var dataFormatted = {
-          "empid" : empId,
-          "date" : date,
-          "status" : "Accepted",
-      }
-      fetch(`/api/transactions?${queryString}`, {
-        method: "PUT",
-        headers: {
-          Authorization: "Bearer " + res.getIdToken().getJwtToken(),
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(dataFormatted),
-      });
-      window.location.reload();
-    });
-  };
-
-  const rejected = (empId, date) => {
-    Auth.currentSession().then((res) => {
-      const queryString = objToQueryString({
-        empId: empId,
-        date: date,
-        status: "Rejected",
-      });
-      var dataFormatted = {
-          "empid" : empId,
-          "date" : date,
-          "status" : "Accepted",
-      }
-      fetch(`/api/transactions?${queryString}`, {
-        method: "PUT",
-        headers: {
-          Authorization: "Bearer " + res.getIdToken().getJwtToken(),
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(dataFormatted),
-      });
-      window.location.reload();
-    });
-  };
-
   const columns = [
     { name: "employeeId", label: "Employee Id"},
     { name: "loanCompanyId", label: "loan Company Id" },
@@ -132,38 +82,6 @@ function OutgoingTable(){
     { name: "endDate", label: "Loan end Date" },
     { name: "totalCost", label: "Cost of hiring" },
     { name: "status", label: "Loan Status" },
-    {
-      name: "Accept",
-      options: {
-        filter: true,
-        customBodyRender: (value, tableMeta, updatedValue) => {
-          if(tableMeta.rowData[6] == "Accepted"||tableMeta.rowData[6] ==  "Rejected"){
-            return <h5>-</h5>
-          }
-          return (
-            <SuiButton onClick={() => accepted(tableMeta.rowData[0], tableMeta.rowData[3])}>
-              Accept
-            </SuiButton>
-          );
-        },
-      },
-    },
-        {
-      name: "Reject",
-      options: {
-        filter: true,
-        customBodyRender: (value, tableMeta, updatedValue) => {
-          if(tableMeta.rowData[6] == "Accepted"||tableMeta.rowData[6] == "Rejected"){
-            return <h5>-</h5>
-          }
-          return (
-            <SuiButton onClick={() => rejected(tableMeta.rowData[0], tableMeta.rowData[3])}>
-              Reject
-            </SuiButton>
-          );
-        },
-      },
-    },
   ];
 
   return (
