@@ -8,7 +8,7 @@ import store from "./redux/store";
 import { Provider } from "react-redux";
 import Kommunicate from '@kommunicate/kommunicate-chatbot-plugin';
 
-Kommunicate.init("1326488dc77f91039518354a26d80239f")
+
 /**
  * {@code index} is a react component for the injection of react components into root.
  *
@@ -16,6 +16,13 @@ Kommunicate.init("1326488dc77f91039518354a26d80239f")
  * @version 1.0
  * @since 2021-10-16
  */
+
+//Comment out when debugging
+window.console.log = window.console.debug = window.console.info = window.console.error = function () {
+  return false;
+}
+
+Kommunicate.init("1326488dc77f91039518354a26d80239f");
 
 ReactDOM.render(
   <>
