@@ -5,6 +5,7 @@ import { Auth } from "aws-amplify";
 import profileimage from "assets/images/team-1.jpg";
 import SuiBox from "components/SuiBox";
 import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 /**
  * {@code Checkout} creates the component for Stripe integration and checkout.
@@ -18,13 +19,17 @@ import { useState, useEffect } from "react";
 export default function App(props) {
 
   const { employeeSkill, onClose, selectedValue, open, selection } = props;
-  const startDate = selection.startDate.getDate();
-  const endDate = selection.endDate.getDate();
-  const numDays = endDate - startDate + 1;
-  const [loanCompanyId, setLoanCompanyId] = useState("");
+  const startDate = new Date(selection.startDate.getFullYear(),selection.startDate.getMonth(), selection.startDate.getDate()+1);
+  const endDate = new Date(selection.endDate.getFullYear(),selection.endDate.getMonth(), selection.endDate.getDate()+1);
+  const numDays = (selection.endDate.getMonth() - selection.startDate.getMonth()) * 30 + selection.endDate.getDate() - selection.startDate.getDate() + 1;
+  const [loanCompanyId, setLoanCompanyId] = useState('0123456789');
+  const dispatch = useDispatch();
+  const totalCost = Number((numDays * employeeSkill.cost / 7.0).toFixed(2)); //used for transaction post
+  const totalCostInCents = totalCost * 100.0; //used for stripe
 
-  
-  const totalCost = numDays * employeeSkill.cost * 100.00/7.0;
+  useEffect(() => {
+    retrieveCompany();
+  }, '0123456789');
 
   function objToQueryString(obj) {
     const keyValuePairs = [];
@@ -36,11 +41,9 @@ export default function App(props) {
     return keyValuePairs.join("&");
   }
 
-  function retrieveCompany() {
-    var compId = '';
-    Auth.currentSession().then((res) => {
-     
-      compId = fetch('/api/employees/company' + "/" + employeeSkill.workPermitNumber, {
+  async function retrieveCompany() {
+    const response = await Auth.currentSession().then((res) => {
+    fetch('/api/employees/company' + "/" + employeeSkill.workPermitNumber, {
         headers: {
             'Authorization': 'Bearer ' + res.getIdToken().getJwtToken(),
             Accept: "application/json",
@@ -48,40 +51,28 @@ export default function App(props) {
         },
     })
         .then(response => response.json())
-        .then(data => setLoanCompanyId(data))
+        .then(data => dispatch(setLoanCompanyId(data)))
         .then(console.log(loanCompanyId));
 
     });
-    return compId;
+    return loanCompanyId;
   }
+
    async function handleToken(token) {
     console.log(token);
-    var loanCompId = retrieveCompany();
     
-    Auth.currentSession().then((res) => {
+    const response = await Auth.currentSession().then((res) => {
       // Persist the transaction.
       const compId = res.getIdToken().payload['cognito:groups'][0];
-      // const queryString = objToQueryString({
-      //   // id: employeeSkill.workPermitNumber,
-      // });
-    //   fetch('/api/employees/company' + "/" + employeeSkill.workPermitNumber, {
-    //     headers: {
-    //         'Authorization': 'Bearer ' + res.getIdToken().getJwtToken(),
-    //         Accept: "application/json",
-    //     "Content-Type": "application/json",
-    //     },
-    // })
-    //     .then(response => response.json())
-    //     .then(data => setLoanCompanyId(data));
 
       var dataFormatted = {
         "startDate" : startDate,
         "endDate" : endDate,
         "totalCost" : parseFloat(totalCost),
-        "loanCompanyId" : String(loanCompId),
-        // "loanCompanyId" : '0123456789',
-        "borrowingCompanyId" : compId,
-        "employeeId" : employeeSkill.workPermitNumber,  
+        "loanCompanyId" : parseFloat(loanCompanyId),
+        // "loanCompanyId" : ,
+        "borrowingCompanyId" : String(compId),
+        "employeeId" : String(employeeSkill.workPermitNumber),  
         "status" : "Pending"
       };
       console.log(JSON.stringify(dataFormatted));
@@ -108,7 +99,7 @@ export default function App(props) {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
           'token': token.id,
-          'amount': "" + {totalCost},
+          'amount': "" + {totalCostInCents},
 
         },
       }
@@ -134,7 +125,7 @@ export default function App(props) {
       label="Submit" // text inside the Stripe button
       panelLabel="Hire for" // prepended to the amount in the bottom pay button
       currency="SGD"
-      amount={totalCost}
+      amount={totalCostInCents}
       locale="en"
       stripeKey="pk_test_51JjP7qFwG6YcxwhyrbB3ljilisjDA3b28136bJ1pQONRGxQY5IxfddiZk3Wx69w8w60BEkIaOi3hVBTsB01yrq04004bU9S3XQ"
       token={handleToken}
