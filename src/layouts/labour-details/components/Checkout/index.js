@@ -35,27 +35,6 @@ export default function App(props) {
     return keyValuePairs.join("&");
   }
 
-  // async function retrieveCompany() {
-  //   Auth.currentSession().then((res) => {
-  //     // Persist the transaction.
-  //     const compId = res.getIdToken().payload['cognito:groups'][0];
-  //     const queryString = objToQueryString({
-  //         id: employeeSkill.workPermitNumber, 
-  //     });
-  //     fetch('/api/employees/' + `?${queryString}`, {
-  //       method: "GET",
-  //       headers: {
-  //           'Authorization': 'Bearer ' + res.getIdToken().getJwtToken(),
-  //           Accept: "application/json",
-  //       "Content-Type": "application/json",
-  //       },
-  //     }).catch((err) => {
-  //             console.log("Err: ", err);
-  //     }).then(response => response.json());
-
-  //   });
-  // }
-
   const retrieveCompany = async () => {
     const response = await Auth.currentSession().then(res => {
       const queryString = objToQueryString({
@@ -79,7 +58,7 @@ export default function App(props) {
 
   const handleToken = (token) => {
     retrieveCompany();
-    console.log("Loan company is ", loanCompany);
+    console.log("Loan company is ", employeeSkill.uen);
     Auth.currentSession().then((res) => {
       // Persist the transaction.
       const compId = res.getIdToken().payload['cognito:groups'][0];
@@ -99,7 +78,7 @@ export default function App(props) {
         "startDate" : startDate,
         "endDate" : endDate,
         "totalCost" : (totalCost/100).toFixed(2),
-        "loanCompanyId" : loanCompany.uen,
+        "loanCompanyId" : employeeSkill.uen,
         "borrowingCompanyId" : compId,
         "employeeId" : employeeSkill.workPermitNumber,  
         "status" : "Pending"

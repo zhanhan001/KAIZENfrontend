@@ -70,6 +70,8 @@ function LabourDetails(props) {
         )
     }
 
+    console.log(employeeSkillDTO);
+
     const currEmployeeSkill = props.location.state || employeeSkillDTO;
 
 
