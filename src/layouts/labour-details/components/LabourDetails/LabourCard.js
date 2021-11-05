@@ -50,7 +50,8 @@ function LabourCard(props) {
                                 style={{
                                     flexShrink: "0",
                                     minWidth: "100%",
-                                    minHeight: "100%"
+                                    minHeight: "100%",
+                                    height: "40vh"
                                 }}
                             />
                         </SuiBox>
