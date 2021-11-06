@@ -36,56 +36,6 @@ export default function App(props) {
 
   const totalCost = (numDays * employeeSkill.cost * 100.0) / 7.0;
 
-  // const handleToken = (token) => {
-  //   Auth.currentSession().then((res) => {
-  //     // Persist the transaction.
-  //     const compId = res.getIdToken().payload['cognito:groups'][0];
-
-  //     var dataFormatted = {
-  //       "startDate" : startDate,
-  //       "endDate" : endDate,
-  //       "totalCost" : (totalCost/100).toFixed(2),
-  //       "loanCompanyId" : employeeSkill.uen,
-  //       "borrowingCompanyId" : compId,
-  //       "employeeId" : employeeSkill.workPermitNumber,
-  //       "status" : "Pending"
-  //     };
-  //     fetch("/api/transactions"
-  //     , {
-  //       method: "POST",
-  //       headers: {
-  //         Authorization: "Bearer " + res.getIdToken().getJwtToken(),
-  //         Accept: "application/json",
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(dataFormatted),
-
-  //     }).catch((error) => {
-  //       alert(error);
-  //     })
-
-  //     //Make the Stripe payment.
-  //     fetch(`/api/payment/charge`, {
-  //       method: "POST",
-  //       headers: {
-  //         'Authorization': 'Bearer ' + res.getIdToken().getJwtToken(),
-  //         'Accept': 'application/json',
-  //         'Content-Type': 'application/json',
-  //         'token': token.id,
-  //         'amount': "" + {totalCost},
-
-  //       },
-  //     }
-  //     ).then(() => {
-
-  //       alert("Payment Success \nYou will be contacted in 1-3 business days by the parent company regarding the hire-sharing.")
-  //     })
-  //       .catch((error) => {
-  //         alert(error);
-  //       });
-  //   });
-  // };
-
   async function handleToken(token) {
     Auth.currentSession().then((res) => {
       fetch(`/api/payment/charge`, {

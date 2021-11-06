@@ -71,7 +71,7 @@ export default function TestForm() {
         }
      
     }).catch((error) => {
-        alert("Error occured. Please try again");
+        alert("Error occured. Please ensure that the employee work permit number is valid and date of result is not set in the future!");
       });
         
     });

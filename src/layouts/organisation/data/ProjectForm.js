@@ -73,7 +73,7 @@ export default function ProjectForm(props) {
                 }
              
             }).catch((error) => {
-                alert("Error occured. Please try again");
+                alert("Error occured. Please ensure that input fields are added correctly!");
               });
                 
             console.log(JSON.stringify(data));

@@ -80,13 +80,13 @@ export default function EmployeeForm(props) {
       console.log(JSON.stringify(data));
     }).then((getResponse) => {
         if (Endpoint.lastStatus == 400) {
-          alert("Error occured. Please ensure that the fields are correctly inputted");
+          alert("Error occured. Please ensure that the fields are entered correctly");
         } else {
           alert("Employee updated!");       
         }
      
     }).catch((error) => {
-        alert("Error occured. Please try again");
+        alert("Error occured. Please ensure that the fields are entered correctly");
       });
 
       window.location.reload();

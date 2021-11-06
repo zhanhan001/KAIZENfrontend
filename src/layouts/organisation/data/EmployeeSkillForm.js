@@ -86,7 +86,7 @@ export default function EmployeeSkillForm(props) {
         }
      
     }).catch((error) => {
-        alert("Error occured. Please try again");
+        alert("Error occured. Please ensure that the input fields are valid");
       });
         
       console.log("sending post request " + JSON.stringify(dataFormatted));
