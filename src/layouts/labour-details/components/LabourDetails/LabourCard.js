@@ -50,7 +50,8 @@ function LabourCard(props) {
                                 style={{
                                     flexShrink: "0",
                                     minWidth: "100%",
-                                    minHeight: "100%"
+                                    minHeight: "100%",
+                                    height: "40vh"
                                 }}
                             />
                         </SuiBox>
@@ -100,7 +101,7 @@ function LabourCard(props) {
                             </SuiTypography>
                         </SuiBox>
                         <SuiBox p={3}>
-                            <HireDialog />
+                            <HireDialog employeeSkillDTO={employeeSkill}/>
                         </SuiBox>
                     </SuiBox>
                 </Grid>

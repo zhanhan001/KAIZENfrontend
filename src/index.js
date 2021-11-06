@@ -17,13 +17,12 @@ import Kommunicate from '@kommunicate/kommunicate-chatbot-plugin';
  * @since 2021-10-16
  */
 
+//Comment out when debugging
 window.console.log = window.console.debug = window.console.info = window.console.error = function () {
   return false;
 }
 
-
 Kommunicate.init("1326488dc77f91039518354a26d80239f");
-
 
 ReactDOM.render(
   <>
