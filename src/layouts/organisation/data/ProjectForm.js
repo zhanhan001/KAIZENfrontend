@@ -65,7 +65,17 @@ export default function ProjectForm(props) {
                     },
                     body: JSON.stringify(data),
                 }
-            );
+            ).then((getResponse) => {
+                if (Endpoint.lastStatus == 400) {
+                  alert("Error occured. Please ensure that input fields are added correctly!");
+                } else {
+                  alert("Project updated!");       
+                }
+             
+            }).catch((error) => {
+                alert("Error occured. Please try again");
+              });
+                
             console.log(JSON.stringify(data));
         });
         window.location.reload();

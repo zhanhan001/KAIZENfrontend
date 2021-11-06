@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, {useState} from "react";
 import { FormInputText } from "layouts/organisation/input/FormInputText";
 import { FormInputDate } from "layouts/organisation/input/FormInputDate";
 import DialogContent from "@mui/material/DialogContent";
@@ -12,6 +12,7 @@ import { Auth } from "aws-amplify";
 import SuiTypography from "components/SuiTypography";
 import { Divider } from "@mui/material";
 import { FormInputRadio } from "../input/FormInputRadio";
+
 
 /**
  * {@code TestForm} creates the form component for the CRUD interface.
@@ -34,6 +35,7 @@ export default function TestForm() {
   const methods = useForm({ defaultValues: defaultValues });
   const { handleSubmit, control, reset } = methods;
 
+
   function objToQueryString(obj) {
     const keyValuePairs = [];
     for (const key in obj) {
@@ -45,6 +47,9 @@ export default function TestForm() {
   }
 
   const onSubmit = (data) => {
+
+
+    console.log(data);
     const response = Auth.currentSession().then((res) => {
       const queryString = objToQueryString({
         empId: data.employeeWP,
@@ -58,14 +63,24 @@ export default function TestForm() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
+      }).then((getResponse) => {
+        if (Endpoint.lastStatus == 400) {
+          alert("Error occured. Please ensure that the employee work permit number is valid and date of result is not set in the future!");
+        } else {
+          alert("ART test updated!");       
+        }
+     
+    }).catch((error) => {
+        alert("Error occured. Please try again");
       });
-      console.log(JSON.stringify(data));
+        
     });
     window.location.reload();
   };
 
   return (
     <DialogContent>
+     
       <SuiTypography
         variant="h6"
         textColor="info"
@@ -78,8 +93,7 @@ export default function TestForm() {
         <FormInputText
           name="employeeWP"
           control={control}
-          label="Work Permit Number"
-        />
+          label="Work Permit Number" /> 
       </SuiBox>
 
       <SuiBox customClass={classes.tables_table} pt={1} pb={3}>

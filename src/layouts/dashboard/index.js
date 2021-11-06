@@ -27,7 +27,7 @@ import AdvisoryCard from "./components/AdvisoryCard/index";
 function Dashboard() {
   const { size } = typography;
   const { chart, items } = reportsBarChartData;
-
+  
   return (
     <DashboardLayout>
       <DashboardNavbar />

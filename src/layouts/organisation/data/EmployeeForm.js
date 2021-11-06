@@ -78,7 +78,18 @@ export default function EmployeeForm(props) {
         }
       );
       console.log(JSON.stringify(data));
-    });
+    }).then((getResponse) => {
+        if (Endpoint.lastStatus == 400) {
+          alert("Error occured. Please ensure that the fields are correctly inputted");
+        } else {
+          alert("Employee updated!");       
+        }
+     
+    }).catch((error) => {
+        alert("Error occured. Please try again");
+      });
+
+      window.location.reload();
   };
   // ref={register({
   //   required: true, minLength: 10

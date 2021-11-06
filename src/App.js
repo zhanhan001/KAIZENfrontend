@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect , memo} from "react";
 import { Route, Switch, Redirect, useLocation } from "react-router-dom";
 import { ThemeProvider, StyledEngineProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -30,6 +30,7 @@ import KommunicateChat from "chat";
 
 Amplify.configure(awsconfig);
 
+
 const App = () => {
   const [controller, dispatch] = useSoftUIController();
   const { direction, layout, openConfigurator } = controller;
@@ -43,6 +44,7 @@ const App = () => {
       setUser(authData);
     });
   }, []);
+
 
   // Change the openConfigurator state
   const handleConfiguratorOpen = () => {

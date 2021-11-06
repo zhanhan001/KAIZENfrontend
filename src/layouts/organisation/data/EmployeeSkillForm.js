@@ -78,7 +78,17 @@ export default function EmployeeSkillForm(props) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(dataFormatted),
+      }).then((getResponse) => {
+        if (Endpoint.lastStatus == 400) {
+          alert("Error occured. Please ensure that the input fields are valid");
+        } else {
+          alert("Employee skills updated!");       
+        }
+     
+    }).catch((error) => {
+        alert("Error occured. Please try again");
       });
+        
       console.log("sending post request " + JSON.stringify(dataFormatted));
     });
     window.location.reload();
