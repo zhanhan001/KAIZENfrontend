@@ -64,18 +64,18 @@ export default function TestForm() {
         },
         body: JSON.stringify(data),
       }).then((getResponse) => {
-        if (Endpoint.lastStatus == 400) {
-          alert("Error occured. Please ensure that the employee work permit number is valid and date of result is not set in the future!");
+        console.log(getResponse);
+        if (getResponse.status == 200 || getResponse.status == 201) {
+          alert("ART test updated!"); 
+          window.location.reload();
         } else {
-          alert("ART test updated!");       
+          alert("Error occured. Please ensure that the fields are encountered correctly");
         }
      
-    }).catch((error) => {
-        alert("Error occured. Please ensure that the employee work permit number is valid and date of result is not set in the future!");
-      });
+    })
         
     });
-    window.location.reload();
+    
   };
 
   return (

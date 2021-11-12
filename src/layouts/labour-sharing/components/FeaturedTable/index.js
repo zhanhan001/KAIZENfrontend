@@ -41,7 +41,7 @@ function FeaturedTable() {
         <Carousel interval="5000" indicators={false} animation="slide">
             <Grid container spacing={3} p={3}>
               <Grid item xs={12} lg={4}>
-                <SuiBox component="img" src={profileImage1} alt="profile-image" width="100%" borderRadius="10%" />
+                <SuiBox component="img" src="https://s3.ap-southeast-1.amazonaws.com/kaizen-imagebucket/1636547575105-Barsha.jpg" alt="profile-image" width="100%" borderRadius="10%" />
               </Grid>
               <Grid item xs={12} lg={8}>
                 <SuiBox px={3}>
@@ -49,12 +49,12 @@ function FeaturedTable() {
                     Welding
                   </SuiTypography>
                   <SuiTypography variant="h5" textColor="dark" fontWeight="medium">
-                    James Smith
+                    Muhammad Sharmin
                   </SuiTypography>
                 </SuiBox>
                 <SuiBox p={3}>
                   <SuiTypography variant="h6" textColor="dark" fontWeight="regular">
-                    "Seriously talented in welding and an overall wonderful employee to have around!"
+                    "Seriously talented in welding and an overall amazing employee to have around!"
                   </SuiTypography>
                   <SuiBox pt={1}>
                     <Rating name="readOnly" value={4.9} precision={0.1} readOnly />
@@ -69,7 +69,7 @@ function FeaturedTable() {
             </Grid>
             <Grid container spacing={3} p={3}>
               <Grid item xs={12} lg={4}>
-                <SuiBox component="img" src={profileImage2} alt="profile-image" width="100%" borderRadius="10%" />
+                <SuiBox component="img" src="https://s3.ap-southeast-1.amazonaws.com/kaizen-imagebucket/1636644523121-Abdul_Katun.jpg" alt="profile-image" width="100%" borderRadius="10%" />
               </Grid>
               <Grid item xs={12} lg={8}>
                 <SuiBox px={3}>
@@ -77,19 +77,19 @@ function FeaturedTable() {
                     Tower Crane Operation
                   </SuiTypography>
                   <SuiTypography variant="h5" textColor="dark" fontWeight="medium">
-                    Michael Myers
+                    Jahan Das
                   </SuiTypography>
                 </SuiBox>
                 <SuiBox p={3}>
                   <SuiTypography variant="h6" textColor="dark" fontWeight="regular">
-                    "Myers is an absolute joy in the workplace, and has been a role model for many around him during his time with us!"
+                    "Das is a precise and accurate crane operator and knows all the protocols, highly recommended as site supervisor."
                   </SuiTypography>
                   <SuiBox pt={1}>
                     <Rating name="readOnly" value={4.9} precision={0.1} readOnly />
                   </SuiBox>
                   <SuiBox pl={15}>
                     <SuiTypography variant="button" textColor="dark" fontWeight="regular">
-                      – Terraformers LLP
+                      – Precision Engineering Pte Ltd
                     </SuiTypography>
                   </SuiBox>
                 </SuiBox>

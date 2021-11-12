@@ -1,15 +1,10 @@
-import Card from "@mui/material/Card";
-import { Grid, Icon, Rating } from "@mui/material";
+import { Grid, Rating } from "@mui/material";
 import SuiBox from "components/SuiBox";
 import SuiTypography from "components/SuiTypography";
-import profileImage1 from "assets/images/team-1.jpg"
-import profileImage2 from "assets/images/team-2.jpg"
-import profileImage3 from "assets/images/team-3.jpg"
 // import styles from "./styles";
 import SuiBadge from "components/SuiBadge";
 import Carousel from 'react-material-ui-carousel';
 import HireDialog from "../HireDialog/";
-import { render } from "react-dom";
 
 /**
  * {@code LabourCard} creates the card for labour details.

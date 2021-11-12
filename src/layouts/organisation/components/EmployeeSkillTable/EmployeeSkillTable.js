@@ -1,15 +1,17 @@
-import React, { useEffect, useCallback, useMemo, useState } from "react";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import SuiBox from "components/SuiBox";
 import SuiTypography from "components/SuiTypography";
-import SuiButton from "components/SuiButton";
 import EmployeeSkillForm from "../../data/EmployeeSkillForm";
-import MUIDataTable from "mui-datatables";
-import { Auth } from "aws-amplify";
+import React, { useState, useEffect } from "react";
+import DataTable from "react-data-table-component";
+import DataTableExtensions from "react-data-table-component-extensions";
+import "react-data-table-component-extensions/dist/index.css";
+import SuiButton from "components/SuiButton";
 import Modal from "components/Custom/Modal";
+import { Auth } from "aws-amplify";
 
 /**
  * {@code EmployeeTable} creates the layout for the CRUD interface.
@@ -23,8 +25,9 @@ import Modal from "components/Custom/Modal";
  */
 
 function EmployeeSkillTable() {
-  const [employeeSkills, setEmployeeSkills] = useState([]);
-  const empty = {};
+  const [results, setResults] = useState([]);
+  const [open, setOpen] = React.useState(false);
+  const [scroll, setScroll] = React.useState("paper");
 
   const FetchData = async () => {
     await Auth.currentSession().then((res) => {
@@ -37,40 +40,13 @@ function EmployeeSkillTable() {
         },
       })
         .then((response) => response.json())
-        .then((data) => setEmployeeSkills(data))
-        .then((data) => console.log(data));
+        .then((data) => setResults(data));
     });
   };
 
   useEffect(() => {
     FetchData();
-    console.log(employeeSkills);
   }, []);
-
-  const options = {
-    filterType: "checkbox",
-    enableNestedDataAccess: ".",
-    rowsPerPage: [3],
-    rowsPerPageOptions: [1, 3, 5, 6],
-    jumpToPage: true,
-    textLabels: {
-      pagination: {
-        next: "Next >",
-        previous: "< Previous",
-        rowsPerPage: "Total items Per Page",
-        displayRows: "OF",
-      },
-    },
-    onChangePage(currentPage) {
-      console.log({ currentPage });
-    },
-    onChangeRowsPerPage(numberOfRows) {
-      console.log({ numberOfRows });
-    },
-  };
-
-  const [open, setOpen] = React.useState(false);
-  const [scroll, setScroll] = React.useState("paper");
 
   const handleClickOpen = (scrollType) => () => {
     setOpen(true);
@@ -113,109 +89,126 @@ function EmployeeSkillTable() {
   };
 
   const columns = [
-    { name: "name", label: "Employee Name" },
-    { name: "skillName", label: "Name of Specialisation" },
-    { name: "cost", label: "Cost" },
-    { name: "experience", label: "Years of Experience" },
-    { name: "rating", label: "Rating" },
     {
-      name: "Edit",
-      options: {
-        filter: true,
-        enableNestedDataAccess: ".",
-        customBodyRender: (value, tableMeta, updatedValue) => {
-          return (
-            <div>
-              <Modal>
-                <EmployeeSkillForm attr={tableMeta.rowData} />
-              </Modal>
-            </div>
-          );
-        },
+      name: "Employee Name",
+      selector: "name",
+      sortable: true,
+    },
+    {
+      name: "Skill",
+      selector: "skillName",
+      sortable: true,
+    },
+    {
+      name: "Cost",
+      selector: "cost",
+      sortable: true,
+    },
+    {
+      name: "Experience",
+      selector: "experience",
+      sortable: true,
+    },
+    {
+      name: "Rating",
+      selector: "rating",
+      sortable: true,
+    },
+    {
+      key: "edit",
+      text: "Edit",
+      className: "action",
+      width: 100,
+      align: "left",
+      sortable: false,
+      cell: (record) => {
+        return (
+          <Modal>
+            <EmployeeSkillForm attr={record} />
+          </Modal>
+        );
       },
     },
     {
-      name: "Delete",
-      options: {
-        enableNestedDataAccess: ".",
-        filter: true,
-        customBodyRender: (value, tableMeta, updatedValue) => {
-          return (
-            <SuiButton
-              onClick={() => remove(tableMeta.rowData[0], tableMeta.rowData[1])}
-            >
-              Delete
-            </SuiButton>
-          );
-        },
+      key: "delete",
+      text: "Delete",
+      className: "action",
+      width: 100,
+      align: "left",
+      sortable: false,
+      cell: (record) => {
+        return (
+          <SuiButton onClick={() => remove(record.workPermitNumber, record.skillName)}>
+            Delete
+          </SuiButton>
+        );
       },
     },
   ];
 
-  console.log(employeeSkills);
-
   return (
-    <SuiBox py={3}>
-      <SuiBox mb={3}>
-        <MUIDataTable
-          title={
-            <div>
-              <SuiBox py={3}>
-                <SuiTypography
-                  variant="h4"
-                  textColor="info"
-                  fontWeight="bold"
-                  textGradient
-                >
-                  Edit Employee Skills
-                </SuiTypography>
-              </SuiBox>
-              <SuiBox pt={1}>
-                <SuiButton
-                  size="large"
-                  variant="text"
-                  buttonColor="success"
-                  onClick={handleClickOpen("paper")}
-                >
-                  Add Entry
-                </SuiButton>
-              </SuiBox>
-              <Dialog
-                open={open}
-                onClose={handleClose}
-                scroll={scroll}
-                aria-labelledby="scroll-dialog-title"
-                aria-describedby="scroll-dialog-description"
-              >
-                <DialogTitle id="scroll-dialog-title">
-                  <SuiTypography
-                    variant="h5"
-                    textColor="info"
-                    fontWeight="bold"
-                    textGradient
-                  >
-                    Add Employee Skill
-                  </SuiTypography>
-                </DialogTitle>
-                <DialogContent dividers={scroll === "paper"}>
-                  <DialogContentText
-                    id="scroll-dialog-description"
-                    //ref={descriptionElementRef}
-                    tabIndex={-1}
-                  >
-                    {<EmployeeSkillForm />}
-                  </DialogContentText>
-                </DialogContent>
-              </Dialog>
-            </div>
-          }
-          data={employeeSkills}
-          columns={columns}
-          options={options}
-        ></MUIDataTable>
+    <div className="main">
+      <div style={{ padding: "1em" }}>
+        <SuiBox py={3}>
+          <SuiTypography
+            variant="h4"
+            textColor="info"
+            fontWeight="bold"
+            textGradient
+          >
+            Employee Skills
+          </SuiTypography>
+        </SuiBox>
+        <SuiBox pt={1}>
+          <SuiButton
+            size="large"
+            variant="text"
+            buttonColor="success"
+            onClick={handleClickOpen("paper")}
+          >
+            Add Entry
+          </SuiButton>
+        </SuiBox>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          scroll={scroll}
+          aria-labelledby="scroll-dialog-title"
+          aria-describedby="scroll-dialog-description"
+        >
+          <DialogTitle id="scroll-dialog-title">
+            <SuiTypography
+              variant="h5"
+              textColor="info"
+              fontWeight="bold"
+              textGradient
+            >
+              Add Employee Skill
+            </SuiTypography>
+          </DialogTitle>
+          <DialogContent dividers={scroll === "paper"}>
+            <DialogContentText
+              id="scroll-dialog-description"
+              //ref={descriptionElementRef}
+              tabIndex={-1}
+            >
+              {<EmployeeSkillForm />}
+            </DialogContentText>
+          </DialogContent>
+        </Dialog>
+      </div>
+      <SuiBox p={3}>
+        <DataTableExtensions exportHeaders columns={columns} data={results}>
+          <DataTable
+            noHeader
+            defaultSortField="id"
+            defaultSortAsc={false}
+            pagination
+            highlightOnHover
+          />
+        </DataTableExtensions>
       </SuiBox>
-    </SuiBox>
+    </div>
   );
 }
-
 export default EmployeeSkillTable;

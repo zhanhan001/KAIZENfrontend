@@ -1,6 +1,8 @@
 import React from "react";
-import DateFnsUtils from "@date-io/date-fns";
-import { KeyboardDatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
+import TextField from '@mui/material/TextField';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DatePicker from '@mui/lab/DatePicker';
 import { Controller } from "react-hook-form";
 
 /**
@@ -11,20 +13,22 @@ import { Controller } from "react-hook-form";
  * @since 2021-10-16
  */
 
+
 export const FormInputDate = ({ name, control, label }) => {
   return (
-    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
       <Controller
         name={name}
         control={control}
         render={({ field : {onChange , value } }) => (
-          <KeyboardDatePicker
+          <DatePicker
             onChange={onChange}
             value={value}
             label={label}
+            renderInput={(params) => <TextField {...params} size="normal" />}
           />
         )}
       />
-    </MuiPickersUtilsProvider>
+    </LocalizationProvider>
   );
 };

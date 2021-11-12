@@ -1,25 +1,27 @@
-import data from "layouts/labour-sharing/components/SkillMarketTable/data";
-import { Rating } from "@mui/material";
-import React,{ useEffect, useCallback, useMemo, useState } from "react";
-import SuiBox from "components/SuiBox";
-import SuiButton from "components/SuiButton";
-import SuiTypography from "components/SuiTypography";
+import React,{ useEffect, useState } from "react";
 import SuiAvatar from "components/SuiAvatar";
-import MUIDataTable from "mui-datatables";
+import SuiBox from "components/SuiBox";
+import SuiTypography from "components/SuiTypography";
+import DataTable from "react-data-table-component";
+import DataTableExtensions from "react-data-table-component-extensions";
+import "react-data-table-component-extensions/dist/index.css";
+import SuiButton from "components/SuiButton";
 import { Auth } from "aws-amplify";
-import Modal from "components/Custom/Modal";
-import { Link, withRouter } from 'react-router-dom';
-
+import { Link } from 'react-router-dom';
 
 /**
- * {@code SkillMarketTable} creates a component table to display entities in the skill market .
+ * {@code EmployeeTable} creates the layout for the CRUD interface.
  *
+ * @author Chong Zhan Han
+ * @author Tan Jie En
+ * @author Teo Keng Swee
  * @author Pang Jun Rong
- * @version 1.0
- * @since 2021-10-16
+ * @version 1.2
+ * @since 2021-10-18
  */
 
-function Labour({ image, name, company }) {
+
+ function Labour({ image, name, company }) {
   return (
     <SuiBox display="flex" alignItems="center" px={1} py={0.5}>
       <SuiBox mr={2}>
@@ -50,7 +52,8 @@ function Function({ category, experience }) {
   );
 }
 
-export default function SkillMarketTable() {
+function SkillMarketTable() {
+
   const [employeeSkills, setEmployeeSkills] = useState([]);
   const empty = {};
 
@@ -84,98 +87,64 @@ export default function SkillMarketTable() {
     console.log(employeeSkills);
   }, []);
 
-  const options = {
-    filterType: "checkbox",
-    rowsPerPage: [5],
-    rowsPerPageOptions: [],
-    jumpToPage: true,
-    textLabels: {
-      pagination: {
-        next: "Next >",
-        previous: "< Previous",
-        rowsPerPage: "Total items Per Page",
-        displayRows: "OF",
-      },
-    },
-    onChangePage(currentPage) {
-      console.log({ currentPage });
-    },
-    onChangeRowsPerPage(numberOfRows) {
-      console.log({ numberOfRows });
-    },
-  };
-
   const columns = [
     {
-      name: "name",
-      label: "Profile",
-      options: {
-        filter: false,
-        customBodyRenderLite: (dataIndex) => {
-          return (
-            <Labour
-              image={employeeSkills[dataIndex].imageURL}
-              name={employeeSkills[dataIndex].name}
-              company={employeeSkills[dataIndex].company}
-            />
-          );
-        },
-      },
+      name: "Employee",
+      selector: "name",
+      sortable: true,
+      width:300,
+      cell: (record) => {
+        return (
+          <Labour
+          image={record.imageURL}
+          name={record.name}
+          company={record.company}
+        />
+        )
+      }
     },
     {
-      name: "skillName",
-      label: "Skill",
-      options: {
-        filter: false,
-        customBodyRenderLite: (dataIndex) => {
-          return (
-            <Function
-              category={employeeSkills[dataIndex].skillName}
-              experience={employeeSkills[dataIndex].experience}
+      name: "Skill & Experience",
+      selector: "name",
+      sortable: true,
+      width:300,
+      cell: (record) => {
+        return (
+          <Function
+              category={record.skillName}
+              experience={record.experience}
             />
-          );
-        },
-      },
+        )
+      }
     },
     {
-      name: "rating",
-      label: "Rating",
-      options: {
-        filter: false,
-        customBodyRenderLite: (dataIndex) => {
-          return (
-            <Rating
-              name="readOnly"
-              value={employeeSkills[dataIndex].rating}
-              precision={0.1}
-              readOnly
-            />
-          );
-        },
-      },
+      name: "Employee",
+      selector: "name",
+      sortable: true,
+      width:300,
+      cell: (record) => {
+        return (
+          <Link  to={{  pathname: "/labour-details/" + record.workPermitNumber, state: record }}>
+          <SuiButton > View </SuiButton>
+        </Link>
+        )
+      }
     },
-    {
-      name: "workPermitNumber",
-      options: {
-        filter: true,
-        enableNestedDataAccess: ".",
-        customBodyRenderLite: (dataIndex) => {
-          return (          
-            <Link  to={{  pathname: "/labour-details/" + employeeSkills[dataIndex].workPermitNumber, state: employeeSkills[dataIndex] }}>
-              <SuiButton > View </SuiButton>
-            </Link>
-          );
-        },
-      },
-      label: "View More"
-    },
+    
   ];
-//href={"/labour-details/" + dataIndex }
+
   return (
-    <MUIDataTable
-      data={employeeSkills}
-      columns={columns}
-      options={options}
-    />
+    <div className="main">
+      <DataTableExtensions exportHeaders columns={columns} data={employeeSkills}>
+        <DataTable
+          noHeader
+          defaultSortField="id"
+          defaultSortAsc={false}
+          pagination
+          highlightOnHover
+        />
+      </DataTableExtensions>
+    </div>
   );
 }
+export default SkillMarketTable;

@@ -7,12 +7,14 @@ import Transactions from "layouts/transactions/components/LatestTransaction";
 import IncomingTable from "layouts/transactions/components/IncomingTable";
 import OutgoingTable from "layouts/transactions/components/OutgoingTable";
 import Footer from "examples/Footer";
+import Paper from '@mui/material/Paper';
+import Card from "@mui/material/Card";
 
 /**
  * {@code transactions} creates the layout for the CRUD interface.
  *
  * @author Pang Jun Rong
- * @version 1.0
+ * @version 1.1
  * @since 2021-10-25
  */
 
@@ -50,8 +52,18 @@ function TransactionHistory() {
             </Grid>
           </Grid>
         </SuiBox>
-          <IncomingTable />
-          <OutgoingTable />
+        <SuiBox pb={3}>
+        <Card>
+          <Paper sx={{ elevation: 16 }}>
+            <IncomingTable />
+          </Paper>
+        </Card>
+        </SuiBox>
+        <Card>
+          <Paper sx={{ elevation: 16 }}>
+            <OutgoingTable />
+          </Paper>
+        </Card>
       </SuiBox>
       <Footer />
     </DashboardLayout>

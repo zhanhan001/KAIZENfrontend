@@ -39,11 +39,6 @@ import styles from "examples/Navbars/DashboardNavbar/styles";
 // Soft UI Dashboard React context
 import { useSoftUIController } from "context";
 
-// Images
-import team2 from "assets/images/team-2.jpg";
-import logoSpotify from "assets/images/small-logos/logo-spotify.svg";
-import { Button } from "reactstrap";
-
 
 import { Auth, Hub } from 'aws-amplify';
 
@@ -52,7 +47,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
   const [controller, dispatch] = useSoftUIController();
   const { miniSidenav, transparentNavbar, fixedNavbar, openConfigurator } = controller;
   const [openMenu, setOpenMenu] = useState(false);
-  const classes = styles({ transparentNavbar, absolute, light, isMini });
+  const classes = styles({ transparentNavbar, absolute, light, isMini }, {index: 1, withTheme:true});
   const route = useLocation().pathname.split("/").slice(1);
 
   const handleSignOutButtonClick = async () => {

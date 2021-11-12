@@ -66,20 +66,16 @@ export default function ProjectForm(props) {
                     body: JSON.stringify(data),
                 }
             ).then((getResponse) => {
-                if (Endpoint.lastStatus == 400) {
-                  alert("Error occured. Please ensure that input fields are added correctly!");
+                console.log(getResponse);
+                if (getResponse.status == 200 || getResponse.status == 201) {
+                  alert("Project updated!"); 
+                  window.location.reload();
                 } else {
-                  alert("Project updated!");       
+                  alert("Error occured. Please ensure that the fields are encountered correctly");
                 }
              
-            }).catch((error) => {
-                alert("Error occured. Please ensure that input fields are added correctly!");
-              });
-                
-            console.log(JSON.stringify(data));
-        });
-        window.location.reload();
-    };
+            })
+    })};
 
     return (
         <DialogContent>
@@ -89,7 +85,7 @@ export default function ProjectForm(props) {
                 fontWeight="bold"
                 textGradient
             >
-                Projects
+                Project Information
             </SuiTypography>
             <SuiBox customClass={classes.tables_table} pt={1}>
                 <FormInputText name="projectId" control={control} label="Project ID" />
@@ -125,7 +121,7 @@ export default function ProjectForm(props) {
                         <FormInputText
                             name="progress"
                             control={control}
-                            label="progress"
+                            label="Progress (%)"
                         />
                     </Grid>
                 </Grid>

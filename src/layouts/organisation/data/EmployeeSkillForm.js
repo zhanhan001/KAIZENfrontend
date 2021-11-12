@@ -18,25 +18,22 @@ import { Divider } from "@mui/material";
  * @author Chong Zhan Han
  * @author Tan Jie En
  * @author Teo Keng Swee 
- * @version 1.0
+ * @author Pang Jun Rong
+ * @version 1.1
  * @since 2021-10-18
  */
 
 export default function EmployeeSkillForm(props) {
   const classes = styles();
-  const employeeSkill = props.attr || ["","","","",""];
-
-  console.log("Testinggg  " + employeeSkill);
+  const employeeSkill = props.attr || ["", "", "", "", ""];
 
   const defaultValues = {
-    employeeId: employeeSkill[0] ,
-    skillId: employeeSkill[1] ,
-    cost:employeeSkill[2] ,
-    experience:employeeSkill[3] ,
-    rating:employeeSkill[4] ,
+    employeeId: employeeSkill.workPermitNumber,
+    skillId: employeeSkill.skillId,
+    cost: employeeSkill.cost,
+    experience: employeeSkill.experience,
+    rating: employeeSkill.rating,
   };
-
-
 
   const methods = useForm({ defaultValues: defaultValues });
   const { handleSubmit, control, reset } = methods;
@@ -61,16 +58,16 @@ export default function EmployeeSkillForm(props) {
         compId: res.getIdToken().payload['cognito:groups'][0]
       })
       var dataFormatted = {
-          "id" : {
-              "employee" : data.employeeId,
-              "skill" : data.skillId
-          },
-          "experience" : data.experience,
-          "rating" : data.rating,
-          "cost" : data.cost
+        "id": {
+          "employee": data.employeeId,
+          "skill": data.skillId
+        },
+        "experience": data.experience,
+        "rating": data.rating,
+        "cost": data.cost
       }
       fetch("/api/employeeSkills" +
-      (employeeSkill[0] ? `?${queryString}` : "") + (`?${queryComp}`) , { 
+        (employeeSkill[0] ? `?${queryString}` : "") + (`?${queryComp}`), {
         method: employeeSkill[0] ? "PUT" : "POST",
         headers: {
           Authorization: "Bearer " + res.getIdToken().getJwtToken(),
@@ -79,20 +76,17 @@ export default function EmployeeSkillForm(props) {
         },
         body: JSON.stringify(dataFormatted),
       }).then((getResponse) => {
-        if (Endpoint.lastStatus == 400) {
-          alert("Error occured. Please ensure that the input fields are valid");
+        console.log(getResponse);
+        if (getResponse.status == 200 || getResponse.status == 201) {
+          alert("Employee skill updated!"); 
+          window.location.reload();
         } else {
-          alert("Employee skills updated!");       
+          alert("Error occured. Please ensure that the fields are encountered correctly");
         }
      
-    }).catch((error) => {
-        alert("Error occured. Please ensure that the input fields are valid");
-      });
-        
-      console.log("sending post request " + JSON.stringify(dataFormatted));
-    });
-    window.location.reload();
-  };
+    })
+
+  })};
 
   return (
     <DialogContent>
@@ -102,33 +96,48 @@ export default function EmployeeSkillForm(props) {
         fontWeight="bold"
         textGradient
       >
-        Add/Edit Employee Skills
+        Employee
       </SuiTypography>
       <SuiBox customClass={classes.tables_table} pt={1}>
         <FormInputText
           name="employeeId"
           control={control}
-          label="Employee Id"
+          label="Employee ID"
+          min={9}
         />
       </SuiBox>
 
-      <SuiBox customClass={classes.tables_table} pt={1} pb={3}>
+      <Divider />
+
+      <SuiTypography
+        variant="h6"
+        textColor="info"
+        fontWeight="bold"
+        textGradient
+      >
+        Skill
+      </SuiTypography>
+
+      <SuiBox customClass={classes.tables_table} pt={1}>
         <Grid container spacing={1} direction={"row"}>
-          <Grid item>
+          <Grid item s={6}>
             <FormInputDropdown
               name="skillId"
               control={control}
               label="Skill"
             />
           </Grid>
-          <Grid item>
+          <Grid item s={6}>
             <FormInputText
               name="cost"
               control={control}
               label="Cost"
             />
           </Grid>
-
+        </Grid>
+      </SuiBox>
+      <SuiBox customClass={classes.tables_table} pt={1} pb={3}>
+        <Grid container spacing={1} direction={"row"}>
           <Grid item>
             <FormInputText
               name="experience"
@@ -142,11 +151,12 @@ export default function EmployeeSkillForm(props) {
               name="rating"
               control={control}
               label="Rating"
+              min="0.00 - 5.00"
             />
           </Grid>
         </Grid>
       </SuiBox>
-      <SuiBox py={3}>
+      <SuiBox>
         <Grid container direction="row" spacing={3}>
           <Grid item>
             <SuiButton

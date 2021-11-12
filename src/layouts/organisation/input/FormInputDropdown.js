@@ -1,48 +1,48 @@
 import React from "react";
-import { FormControl, InputLabel, MenuItem, Select } from "@material-ui/core";
-import { useFormContext, Controller } from "react-hook-form";
+import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from "@mui/material";
+import { Controller } from "react-hook-form";
 
 
 const options = [
   {
     label: "Welding",
-    value: "welding",
+    value: "Welding",
   },
   {
     label: "Electrical Wiring",
-    value: "wiring",
+    value: "Wiring",
   },
   {
     label: "Gas Pipefitting",
-    value: "pipefitting",
+    value: "Pipefitting",
   },
   {
     label: "Waterproofing",
-    value: "waterproofing",
+    value: "Waterproofing",
   },
   {
     label: "Tiling",
-    value: "tiling",
+    value: "Tiling",
   },
   {
     label: "Thermal Insulation",
-    value: "insulation",
+    value: "Insulation",
   },
   {
     label: "Tower Crane Operation",
-    value: "towercrane",
+    value: "Towercrane",
   },
   {
     label: "Plastering",
-    value: "plastering",
+    value: "Plastering",
   },
   {
     label: "Lift Installation",
-    value: "lift",
+    value: "Lifts",
   },
   {
     label: "Mobile Crane Operation",
-    value: "mobilecrane",
+    value: "Crane",
   },
 
 ];
@@ -63,13 +63,15 @@ export const FormInputDropdown = ({
   };
 
   return (
-    <FormControl size={"small"}>
-      <InputLabel>{label}</InputLabel>
+    <FormControl>
       <Controller
         render={({ field: { onChange, value } }) => (
+          <div style={{width: "19vh"}}>
           <Select onChange={onChange} value={value}>
             {generateSingleOptions()}
           </Select>
+          <FormHelperText>{label}</FormHelperText>
+          </div>
         )}
         control={control}
         name={name}

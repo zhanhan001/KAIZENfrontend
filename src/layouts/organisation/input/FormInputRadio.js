@@ -1,13 +1,10 @@
 import React from "react";
 import {
-  FormControl,
   FormControlLabel,
-  FormLabel,
   Radio,
   RadioGroup,
-} from "@material-ui/core";
-import { Controller, useFormContext } from "react-hook-form";
-// import { FormInputProps } from "./FormInputProps";
+} from "@mui/material";
+import { Controller } from "react-hook-form";
 
 const options = [
   {
@@ -36,7 +33,7 @@ export const FormInputRadio = ({ name, control, label }) => {
       name={name}
       control={control}
       render={({ field: { onChange, value } }) => (
-        <RadioGroup value={value} label={label} onChange={onChange}>
+        <RadioGroup defaultValue="false" value={value} label={label} onChange={onChange} >
           {generateRadioOptions()}
         </RadioGroup>
       )}

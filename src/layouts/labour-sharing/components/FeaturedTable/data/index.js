@@ -24,7 +24,7 @@ export default function data() {
 
     rows: [
       {
-        name: [avatar1, "David Copper"],
+        name: [avatar1, "Arvin Aktar"],
         rating: (
           <Rating name="readOnly" value={4.8} precision={0.1} readOnly />
         ),
@@ -40,7 +40,7 @@ export default function data() {
         ),
       },
       {
-        name: [avatar1, "Richard Ng"],
+        name: [avatar1, "Karim Amin"],
         rating: (
           <Rating name="readOnly" value={4.7} precision={0.1} readOnly />
         ),
@@ -56,7 +56,7 @@ export default function data() {
         ),
       },
       {
-        name: [avatar1, "Nico Bach"],
+        name: [avatar1, "Ghosh Nasrin Sakib"],
         rating: (
           <Rating name="readOnly" value={4.5} precision={0.1} readOnly />
         ),
@@ -72,7 +72,7 @@ export default function data() {
         ),
       },
       {
-        name: [avatar1, "Bob Niro"],
+        name: [avatar1, "Ming"],
         rating: (
           <Rating name="readOnly" value={4.4} precision={0.1} readOnly />
         ),

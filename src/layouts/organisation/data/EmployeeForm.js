@@ -8,7 +8,6 @@ import Grid from "@mui/material/Grid";
 import SuiBox from "components/SuiBox";
 import SuiButton from "components/SuiButton";
 import { useForm } from "react-hook-form";
-import styles from "layouts/organisation/styles";
 import { Auth } from "aws-amplify";
 import SuiTypography from "components/SuiTypography";
 import { Divider } from "@mui/material";
@@ -18,30 +17,30 @@ import { Divider } from "@mui/material";
  *
  * @author Teo Keng Swee
  * @author Pang Jun Rong
+ * @author Bryan Tan
  * @version 1.0
  * @since 2021-10-16
  */
 
 export default function EmployeeForm(props) {
-  const classes = styles();
   const employee = props.attr;
 
   console.log(employee);
 
   const defaultValues = {
-    workId: employee[2] || "",
-    name: employee[0] || "",
-    employeeRole: employee[3] || "",
-    passportNumber: employee[4] || "",
-    workPermitNumber: employee[1] || "",
-    levy: employee[5] || "",
-    workContactNumber: employee[6] || "",
-    workSiteLocation: employee[7] || "",
-    singaporeAddress: employee[11] || "",
-    vaccStatus: employee[12] || "",
-    description: employee[10] || "",
-    workPermitDateOfIssue: employee[8] || new Date(),
-    workPermitExpiryDate: employee[9] || new Date(),
+    workId: employee.workId || "",
+    name: employee.name || "",
+    employeeRole: employee.employeeRole || "",
+    passportNumber: employee.passportNumber || "",
+    workPermitNumber: employee.workPermitNumber || "",
+    levy: employee.levy || "",
+    workContactNumber: employee.workContactNumber || "",
+    workSiteLocation: employee.workSiteLocation || "",
+    singaporeAddress: employee.singaporeAddress || "",
+    vaccStatus: employee.vaccStatus || "",
+    description: employee.description || "",
+    workPermitDateOfIssue: employee.workPermitDateOfIssue || new Date(),
+    workPermitExpiryDate: employee.workPermitExpiryDate || new Date(),
   };
 
   const methods = useForm({ defaultValues: defaultValues });
@@ -65,10 +64,10 @@ export default function EmployeeForm(props) {
       });
       fetch(
         "/api/employees" +
-        (employee[1] ? "/" + employee[1] : "") +
+        (employee.workPermitNumber ? "/" + employee.workPermitNumber : "") +
         `?${queryString}`,
         {
-          method: employee[1] ? "PUT" : "POST",
+          method: employee.workPermitNumber ? "PUT" : "POST",
           headers: {
             Authorization: "Bearer " + res.getIdToken().getJwtToken(),
             Accept: "application/json",
@@ -76,21 +75,16 @@ export default function EmployeeForm(props) {
           },
           body: JSON.stringify(data),
         }
-      );
-      console.log(JSON.stringify(data));
-    }).then((getResponse) => {
-        if (Endpoint.lastStatus == 400) {
-          alert("Error occured. Please ensure that the fields are entered correctly");
+      ).then((getResponse) => {
+        console.log(getResponse);
+        if (getResponse.status == 200 || getResponse.status == 201) {
+          alert("Employee updated!"); 
+          window.location.reload();
         } else {
-          alert("Employee updated!");       
+          alert("Error occured. Please ensure that the fields are encountered correctly");
         }
-     
-    }).catch((error) => {
-        alert("Error occured. Please ensure that the fields are entered correctly");
-      });
-
-      window.location.reload();
-  };
+      }) 
+    })}; 
   // ref={register({
   //   required: true, minLength: 10
   return employee[12] ? (
@@ -103,17 +97,17 @@ export default function EmployeeForm(props) {
       >
         Personal Particulars
       </SuiTypography>
-      <SuiBox customClass={classes.tables_table} pt={1}>
+      <SuiBox  pt={1}>
         <FormInputText
           name="workId"
           control={control}
           label="Work ID"
-          min={3}
+          min={10}
         />
 
       </SuiBox>
 
-      <SuiBox customClass={classes.tables_table} pt={1} pb={3}>
+      <SuiBox  pt={1} pb={3}>
         <Grid container spacing={1} direction={"row"}>
           <Grid item>
             <FormInputText
@@ -127,6 +121,7 @@ export default function EmployeeForm(props) {
               name="passportNumber"
               control={control}
               label="Passport Number"
+              min={10}
             />
           </Grid>
           <Grid item>
@@ -134,6 +129,7 @@ export default function EmployeeForm(props) {
               name="workContactNumber"
               control={control}
               label="Contact Number"
+              min={8}
             />
           </Grid>
         </Grid>
@@ -149,7 +145,7 @@ export default function EmployeeForm(props) {
         Job Details
       </SuiTypography>
 
-      <SuiBox customClass={classes.tables_table} pt={1} pb={3}>
+      <SuiBox  pt={1} pb={3}>
         <Grid container spacing={1} direction={"row"}>
           <Grid item>
             <FormInputText
@@ -184,6 +180,7 @@ export default function EmployeeForm(props) {
               name="workSiteLocation"
               control={control}
               label="Work Location"
+              min={10}
             />
           </Grid>
           <Grid item>
@@ -191,6 +188,7 @@ export default function EmployeeForm(props) {
               name="singaporeAddress"
               control={control}
               label="Residence Address"
+              min={10}
             />
           </Grid>
           <Grid item>
@@ -208,7 +206,7 @@ export default function EmployeeForm(props) {
       >
         Employee Description
       </SuiTypography>
-      <SuiBox customClass={classes.tables_table} pt={1} pb={3}>
+      <SuiBox  pt={1} pb={3}>
         <Grid container spacing={1} direction={"row"}>
           <Grid item>
             <FormInputText
@@ -256,17 +254,17 @@ export default function EmployeeForm(props) {
     >
       Personal Particulars
     </SuiTypography>
-    <SuiBox customClass={classes.tables_table} pt={1}>
-      <FormInputText name="workId" control={control} label="Work ID" />
+    <SuiBox  pt={1}>
+      <FormInputText name="workId" control={control} label="Work ID" min={10}/>
     </SuiBox>
 
-    <SuiBox customClass={classes.tables_table} pt={1} pb={3}>
+    <SuiBox  pt={1} pb={3}>
       <Grid container spacing={1} direction={"row"}>
         <Grid item>
           <FormInputText
             name="name"
             control={control}
-            label="Employee Name"
+            label="Name"
           />
         </Grid>
         <Grid item>
@@ -274,6 +272,7 @@ export default function EmployeeForm(props) {
             name="passportNumber"
             control={control}
             label="Passport Number"
+            min={10}
           />
         </Grid>
         <Grid item>
@@ -281,6 +280,7 @@ export default function EmployeeForm(props) {
             name="workContactNumber"
             control={control}
             label="Contact Number"
+            min={8}
           />
         </Grid>
       </Grid>
@@ -296,7 +296,7 @@ export default function EmployeeForm(props) {
       Job Details
     </SuiTypography>
 
-    <SuiBox customClass={classes.tables_table} pt={1} pb={3}>
+    <SuiBox  pt={1} pb={3}>
       <Grid container spacing={1} direction={"row"}>
         <Grid item>
           <FormInputText
@@ -310,6 +310,7 @@ export default function EmployeeForm(props) {
             name="workPermitNumber"
             control={control}
             label="Work Permit Number"
+            min={9}
           />
         </Grid>
         <Grid item>
@@ -331,6 +332,7 @@ export default function EmployeeForm(props) {
             name="workSiteLocation"
             control={control}
             label="Work Location"
+            min={10}
           />
         </Grid>
         <Grid item>
@@ -338,6 +340,7 @@ export default function EmployeeForm(props) {
             name="singaporeAddress"
             control={control}
             label="Residence Address"
+            min={10}
           />
         </Grid>
         <Grid item>
@@ -355,7 +358,7 @@ export default function EmployeeForm(props) {
     >
       Health Information
     </SuiTypography>
-    <SuiBox customClass={classes.tables_table} pt={1} pb={3}>
+    <SuiBox  pt={1} pb={3}>
       <Grid container spacing={1} direction={"row"}>
         <Grid item>
           <FormInputRadio
@@ -377,7 +380,7 @@ export default function EmployeeForm(props) {
     >
       Employee Description
     </SuiTypography>
-    <SuiBox customClass={classes.tables_table} pt={1} pb={3}>
+    <SuiBox  pt={1} pb={3}>
       <Grid container spacing={1} direction={"row"}>
         <Grid item>
           <FormInputText

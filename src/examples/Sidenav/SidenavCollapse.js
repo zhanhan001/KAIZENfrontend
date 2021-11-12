@@ -43,7 +43,7 @@ function SidenavCollapse({ icon, name, children, active, noCollapse, open, ...re
     miniSidenav,
     transparentSidenav,
     sidenavColor,
-  });
+  }, {index: 1, withTheme:true});
 
   return (
     <>

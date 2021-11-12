@@ -20,7 +20,7 @@ import styles from "examples/Footer/styles";
 function Footer({ company, links }) {
   const { href, name } = company;
   const { size } = typography;
-  const classes = styles();
+  const classes = styles({index: 1, withTheme:true});
 
   const renderLinks = () =>
     links.map((link) => (

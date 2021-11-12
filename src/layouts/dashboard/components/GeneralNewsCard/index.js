@@ -6,6 +6,7 @@ import SuiTypography from "components/SuiTypography";
 import styles from "layouts/dashboard/components/GeneralNewsCard/styles";
 import { Auth } from "aws-amplify";
 import { useState, useEffect } from "react";
+
 import Carousel from "react-material-ui-carousel";
 
 /**

@@ -1,25 +1,25 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import SuiBox from "components/SuiBox";
 import SuiTypography from "components/SuiTypography";
-import SuiButton from "components/SuiButton";
-import MUIDataTable from "mui-datatables";
+import DataTable from "react-data-table-component";
+import DataTableExtensions from "react-data-table-component-extensions";
+import "react-data-table-component-extensions/dist/index.css";
 import { Auth } from "aws-amplify";
-import { useState, useEffect } from 'react';
 
 /**
- * {@code LatestoutgoingTable} creates the table for the latest outgoing results for every employee.
+ * {@code EmployeeTable} creates the layout for the CRUD interface.
  *
+ * @author Chong Zhan Han
+ * @author Tan Jie En
  * @author Teo Keng Swee
  * @author Pang Jun Rong
- * @version 1.0
- * @since 2021-10-28
+ * @version 1.1
+ * @since 2021-10-18
  */
 
-function OutgoingTable(){
-
+function IncomingTable() {
   const [transactions, setTransactions] = useState([]);
-  const empty = {};
-  
+
   function objToQueryString(obj) {
     const keyValuePairs = [];
     for (const key in obj) {
@@ -31,82 +31,91 @@ function OutgoingTable(){
   }
 
   const FetchData = async () => {
-    await Auth.currentSession().then(res => {
+    await Auth.currentSession().then((res) => {
       const queryString = objToQueryString({
-        compId: res.getIdToken().payload['cognito:groups'][0],
+        compId: res.getIdToken().payload["cognito:groups"][0],
       });
-      fetch('/api/transactions/outgoing' + `?${queryString}`, {
-          headers: {
-              'Authorization': 'Bearer ' + res.getIdToken().getJwtToken(),
-              Accept: "application/json",
+      fetch("/api/transactions/outgoing" + `?${queryString}`, {
+        headers: {
+          Authorization: "Bearer " + res.getIdToken().getJwtToken(),
+          Accept: "application/json",
           "Content-Type": "application/json",
-          },
+        },
       })
-          .then(response => response.json())
-          .then(data => setTransactions(data))
-          .then(data => console.log(data));
-    })
-  }
-
-  useEffect(() => {
-    FetchData()
-  }, []);
-
-
-  const options = {
-    filterType: "checkbox",
-    rowsPerPage: [3],
-    rowsPerPageOptions: [1, 3, 5, 6],
-    jumpToPage: true,
-    textLabels: {
-      pagination: {
-        next: "Next >",
-        previous: "< Previous",
-        rowsPerPage: "Total items Per Page",
-        displayRows: "OF",
-      },
-    },
-    onChangePage(currentPage) {
-      console.log({ currentPage });
-    },
-    onChangeRowsPerPage(numberOfRows) {
-      console.log({ numberOfRows });
-    },
+        .then((response) => response.json())
+        .then((data) => setTransactions(data))
+        .then((data) => console.log(data));
+    });
   };
 
+  useEffect(() => {
+    FetchData();
+  }, []);
+
   const columns = [
-    { name: "employeeId", label: "Employee Id"},
-    { name: "loanCompanyId", label: "loan Company Id" },
-    { name: "borrowingCompanyId", label: "Borrowing Company Id" },
-    { name: "startDate", label: "Loan start Date" },
-    { name: "endDate", label: "Loan end Date" },
-    { name: "totalCost", label: "Cost of hiring" },
-    { name: "status", label: "Loan Status" },
+    {
+      name: "Employee Id",
+      selector: "employeeId",
+      sortable: true,
+    },
+    {
+      name: "Loan Company UEN",
+      selector: "loanCompanyId",
+      sortable: true,
+    },
+    {
+      name: "Borrowing Company UEN",
+      selector: "borrowingCompanyId",
+      sortable: true,
+    },
+    {
+      name: "Start Date",
+      selector: "startDate",
+      sortable: true,
+    },
+    {
+      name: "End Date",
+      selector: "endDate",
+      sortable: true,
+    },
+    {
+      name: "Total Cost",
+      selector: "totalCost",
+      sortable: true,
+    },
+    {
+      name: "Status",
+      selector: "status",
+      sortable: true,
+    },
   ];
 
   return (
+    <div className="main">
+      <div style={{ padding: "1em" }}>
         <SuiBox py={3}>
-          <MUIDataTable
-            title={
-              <div>
-                <SuiBox py={3}>
-                  <SuiTypography
-                    variant="h4"
-                    textColor="info"
-                    fontWeight="bold"
-                    textGradient
-                  >
-                  Outgoing Transactions
-                  </SuiTypography>
-                </SuiBox>
-              </div>
-            }
-            data={transactions}
-            columns={columns}
-            options={options}
-          ></MUIDataTable>
+          <SuiTypography
+            variant="h4"
+            textColor="info"
+            fontWeight="bold"
+            textGradient
+          >
+            Outgoing Transactions
+          </SuiTypography>
         </SuiBox>
+      </div>
+      <SuiBox p={3}>
+      <DataTableExtensions exportHeaders columns={columns} data={transactions}>
+        <DataTable
+          noHeader
+          defaultSortField="id"
+          defaultSortAsc={false}
+          pagination
+          highlightOnHover
+        />
+      </DataTableExtensions>
+      </SuiBox>
+    </div>
   );
-
-
-} export default OutgoingTable;
+}
+export default IncomingTable;

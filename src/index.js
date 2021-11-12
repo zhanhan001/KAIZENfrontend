@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 
 import App from "App";
 import { SoftUIControllerProvider } from "context";
@@ -18,21 +18,21 @@ import Kommunicate from '@kommunicate/kommunicate-chatbot-plugin';
  */
 
 //Comment out when debugging
-window.console.log = window.console.debug = window.console.info = window.console.error = function () {
-  return false;
-}
+// window.console.log = window.console.debug = window.console.info = window.console.error = function () {
+//   return false;
+// }
 
 Kommunicate.init("1326488dc77f91039518354a26d80239f");
 
 ReactDOM.render(
   <>
-    <BrowserRouter>
+    <HashRouter>
       <SoftUIControllerProvider>
         <Provider store={store}>
           <App />
         </Provider>
       </SoftUIControllerProvider>
-    </BrowserRouter>
+    </HashRouter>
   </>,
   document.getElementById("root")
 );

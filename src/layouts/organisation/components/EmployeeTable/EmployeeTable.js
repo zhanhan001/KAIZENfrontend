@@ -1,34 +1,39 @@
-import React from "react";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import SuiBox from "components/SuiBox";
 import SuiTypography from "components/SuiTypography";
-import SuiButton from "components/SuiButton";
+import EmployeeForm from "../../data/EmployeeForm";
+import React from "react";
 import SuiBadge from "components/SuiBadge";
 import SuiAvatar from "components/SuiAvatar";
 import { useDispatch, useSelector } from "react-redux";
 import { setEmployees } from "redux/actions/employeesActions";
-import EmployeeForm from "../../data/EmployeeForm";
-import MUIDataTable from "mui-datatables";
-import { Auth } from "aws-amplify";
+import DataTable from "react-data-table-component";
+import DataTableExtensions from "react-data-table-component-extensions";
+import "react-data-table-component-extensions/dist/index.css";
+import SuiButton from "components/SuiButton";
 import Modal from "components/Custom/Modal";
 import EmployeeImage from "../../data/EmployeeImage";
 import ImageModal from "components/Custom/ImageModal";
+import { Auth } from "aws-amplify";
 
 /**
  * {@code EmployeeTable} creates the layout for the CRUD interface.
  *
+ * @author Chong Zhan Han
+ * @author Tan Jie En
  * @author Teo Keng Swee
  * @author Pang Jun Rong
- * @version 1.1
- * @since 2021-10-16
+ * @version 1.2
+ * @since 2021-10-18
  */
+
 
 function Labour({ image, name, company }) {
   return (
-    <SuiBox display="flex" alignItems="center" px={1} py={0.5}>
+    <SuiBox display="flex" alignItems="center" px={1} py={0.5} sx={{ width: 200 }}>
       <SuiBox mr={2}>
         <SuiAvatar src={image} alt={name} size="sm" variant="rounded" />
       </SuiBox>
@@ -45,31 +50,10 @@ function Labour({ image, name, company }) {
 }
 
 function EmployeeTable() {
-  const employees = useSelector((state) => state.allEmployees.employees);
+
+  const results = useSelector((state) => state.allEmployees.employees);
   const empty = {};
   const dispatch = useDispatch();
-
-  const options = {
-    filterType: "checkbox",
-    rowsPerPage: [3],
-    rowsPerPageOptions: [1, 3, 5, 6],
-    jumpToPage: true,
-    textLabels: {
-      pagination: {
-        next: "Next >",
-        previous: "< Previous",
-        rowsPerPage: "Total items Per Page",
-        displayRows: "OF",
-      },
-    },
-    onChangePage(currentPage) {
-      console.log({ currentPage });
-    },
-    onChangeRowsPerPage(numberOfRows) {
-      console.log({ numberOfRows });
-    },
-  };
-
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState("paper");
 
@@ -102,175 +86,189 @@ function EmployeeTable() {
           "Content-Type": "application/json",
         },
       }).then(() => {
-        let updatedEmployees = employees.filter((i) => i.workId !== workId);
+        let updatedEmployees = results.filter((i) => i.workId !== workId);
         dispatch(setEmployees(updatedEmployees));
-        window.location.reload();
+       
       });
+
+      window.location.reload();
     });
+    
   };
 
+
   const columns = [
-    { name: "workId", label: "Work ID" },
     {
-      name: "name",
-      label: "Profile",
-      options: {
-        filter: false,
-        customBodyRenderLite: (dataIndex) => {
-          return (
-            <Labour
-              image={employees[dataIndex].profileURL}
-              name={employees[dataIndex].name}
-            />
-          );
-        },
-      },
-    },
-    { name: "workPermitNumber", label: "Work Permit Number" },
-    { name: "employeeRole", label: "Employee Role" },
-    { name: "workContactNumber", label: "Work Contact Number" },
-    { name: "workSiteLocation", label: "Work Site Location" },
-    {
-      name: "workPermitDateOfIssue",
-      label: "Work Permit Date of Issue",
-      options: {
-        display: false,
-      },
+      name: "Employee",
+      selector: "name",
+      sortable: true,
+      width: "25vh",
+      cell: (record) => {
+        return (
+          <Labour
+            image={record.profileURL}
+            name={record.name}
+            company={record.company}
+          />
+        )
+      }
     },
     {
-      name: "workPermitExpiryDate",
-      label: "Work Permit Expiry Date",
-      options: {
-        display: false,
-      },
+      name: "Work Permit NUmber",
+      selector: "workPermitNumber",
+      sortable: true
     },
     {
-      name: "description",
-      label: "Description of Employee",
-      options: {
-        display: false,
-      },
+      name: "Work Contact Number",
+      selector: "workContactNumber",
+      sortable: true
     },
     {
-      name: "vaccStatus", options: {
-        filter: false,
-        customBodyRender: (dataIndex) => {
-          console.log(dataIndex);
+      name: "Employee Role",
+      selector: "employeeRole",
+      sortable: true
+    },
+    {
+      name: "Work Site Location",
+      selector: "workSiteLocation",
+      sortable: true
+    },
+    {
+      name: "Work Permit Date Of Issue",
+      selector: "workPermitDateOfIssue",
+      sortable: true
+    },
+    {
+      name: "Work Permit Expiry Date",
+      selector: "workPermitExpiryDate",
+      sortable: true
+    },
+    {
+      name: "Vaccination Status",
+      selector: "vaccStatus",
+      sortable: true,
+      cell: (record) => {
+        return record.vaccStatus ? (
+          <SuiBadge variant="gradient" badgeContent="Vaccinated" color="success" size="extra-small" />
+        ) : (
+          <SuiBadge variant="gradient" badgeContent="Not Vaccinated" color="error" size="extra-small" />
 
-          return dataIndex ? (
-            <SuiBadge variant="gradient" badgeContent="Vaccinated" color="success" size="extra-small" />
-          ) : (
-            <SuiBadge variant="gradient" badgeContent="Not Vaccinated" color="error" size="extra-small" />
+        );
+      },
+    },
+    {
+      key: "edit",
+      text: "Edit",
+      className: "action",
+      width: 100,
+      align: "left",
+      sortable: false,
+      cell: (record) => {
+        return (
+          <Modal>
+            <EmployeeForm attr={record} />
+          </Modal>
+        )
+      }
+    },
+    {
+      key: "delete",
+      text: "Delete",
+      className: "action",
+      width: 100,
+      align: "left",
+      sortable: false,
+      cell: (record) => {
+        return (
+          <SuiButton
+            onClick={() => remove(record.workPermitNumber)}
+          >
+            Delete
+          </SuiButton>
+        );
+      },
+    },
+    {
+      key: "upload",
+      text: "Upload",
+      className: "action",
+      width: 100,
+      align: "left",
+      sortable: false,
+      cell: (record) => {
+        return (
+          <ImageModal>
+            <EmployeeImage employee={record.workPermitNumber} />
+          </ImageModal>
+        );
+      },
+    }
 
-          );
-        },
-      }, label: "Vaccination Status"
-    },
-    {
-      name: "Edit",
-      options: {
-        filter: false,
-        customBodyRender: (value, tableMeta, updatedValue) => {
-          return (
-            <div>
-              <Modal>
-                <EmployeeForm attr={tableMeta.rowData} />
-              </Modal>
-            </div>
-          );
-        },
-      },
-    },
-    {
-      name: "Delete",
-      options: {
-        filter: false,
-        customBodyRender: (value, tableMeta, updatedValue) => {
-          return (
-            <SuiButton onClick={() => remove(tableMeta.rowData[1])}>
-              Delete
-            </SuiButton>
-          );
-        },
-      },
-    },
-    {
-      name: "Upload Image",
-      options: {
-        filter: false,
-        customBodyRender: (value, tableMeta, updatedValue) => {
-          return (
-            <ImageModal>
-              <EmployeeImage employee={tableMeta.rowData[1]} />
-            </ImageModal>
-          );
-        },
-      },
-    },
   ];
 
   return (
-    <SuiBox py={3}>
-      <SuiBox mb={3}>
-        <MUIDataTable
-          title={
-            <div>
-              <SuiBox py={3}>
-                <SuiTypography
-                  variant="h4"
-                  textColor="info"
-                  fontWeight="bold"
-                  textGradient
-                >
-                  My Organisation
-                </SuiTypography>
-              </SuiBox>
-              <SuiBox pt={1}>
-                <SuiButton
-                  size="large"
-                  variant="text"
-                  buttonColor="success"
-                  onClick={handleClickOpen("paper")}
-                >
-                  Add Employee
-                </SuiButton>
-              </SuiBox>
-              <Dialog
-                open={open}
-                onClose={handleClose}
-                scroll={scroll}
-                aria-labelledby="scroll-dialog-title"
-                aria-describedby="scroll-dialog-description"
-              >
-                <DialogTitle id="scroll-dialog-title">
-                  <SuiTypography
-                    variant="h5"
-                    textColor="info"
-                    fontWeight="bold"
-                    textGradient
-                  >
-                    Add Employee
-                  </SuiTypography>
-                </DialogTitle>
-                <DialogContent dividers={scroll === "paper"}>
-                  <DialogContentText
-                    id="scroll-dialog-description"
-                    ref={descriptionElementRef}
-                    tabIndex={-1}
-                  >
-                    {<EmployeeForm attr={empty} />}
-                  </DialogContentText>
-                </DialogContent>
-              </Dialog>
-            </div>
-          }
-          data={employees}
-          columns={columns}
-          options={options}
-        ></MUIDataTable>
+    <div className="main">
+      <div style={{ padding: "1em" }}>
+        <SuiBox py={3}>
+          <SuiTypography
+            variant="h4"
+            textColor="info"
+            fontWeight="bold"
+            textGradient
+          >
+            Employee
+          </SuiTypography>
+        </SuiBox>
+        <SuiBox pt={1}>
+          <SuiButton
+            size="large"
+            variant="text"
+            buttonColor="success"
+            onClick={handleClickOpen("paper")}
+          >
+            Add Entry
+          </SuiButton>
+        </SuiBox>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          scroll={scroll}
+          aria-labelledby="scroll-dialog-title"
+          aria-describedby="scroll-dialog-description"
+        >
+          <DialogTitle id="scroll-dialog-title">
+            <SuiTypography
+              variant="h5"
+              textColor="info"
+              fontWeight="bold"
+              textGradient
+            >
+              Add Employee
+            </SuiTypography>
+          </DialogTitle>
+          <DialogContent dividers={scroll === "paper"}>
+            <DialogContentText
+              id="scroll-dialog-description"
+              //ref={descriptionElementRef}
+              tabIndex={-1}
+            >
+              {<EmployeeForm attr={empty} />}
+            </DialogContentText>
+          </DialogContent>
+        </Dialog>
+      </div>
+      <SuiBox p={3}>
+        <DataTableExtensions exportHeaders columns={columns} data={results}>
+          <DataTable
+            noHeader
+            defaultSortField="id"
+            defaultSortAsc={false}
+            pagination
+            highlightOnHover
+          />
+        </DataTableExtensions>
       </SuiBox>
-    </SuiBox>
+    </div>
   );
-}
 
-export default EmployeeTable;
+} export default EmployeeTable;

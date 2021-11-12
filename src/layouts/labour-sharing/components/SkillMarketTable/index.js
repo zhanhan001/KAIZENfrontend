@@ -1,6 +1,8 @@
 import * as React from 'react';
 import data from "layouts/labour-sharing/components/SkillMarketTable/data";
-import MUIDataTable from "mui-datatables";
+import DataTable from "react-data-table-component";
+import DataTableExtensions from "react-data-table-component-extensions";
+import SuiBox from 'components/SuiBox';
 
 /**
  * {@code SkillMarketTable} creates the component for the skill market table.
@@ -12,35 +14,19 @@ import MUIDataTable from "mui-datatables";
 
 export default function SkillMarketTable() {
 
-  const options = {
-    filterType: "checkbox",
-    rowsPerPage: [5],
-    rowsPerPageOptions: [],
-    jumpToPage: true,
-    textLabels: {
-      pagination: {
-        next: "Next >",
-        previous: "< Previous",
-        rowsPerPage: "Total items Per Page",
-        displayRows: "OF"
-      }
-    },
-    onChangePage(currentPage) {
-      console.log({ currentPage });
-    },
-    onChangeRowsPerPage(numberOfRows) {
-      console.log({ numberOfRows });
-    }
-  };
-
   const { columns, rows } = data;
 
   return (
-      <MUIDataTable
-        title={"Discovery Panel"}
-        data={rows}
-        columns={columns}
-        options={options}
-      />
+    <SuiBox p={3}>
+      <DataTableExtensions exportHeaders columns={columns} data={rows}>
+        <DataTable
+          noHeader
+          defaultSortField="id"
+          defaultSortAsc={false}
+          pagination
+          highlightOnHover
+        />
+      </DataTableExtensions>
+    </SuiBox>
   );
 }

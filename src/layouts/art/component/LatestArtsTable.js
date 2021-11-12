@@ -1,205 +1,192 @@
-import React from "react";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import SuiBox from "components/SuiBox";
-import SuiTypography from "components/SuiTypography";
-import SuiButton from "components/SuiButton";
 import SuiBadge from "components/SuiBadge";
+import SuiTypography from "components/SuiTypography";
 import TestForm from "../data/TestForm";
-import MUIDataTable from "mui-datatables";
+import React, { useState, useEffect } from "react";
+import DataTable from "react-data-table-component";
+import DataTableExtensions from "react-data-table-component-extensions";
+import "react-data-table-component-extensions/dist/index.css";
+import SuiButton from "components/SuiButton";
 import { Auth } from "aws-amplify";
-import { useState, useEffect } from 'react';
 
-/**
- * {@code LatestARTsTable} creates the table for the latest ART results for every employee.
- *
- * @author Teo Keng Swee
- * @author Pang Jun Rong
- * @version 1.0
- * @since 2021-10-28
- */
 
-function AllArtsTable(){
+function LatestArtsTable() {
 
-  const [results, setResults] = useState([]);
-  const empty = {};
-  
-  function objToQueryString(obj) {
-    const keyValuePairs = [];
-    for (const key in obj) {
-      keyValuePairs.push(
-        encodeURIComponent(key) + "=" + encodeURIComponent(obj[key])
-      );
+    const [results, setResults] = useState([]);
+    const [open, setOpen] = React.useState(false);
+    const [scroll, setScroll] = React.useState("paper");
+
+    const handleClickOpen = (scrollType) => () => {
+        setOpen(true);
+        setScroll(scrollType);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+
+    function objToQueryString(obj) {
+        const keyValuePairs = [];
+        for (const key in obj) {
+            keyValuePairs.push(
+                encodeURIComponent(key) + "=" + encodeURIComponent(obj[key])
+            );
+        }
+        return keyValuePairs.join("&");
     }
-    return keyValuePairs.join("&");
-  }
 
-  const FetchData = async () => {
-    await Auth.currentSession().then(res => {
-      const queryString = objToQueryString({
-        compId: res.getIdToken().payload['cognito:groups'][0],
-      });
-      fetch('/api/covidTest/latest' + `?${queryString}`, {
-          headers: {
-              'Authorization': 'Bearer ' + res.getIdToken().getJwtToken()
-          }
-      })
-          .then(response => response.json())
-          .then(data => setResults(data))
-          .then(data => console.log(data));
-    })
-  }
+    const FetchData = async () => {
+        await Auth.currentSession().then(res => {
+            const queryString = objToQueryString({
+                compId: res.getIdToken().payload['cognito:groups'][0],
+            });
+            fetch('/api/covidTest/latest' + `?${queryString}`, {
+                headers: {
+                    'Authorization': 'Bearer ' + res.getIdToken().getJwtToken()
+                }
+            })
+                .then(response => response.json())
+                .then(data => setResults(data))
+        })
+    }
 
-  useEffect(() => {
-    FetchData()
-  }, []);
+    useEffect(() => {
+        FetchData()
+    }, []);
 
+    const remove = (testid) => {
+        Auth.currentSession().then((res) => {
+            fetch(`/api/covidTest/${testid}`, {
+                method: "DELETE",
+                headers: {
+                    Authorization: "Bearer " + res.getIdToken().getJwtToken(),
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+            });
+            window.location.reload();
+        });
+    };
 
-  const options = {
-    filterType: "checkbox",
-    rowsPerPage: [3],
-    rowsPerPageOptions: [1, 3, 5, 6],
-    jumpToPage: true,
-    textLabels: {
-      pagination: {
-        next: "Next >",
-        previous: "< Previous",
-        rowsPerPage: "Total items Per Page",
-        displayRows: "OF",
-      },
-    },
-    onChangePage(currentPage) {
-      console.log({ currentPage });
-    },
-    onChangeRowsPerPage(numberOfRows) {
-      console.log({ numberOfRows });
-    },
-  };
-
-  const [open, setOpen] = React.useState(false);
-  const [scroll, setScroll] = React.useState("paper");
-
-  const handleClickOpen = (scrollType) => () => {
-    setOpen(true);
-    setScroll(scrollType);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const remove = (testid) => {
-    Auth.currentSession().then((res) => {
-      fetch(`/api/covidTest/${testid}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: "Bearer " + res.getIdToken().getJwtToken(),
-          Accept: "application/json",
-          "Content-Type": "application/json",
+    const columns = [
+        {
+            name: "Employee Work Permit Number",
+            selector: "employeeWP",
+            sortable: true
         },
-      });
-      window.location.reload();
-    });
-  };
-
-  const columns = [
-    { name: "employeeWP", label: "Work Permit Number"},
-    { name: "employeeName", label: "Name" },
-    { name: "dateOfTest", label: " Date of Test Adminstered" },
-    { name: "expiryDate", label: "Test Expiry Date" },
-    {
-        name: "result",
-        options: {
-            filter: true,
-            customBodyRender: (dataIndex) => {
-                console.log(dataIndex);
-
-                return dataIndex? (
+        {
+            name: "Employee Name",
+            selector: "employeeName",
+            sortable: true
+        },
+        {
+            name: "Date Of Test",
+            selector: "dateOfTest",
+            sortable: true
+        },
+        {
+            name: "Test Expiry Date",
+            selector: "expiryDate",
+            sortable: true
+        },
+        {
+            name: "Result",
+            selector: "result",
+            sortable: true,
+            cell: (record) => {
+                return record.result ? (
                     <SuiBadge variant="gradient" badgeContent="Postive" color="error" size="extra-small" />
-                ): (
+                ) : (
                     <SuiBadge variant="gradient" badgeContent="Negative" color="success" size="extra-small" />
 
                 );
             },
         },
-        label: "Covid Test Result"
-    },
-    { name: "id", label: "AutoGenerated ID"},
-    {
-      name: "Delete",
-      options: {
-        filter: true,
-        customBodyRender: (value, tableMeta, updatedValue) => {
-          return (
-            <SuiButton onClick={() => remove(tableMeta.rowData[5])}>
-              Delete
-            </SuiButton>
-          );
-        },
-      },
-    },
-  ];
+        {
+            key: "action",
+            text: "Action",
+            className: "action",
+            width: 100,
+            align: "left",
+            sortable: false,
+            cell: (record) => {
+                return (
+                    <SuiButton onClick={() => remove(record.id)}>
+                        Delete
+                    </SuiButton>
+                );
+            },
+        }
 
-  return (
-          <MUIDataTable
-            title={
-              <div>
+    ];
+
+    return (
+        <div className="main">
+            <div style={{ padding: "1em" }}>
                 <SuiBox py={3}>
-                  <SuiTypography
-                    variant="h4"
-                    textColor="info"
-                    fontWeight="bold"
-                    textGradient
-                  >
-                  Employee's Latest ART Results
-                  </SuiTypography>
+                    <SuiTypography
+                        variant="h4"
+                        textColor="info"
+                        fontWeight="bold"
+                        textGradient
+                    >
+                        Latest ART Result Database
+                    </SuiTypography>
                 </SuiBox>
                 <SuiBox pt={1}>
-                  <SuiButton
-                    size="large"
-                    variant="text"
-                    buttonColor="success"
-                    onClick={handleClickOpen("paper")}
-                  >
-                    Add Result
-                  </SuiButton>
+                    <SuiButton
+                        size="large"
+                        variant="text"
+                        buttonColor="success"
+                        onClick={handleClickOpen("paper")}
+                    >
+                        Add Result
+                    </SuiButton>
                 </SuiBox>
                 <Dialog
-                  open={open}
-                  onClose={handleClose}
-                  scroll={scroll}
-                  aria-labelledby="scroll-dialog-title"
-                  aria-describedby="scroll-dialog-description"
+                    open={open}
+                    onClose={handleClose}
+                    scroll={scroll}
+                    aria-labelledby="scroll-dialog-title"
+                    aria-describedby="scroll-dialog-description"
                 >
-                  <DialogTitle id="scroll-dialog-title">
-                    <SuiTypography
-                      variant="h5"
-                      textColor="info"
-                      fontWeight="bold"
-                      textGradient
-                    >
-                      Add Result
-                    </SuiTypography>
-                  </DialogTitle>
-                  <DialogContent dividers={scroll === "paper"}>
-                    <DialogContentText
-                      id="scroll-dialog-description"
-                      //ref={descriptionElementRef}
-                      tabIndex={-1}
-                    >
-                      {<TestForm />}
-                    </DialogContentText>
-                  </DialogContent>
+                    <DialogTitle id="scroll-dialog-title">
+                        <SuiTypography
+                            variant="h5"
+                            textColor="info"
+                            fontWeight="bold"
+                            textGradient
+                        >
+                            Add Result
+                        </SuiTypography>
+                    </DialogTitle>
+                    <DialogContent dividers={scroll === "paper"}>
+                        <DialogContentText
+                            id="scroll-dialog-description"
+                            tabIndex={-1}
+                        >
+                            {<TestForm />}
+                        </DialogContentText>
+                    </DialogContent>
                 </Dialog>
-              </div>
-            }
-            data={results}
-            columns={columns}
-            options={options}
-          ></MUIDataTable>
-  );
+            </div>
+            <SuiBox p={3}>
+                <DataTableExtensions exportHeaders columns={columns} data={results}>
+                    <DataTable
+                        noHeader
+                        defaultSortField="id"
+                        defaultSortAsc={false}
+                        pagination
+                        highlightOnHover
+                    />
+                </DataTableExtensions>
+            </SuiBox>
+        </div>
+    );
 
-
-} export default AllArtsTable;
+} export default LatestArtsTable;

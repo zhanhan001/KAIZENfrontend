@@ -1,25 +1,27 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import SuiBox from "components/SuiBox";
 import SuiTypography from "components/SuiTypography";
+import DataTable from "react-data-table-component";
+import DataTableExtensions from "react-data-table-component-extensions";
+import "react-data-table-component-extensions/dist/index.css";
 import SuiButton from "components/SuiButton";
-import MUIDataTable from "mui-datatables";
 import { Auth } from "aws-amplify";
-import { useState, useEffect } from 'react';
 
 /**
- * {@code LatestincomingTable} creates the table for the latest incoming results for every employee.
+ * {@code EmployeeTable} creates the layout for the CRUD interface.
  *
+ * @author Chong Zhan Han
+ * @author Tan Jie En
  * @author Teo Keng Swee
  * @author Pang Jun Rong
- * @version 1.0
- * @since 2021-10-28
+ * @version 1.2
+ * @since 2021-10-18
  */
 
-function IncomingTable(){
-
+function IncomingTable() {
   const [transactions, setTransactions] = useState([]);
   const empty = {};
-  
+
   function objToQueryString(obj) {
     const keyValuePairs = [];
     for (const key in obj) {
@@ -31,48 +33,26 @@ function IncomingTable(){
   }
 
   const FetchData = async () => {
-    await Auth.currentSession().then(res => {
+    await Auth.currentSession().then((res) => {
       const queryString = objToQueryString({
-        compId: res.getIdToken().payload['cognito:groups'][0],
+        compId: res.getIdToken().payload["cognito:groups"][0],
       });
-      fetch('/api/transactions/incoming' + `?${queryString}`, {
-          headers: {
-              'Authorization': 'Bearer ' + res.getIdToken().getJwtToken(),
-              Accept: "application/json",
-              "Content-Type": "application/json",
-          },
+      fetch("/api/transactions/incoming" + `?${queryString}`, {
+        headers: {
+          Authorization: "Bearer " + res.getIdToken().getJwtToken(),
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
       })
-          .then(response => response.json())
-          .then(data => setTransactions(data))
-          .then(data => console.log(data));
-    })
-  }
+        .then((response) => response.json())
+        .then((data) => setTransactions(data))
+        .then((data) => console.log(data));
+    });
+  };
 
   useEffect(() => {
-    FetchData()
+    FetchData();
   }, []);
-
-
-  const options = {
-    filterType: "checkbox",
-    rowsPerPage: [3],
-    rowsPerPageOptions: [1, 3, 5, 6],
-    jumpToPage: true,
-    textLabels: {
-      pagination: {
-        next: "Next >",
-        previous: "< Previous",
-        rowsPerPage: "Total items Per Page",
-        displayRows: "OF",
-      },
-    },
-    onChangePage(currentPage) {
-      console.log({ currentPage });
-    },
-    onChangeRowsPerPage(numberOfRows) {
-      console.log({ numberOfRows });
-    },
-  };
 
   const accepted = (empId, date) => {
     Auth.currentSession().then((res) => {
@@ -82,10 +62,10 @@ function IncomingTable(){
         status: "Accepted",
       });
       var dataFormatted = {
-          "empid" : empId,
-          "date" : date,
-          "status" : "Accepted",
-      }
+        empid: empId,
+        date: date,
+        status: "Accepted",
+      };
       fetch(`/api/transactions?${queryString}`, {
         method: "PUT",
         headers: {
@@ -107,10 +87,10 @@ function IncomingTable(){
         status: "Rejected",
       });
       var dataFormatted = {
-          "empid" : empId,
-          "date" : date,
-          "status" : "Accepted",
-      }
+        empid: empId,
+        date: date,
+        status: "Accepted",
+      };
       fetch(`/api/transactions?${queryString}`, {
         method: "PUT",
         headers: {
@@ -125,70 +105,110 @@ function IncomingTable(){
   };
 
   const columns = [
-    { name: "employeeId", label: "Employee Id"},
-    { name: "loanCompanyId", label: "loan Company Id" },
-    { name: "borrowingCompanyId", label: "Borrowing Company Id" },
-    { name: "startDate", label: "Loan start Date" },
-    { name: "endDate", label: "Loan end Date" },
-    { name: "totalCost", label: "Cost of hiring" },
-    { name: "status", label: "Loan Status" },
     {
-      name: "Accept",
-      options: {
-        filter: true,
-        customBodyRender: (value, tableMeta, updatedValue) => {
-          if(tableMeta.rowData[6] == "Accepted"||tableMeta.rowData[6] ==  "Rejected"){
-            return <h5>-</h5>
-          }
-          return (
-            <SuiButton onClick={() => accepted(tableMeta.rowData[0], tableMeta.rowData[3])}>
-              Accept
-            </SuiButton>
-          );
-        },
+      name: "Employee Id",
+      selector: "employeeId",
+      sortable: true,
+    },
+    {
+      name: "Loan Company UEN",
+      selector: "loanCompanyId",
+      sortable: true,
+    },
+    {
+      name: "Borrowing Company UEN",
+      selector: "borrowingCompanyId",
+      sortable: true,
+    },
+    {
+      name: "Start Date",
+      selector: "startDate",
+      sortable: true,
+    },
+    {
+      name: "End Date",
+      selector: "endDate",
+      sortable: true,
+    },
+    {
+      name: "Total Cost",
+      selector: "totalCost",
+      sortable: true,
+    },
+    {
+      name: "Status",
+      selector: "status",
+      sortable: true,
+    },
+
+    {
+      key: "Accept",
+      text: "Accept",
+      className: "action",
+      width: 100,
+      align: "left",
+      sortable: false,
+      cell: (record) => {
+        if (record.status == "Accepted" || record.status == "Rejected") {
+          return <h5>-</h5>;
+        }
+        return (
+          <SuiButton
+            onClick={() => accepted(record.employeeId, record.startDate)}
+          >
+            Accept
+          </SuiButton>
+        );
       },
     },
-        {
-      name: "Reject",
-      options: {
-        filter: true,
-        customBodyRender: (value, tableMeta, updatedValue) => {
-          if(tableMeta.rowData[6] == "Accepted"||tableMeta.rowData[6] == "Rejected"){
-            return <h5>-</h5>
-          }
-          return (
-            <SuiButton onClick={() => rejected(tableMeta.rowData[0], tableMeta.rowData[3])}>
-              Reject
-            </SuiButton>
-          );
-        },
+    {
+      key: "Accept",
+      text: "Accept",
+      className: "action",
+      width: 100,
+      align: "left",
+      sortable: false,
+      cell: (record) => {
+        if (record.status == "Accepted" || record.status == "Rejected") {
+          return <h5>-</h5>;
+        }
+        return (
+          <SuiButton
+            onClick={() => rejected(record.employeeId, record.startDate)}
+          >
+            Reject
+          </SuiButton>
+        );
       },
     },
   ];
 
   return (
+    <div className="main">
+      <div style={{ padding: "1em" }}>
         <SuiBox py={3}>
-          <MUIDataTable
-            title={
-              <div>
-                <SuiBox py={3}>
-                  <SuiTypography
-                    variant="h4"
-                    textColor="info"
-                    fontWeight="bold"
-                    textGradient
-                  >
-                  Incoming Transactions
-                  </SuiTypography>
-                </SuiBox>
-              </div>
-            }
-            data={transactions}
-            columns={columns}
-            options={options}
-          ></MUIDataTable>
+          <SuiTypography
+            variant="h4"
+            textColor="info"
+            fontWeight="bold"
+            textGradient
+          >
+            Incoming Transactions
+          </SuiTypography>
         </SuiBox>
+      </div>
+      <SuiBox p={3}>
+      <DataTableExtensions exportHeaders columns={columns} data={transactions}>
+        <DataTable
+          noHeader
+          defaultSortField="id"
+          defaultSortAsc={false}
+          pagination
+          highlightOnHover
+        />
+      </DataTableExtensions>
+      </SuiBox>
+    </div>
   );
-
-
-} export default IncomingTable;
+}
+export default IncomingTable;

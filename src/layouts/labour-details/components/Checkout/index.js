@@ -2,9 +2,8 @@ import React from "react";
 import SuiButton from "components/SuiButton";
 import Stripe from "react-stripe-checkout";
 import { Auth } from "aws-amplify";
-import profileimage from "assets/images/team-1.jpg";
 import SuiBox from "components/SuiBox";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 /**
  * {@code Checkout} creates the component for Stripe integration and checkout.

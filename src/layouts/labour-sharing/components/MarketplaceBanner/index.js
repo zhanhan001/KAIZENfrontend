@@ -34,7 +34,7 @@ function MarketplaceBanner() {
           </SuiBox>
           <SuiTypography
             component="a"
-            href="/labour-discover"
+            href="/#/labour-discovery"
             variant="h6"
             textColor="white"
             fontWeight="medium"
