@@ -18,11 +18,11 @@ import Kommunicate from '@kommunicate/kommunicate-chatbot-plugin';
  */
 
 //Comment out when debugging
-// window.console.log = window.console.debug = window.console.info = window.console.error = function () {
-//   return false;
-// }
+window.console.log = window.console.debug = window.console.info = window.console.error = function () {
+  return false;
+}
 
-Kommunicate.init("1326488dc77f91039518354a26d80239f");
+Kommunicate.init(APP_ID);
 
 ReactDOM.render(
   <>
